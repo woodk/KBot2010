@@ -25,8 +25,6 @@ public:
 
 private:
 
-    Camera *m_camera;
-
     // The number of times this strategy has been called
     int m_nCallCount;
 

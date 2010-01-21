@@ -12,7 +12,6 @@ StrategySCurve::StrategySCurve(KBot* kbot) : Strategy(kbot)
     m_nCallCount = 0;
     m_kbot = kbot;
     m_robotDrive = m_kbot->getRobotDrive();
-    m_camera = m_kbot->getCamera();
 	m_gyro = m_kbot->getGyro();
 	m_gyroDriveCtrl = new KbotPID(0.02,0.0,0.0);
 	m_gyro->Reset();

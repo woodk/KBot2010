@@ -23,7 +23,7 @@ public:
     void init();
 
 private:
-    Camera *m_camera;
+
     //Pickup *m_pickup;
 
     // The number of times this strategy has been called

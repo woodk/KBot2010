@@ -23,7 +23,6 @@ public:
 
 private:
     
-    Camera *m_camera;
     Shooter *m_shooter;
     
 	bool TargetInSight();

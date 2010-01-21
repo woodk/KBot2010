@@ -19,7 +19,7 @@ class Strategy
 public:
 
 	// Constructor sets bot pointer
-	Strategy(KBot* kbot) : m_kbot(kbot) {;}
+	Strategy(KBot* kbot);
 	
     // Pure virtual classes should have explicity declared virtual destructor
     virtual ~Strategy() {;}
@@ -36,7 +36,7 @@ protected:
     RobotDrive *m_robotDrive;
 	Gyro *m_gyro;
 	KbotPID *m_gyroDriveCtrl;
-
+    Camera *m_camera;
 };
 
 #endif

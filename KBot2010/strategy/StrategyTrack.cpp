@@ -12,7 +12,6 @@ StrategyTrack::StrategyTrack(KBot* kbot) : Strategy(kbot)
     m_kbot = kbot;
     m_robotDrive = m_kbot->getRobotDrive();
     m_shooter = m_kbot->getShooter();
-    m_camera = m_kbot->getCamera();
     m_lossCount=0;
 }
 

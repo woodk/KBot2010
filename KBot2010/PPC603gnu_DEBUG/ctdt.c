@@ -45,6 +45,8 @@ void _GLOBAL__I__ZN16StrategyInactiveC2EP4KBot();
 
 void _GLOBAL__I__ZN14StrategyTurn90C2EP4KBot();
 
+void _GLOBAL__I__ZN8StrategyC2EP4KBot();
+
 void _GLOBAL__I__ZN14StrategySCurveC2EP4KBot();
 
 void _GLOBAL__I__ZN12StrategySpinC2EP4KBot();
@@ -81,6 +83,7 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN14StrategyBackUpC2EP4KBot,
     _GLOBAL__I__ZN16StrategyInactiveC2EP4KBot,
     _GLOBAL__I__ZN14StrategyTurn90C2EP4KBot,
+    _GLOBAL__I__ZN8StrategyC2EP4KBot,
     _GLOBAL__I__ZN14StrategySCurveC2EP4KBot,
     _GLOBAL__I__ZN12StrategySpinC2EP4KBot,
     _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE,
@@ -129,6 +132,8 @@ void _GLOBAL__D__ZN16StrategyInactiveC2EP4KBot();
 
 void _GLOBAL__D__ZN14StrategyTurn90C2EP4KBot();
 
+void _GLOBAL__D__ZN8StrategyC2EP4KBot();
+
 void _GLOBAL__D__ZN14StrategySCurveC2EP4KBot();
 
 void _GLOBAL__D__ZN12StrategySpinC2EP4KBot();
@@ -163,6 +168,7 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN14StrategyBackUpC2EP4KBot,
     _GLOBAL__D__ZN16StrategyInactiveC2EP4KBot,
     _GLOBAL__D__ZN14StrategyTurn90C2EP4KBot,
+    _GLOBAL__D__ZN8StrategyC2EP4KBot,
     _GLOBAL__D__ZN14StrategySCurveC2EP4KBot,
     _GLOBAL__D__ZN12StrategySpinC2EP4KBot,
     _GLOBAL__D__ZN9ErrorBase16globalErrorMutexE,
