@@ -14,6 +14,8 @@
 #include "RobotManager.h"
 #include "Macros.h"
 
+#include "DashboardDataSender.h"
+
 class RobotManager;  // circular dependency handling
 class RobotMacros;
 
@@ -71,6 +73,9 @@ private:
 	UINT32 m_priorPacketNumber;		// keep track of the most recent packet number from the DS
 	UINT8 m_dsPacketsPerSecond;		// keep track of the ds packets received in the current second
 	
+	// New dashboard data sender for 2010
+	DashboardDataSender *m_pDashboardDataSender;
+	
 	// Declare variables for each of the eight solenoid outputs
 	static const int NUM_SOLENOIDS = 8;
 	Solenoid *m_solenoids[(NUM_SOLENOIDS+1)];
@@ -86,6 +91,7 @@ private:
 	
 	bool m_camReset;
 	void checkCameraReset(void);
+	
 };
 
 #endif

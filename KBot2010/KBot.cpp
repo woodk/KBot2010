@@ -1,5 +1,10 @@
 #include "KBot.h"
 
+/// TEMPORARY:  for image testing
+#include "Vision/AxisCamera2010.h"
+#include "Vision/HSLImage.h"
+#include "Target.h"
+
 /**
  * This is the K-Bot 2010 main code.
  * 
@@ -120,6 +125,12 @@
 
 		// TODO:  do we want to reset gyro initial direction?
 		
+		AxisCamera& camera = AxisCamera::getInstance();
+		camera.writeResolution(k320x240);
+		camera.writeBrightness(0);
+
+		m_pDashboardDataSender = new DashboardDataSender();
+		
 		m_driverStation->SetDigitalOut(4,false);
 		m_driverStation->SetDigitalOut(5,false);
 		m_driverStation->SetDigitalOut(6,false);
@@ -177,9 +188,22 @@
 		GetWatchdog().Feed();
 		checkCameraReset();
 
+		AxisCamera& camera = AxisCamera::getInstance();
+		
 		if ((m_telePeriodicLoops % 10) == 0) { // 20 Hz
 			// TODO: use new camera to acquire target and
 			// change driverstation calls to reflect actual state
+			
+			if (camera.freshImage()) {
+				// get the camera image
+				ColorImage *pImage = camera.GetImage();
+				
+				vector<Target> vecTargets = Target::FindCircularTargets(pImage);
+				delete pImage;
+				
+				m_pDashboardDataSender->sendVisionData(0.0, 0.0, 0.0, 1.0, vecTargets);
+			}
+			
 			m_driverStation->SetDigitalOut(DS_LED_CAMERA_LOCK, false);
 			m_driverStation->SetDigitalOut(DS_LED_IN_RANGE, false);
 		}

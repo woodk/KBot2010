@@ -393,12 +393,19 @@ OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
-SUB_OBJECTS := controller/$(OBJ_DIR)/KbotPID.o \
+SUB_OBJECTS := controller/$(OBJ_DIR)/DashboardDataSender.o \
+	 controller/$(OBJ_DIR)/KbotPID.o \
 	 controller/$(OBJ_DIR)/RobotController.o \
 	 controller/$(OBJ_DIR)/RobotManager.o \
 	 controller/$(OBJ_DIR)/KbotVPID.o \
+	 hardware/$(OBJ_DIR)/Target.o \
+	 hardware/$(OBJ_DIR)/BallFinder.o \
 	 hardware/$(OBJ_DIR)/CurrentSensor.o \
+	 hardware/$(OBJ_DIR)/Arm.o \
+	 hardware/$(OBJ_DIR)/KbotCamera.o \
 	 hardware/$(OBJ_DIR)/CANJaguar.o \
+	 hardware/$(OBJ_DIR)/Dribbler.o \
+	 hardware/$(OBJ_DIR)/Kicker.o \
 	 strategy/$(OBJ_DIR)/StrategyGoStraight.o \
 	 strategy/$(OBJ_DIR)/StrategyGoAlongEdge.o \
 	 strategy/$(OBJ_DIR)/StrategyCurveLeft.o \

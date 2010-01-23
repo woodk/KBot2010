@@ -231,6 +231,19 @@ PPC603gnu_DEBUG/Macros.o: Macros.cpp Macros.h KBot.h \
   C:/windriver/workspace/KBot2010/KBot2010/controller/RobotManager.h \
   C:/windriver/workspace/KBot2010/KBot2010/strategy/State.h \
   C:/windriver/workspace/KBot2010/KBot2010/KBot.h \
+  C:/windriver/workspace/KBot2010/KBot2010/controller/DashboardDataSender.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h \
+  C:/windriver/workspace/KBot2010/KBot2010/hardware/Target.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ImageBase.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/Utility.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/VisionAPI.h \
+  C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h \
+  c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/algorithm \
+  C:/windriver/vxworks-6.3/target/h/WPILib/Vision/Threshold.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/Joystick.h
 
 Macros.h:
@@ -702,5 +715,31 @@ C:/windriver/workspace/KBot2010/KBot2010/controller/RobotManager.h:
 C:/windriver/workspace/KBot2010/KBot2010/strategy/State.h:
 
 C:/windriver/workspace/KBot2010/KBot2010/KBot.h:
+
+C:/windriver/workspace/KBot2010/KBot2010/controller/DashboardDataSender.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h:
+
+C:/windriver/workspace/KBot2010/KBot2010/hardware/Target.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/Vision/ImageBase.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/Utility.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/Vision/MonoImage.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/VisionAPI.h:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h:
+
+c:/windriver/gnu/3.4.4-vxworks-6.3/x86-win32/lib/gcc/../../../x86-win32/include/c++/3.4.4/algorithm:
+
+C:/windriver/vxworks-6.3/target/h/WPILib/Vision/Threshold.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/Joystick.h:
