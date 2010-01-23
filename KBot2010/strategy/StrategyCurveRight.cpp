@@ -89,5 +89,5 @@ bool StrategyCurveRight::getKeepMoving()
 /* Check camera to see if we can see any targets */
 bool StrategyCurveRight::TargetInSight()
 {
-	return m_camera->lockedOn();
+	return false;
 }

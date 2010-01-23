@@ -246,22 +246,20 @@ OBJ_DIR := SIMSPARCSOLARISgnu
 endif
 endif
 
-DEP_FILES := $(OBJ_DIR)/StrategyGoStraight.d $(OBJ_DIR)/StrategyGoAlongEdge.d $(OBJ_DIR)/StrategyTurn45.d \
-	 $(OBJ_DIR)/StrategyCurveLeft.d $(OBJ_DIR)/StrategyTrack.d $(OBJ_DIR)/StrategyWeave.d \
-	 $(OBJ_DIR)/StrategyLoadBalls.d $(OBJ_DIR)/StrategyCurveRight.d $(OBJ_DIR)/StrategyCircle.d \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.d $(OBJ_DIR)/StrategyBackUp.d $(OBJ_DIR)/StrategyInactive.d \
-	 $(OBJ_DIR)/StrategyTurn90.d $(OBJ_DIR)/Strategy.d $(OBJ_DIR)/StrategySCurve.d \
-	 $(OBJ_DIR)/StrategySpin.d
+DEP_FILES := $(OBJ_DIR)/StrategyGoStraight.d $(OBJ_DIR)/StrategyGoAlongEdge.d $(OBJ_DIR)/StrategyCurveLeft.d \
+	 $(OBJ_DIR)/StrategyTurn45.d $(OBJ_DIR)/StrategyTrack.d $(OBJ_DIR)/StrategyWeave.d \
+	 $(OBJ_DIR)/StrategyCurveRight.d $(OBJ_DIR)/StrategyCircle.d $(OBJ_DIR)/StrategyGoAlongEnd.d \
+	 $(OBJ_DIR)/StrategyBackUp.d $(OBJ_DIR)/StrategyInactive.d $(OBJ_DIR)/StrategyTurn90.d \
+	 $(OBJ_DIR)/Strategy.d $(OBJ_DIR)/StrategySCurve.d $(OBJ_DIR)/StrategySpin.d
 -include $(DEP_FILES)
 
 ifeq ($(BUILD_SPEC),PPC32diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -270,12 +268,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC32gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -284,12 +281,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC32sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -298,12 +294,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC32sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -312,12 +307,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC403diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -326,12 +320,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC403gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -340,12 +333,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -354,12 +346,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -368,12 +359,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -382,12 +372,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -396,12 +385,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -410,12 +398,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -424,12 +411,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -438,12 +424,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -452,12 +437,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC603diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -466,12 +450,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC603gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -480,12 +463,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC604diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -494,12 +476,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC604gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -508,12 +489,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -522,12 +502,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -536,12 +515,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXsfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -550,12 +528,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXsfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -564,12 +541,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC860sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -578,12 +554,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC860sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -592,12 +567,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMLINUXdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -606,12 +580,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMLINUXgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -620,12 +593,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMNTdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -634,12 +606,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMNTgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -648,12 +619,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMSPARCSOLARISdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -662,12 +632,11 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMSPARCSOLARISgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyTurn45.o \
-	 $(OBJ_DIR)/StrategyCurveLeft.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
-	 $(OBJ_DIR)/StrategyLoadBalls.o $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o \
-	 $(OBJ_DIR)/StrategyGoAlongEnd.o $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o \
-	 $(OBJ_DIR)/StrategyTurn90.o $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o \
-	 $(OBJ_DIR)/StrategySpin.o
+OBJECTS := $(OBJ_DIR)/StrategyGoStraight.o $(OBJ_DIR)/StrategyGoAlongEdge.o $(OBJ_DIR)/StrategyCurveLeft.o \
+	 $(OBJ_DIR)/StrategyTurn45.o $(OBJ_DIR)/StrategyTrack.o $(OBJ_DIR)/StrategyWeave.o \
+	 $(OBJ_DIR)/StrategyCurveRight.o $(OBJ_DIR)/StrategyCircle.o $(OBJ_DIR)/StrategyGoAlongEnd.o \
+	 $(OBJ_DIR)/StrategyBackUp.o $(OBJ_DIR)/StrategyInactive.o $(OBJ_DIR)/StrategyTurn90.o \
+	 $(OBJ_DIR)/Strategy.o $(OBJ_DIR)/StrategySCurve.o $(OBJ_DIR)/StrategySpin.o
 
 PROJECT_TARGETS := $(OBJECTS)
 

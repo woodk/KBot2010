@@ -246,14 +246,12 @@ OBJ_DIR := SIMSPARCSOLARISgnu
 endif
 endif
 
-DEP_FILES := $(OBJ_DIR)/Target.d $(OBJ_DIR)/Pickup.d $(OBJ_DIR)/Shooter.d \
-	 $(OBJ_DIR)/KBot.d $(OBJ_DIR)/Macros.d
+DEP_FILES := $(OBJ_DIR)/KBot.d $(OBJ_DIR)/Macros.d
 -include $(DEP_FILES)
 
 ifeq ($(BUILD_SPEC),PPC32diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -262,8 +260,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC32gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -272,8 +269,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC32sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -282,8 +278,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC32sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -292,8 +287,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC403diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -302,8 +296,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC403gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -312,8 +305,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -322,8 +314,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -332,8 +323,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -342,8 +332,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -352,8 +341,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -362,8 +350,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -372,8 +359,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -382,8 +368,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -392,8 +377,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC603diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -405,28 +389,22 @@ SUBDIRS := "C:/windriver/workspace/KBot2010/KBot2010/controller" \
 	 "C:/windriver/workspace/KBot2010/KBot2010/hardware" \
 	 "C:/windriver/workspace/KBot2010/KBot2010/high_level" \
 	 "C:/windriver/workspace/KBot2010/KBot2010/strategy"
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
-SUB_OBJECTS := controller/$(OBJ_DIR)/CameraController.o \
-	 controller/$(OBJ_DIR)/KbotPID.o \
+SUB_OBJECTS := controller/$(OBJ_DIR)/KbotPID.o \
 	 controller/$(OBJ_DIR)/RobotController.o \
 	 controller/$(OBJ_DIR)/RobotManager.o \
 	 controller/$(OBJ_DIR)/KbotVPID.o \
 	 hardware/$(OBJ_DIR)/CurrentSensor.o \
-	 hardware/$(OBJ_DIR)/Launcher.o \
 	 hardware/$(OBJ_DIR)/CANJaguar.o \
-	 hardware/$(OBJ_DIR)/Hopper.o \
-	 hardware/$(OBJ_DIR)/Camera.o \
 	 strategy/$(OBJ_DIR)/StrategyGoStraight.o \
 	 strategy/$(OBJ_DIR)/StrategyGoAlongEdge.o \
-	 strategy/$(OBJ_DIR)/StrategyTurn45.o \
 	 strategy/$(OBJ_DIR)/StrategyCurveLeft.o \
+	 strategy/$(OBJ_DIR)/StrategyTurn45.o \
 	 strategy/$(OBJ_DIR)/StrategyTrack.o \
 	 strategy/$(OBJ_DIR)/StrategyWeave.o \
-	 strategy/$(OBJ_DIR)/StrategyLoadBalls.o \
 	 strategy/$(OBJ_DIR)/StrategyCurveRight.o \
 	 strategy/$(OBJ_DIR)/StrategyCircle.o \
 	 strategy/$(OBJ_DIR)/StrategyGoAlongEnd.o \
@@ -440,8 +418,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC604diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -450,8 +427,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC604gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -460,8 +436,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -470,8 +445,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -480,8 +454,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXsfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -490,8 +463,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXsfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -500,8 +472,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC860sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -510,8 +481,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC860sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -520,8 +490,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMLINUXdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -530,8 +499,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMLINUXgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -540,8 +508,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMNTdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -550,8 +517,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMNTgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -560,8 +526,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMSPARCSOLARISdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
@@ -570,8 +535,7 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMSPARCSOLARISgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/Pickup.o $(OBJ_DIR)/Shooter.o \
-	 $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
+OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 

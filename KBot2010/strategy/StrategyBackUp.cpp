@@ -3,6 +3,8 @@
 #define BACK_UP_TIME 2.5
 /*
 Constructor initalizes object
+
+TODO:  handle new camera/target/dribbler hardware
 */
 StrategyBackUp::StrategyBackUp(KBot* kbot) : Strategy(kbot)
 {
@@ -10,7 +12,6 @@ StrategyBackUp::StrategyBackUp(KBot* kbot) : Strategy(kbot)
     m_nCallCount = 0;
     m_kbot = kbot;
     m_robotDrive = m_kbot->getRobotDrive();
-    m_shooter = m_kbot->getShooter();
 }
 
 /*
@@ -32,7 +33,6 @@ eState StrategyBackUp::apply()
     {
         m_nCallCount++; // track the number of times we have been called
         m_robotDrive->ArcadeDrive(1.0, 0.0, false);
-		m_shooter->Drive(0.0, true);
     }
     else
     {

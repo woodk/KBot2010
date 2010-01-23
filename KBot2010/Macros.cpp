@@ -5,24 +5,20 @@ RobotMacros::RobotMacros(KBot *kbot)
 	m_kbot = kbot;
 	m_macroState = mcNONE;
 	m_macroCycle = 0;
-	hopperPosition = 0;
 	lastTrigger = false;
 	triggerCycle = 1000;		// Starting at a big number makes sure the shooter
 								// doesn't reverse when the robot is first turned on
 	
 	m_robotDrive = m_kbot->getRobotDrive();
-	m_shooter = m_kbot->getShooter();
-	m_pickup = m_kbot->getPickup();
-	m_hopper = m_kbot->getHopper();
 	m_leftStick = m_kbot->getLeftStick();
 	m_rightStick = m_kbot->getRightStick();
 	m_gyro = m_kbot->getGyro();
-	m_camera = m_kbot->getCamera();
 	m_gyroDriveCtrl = new KbotPID(0.01,0.0,0.0);
 	m_gyro->Reset();
 	m_gyroDriveCtrl->resetErrorSum();
+
+	// TODO:  get Kicker, Dribbler, Arm, etc.
 	
-	//m_robotDrive->SetModifierConstant(TELE_WEAVE_PERCENT);
 	printf("constructed RobotMacros\n");
 }
 
@@ -150,109 +146,8 @@ void RobotMacros::WeaveDrive()
 // Allow complete operator control.
 void RobotMacros::OperatorControl()
 {
-	if (m_leftStick->GetRawButton(REVERSE_SHOOTER_BUTTON)){			// Reverse the shooter
-		reverseShooterCycle++;
-		if (reverseShooterCycle<200){
-			m_shooter->Drive(-triggerCycle*0.002, true); // Gradually increase reverse speed
-		} else {
-			m_shooter->Drive(-0.5, true);
-		}
-	}
-	else if (m_leftStick->GetRawButton(ADVANCE_SHOOTER_BUTTON)){			// Advance the shooter
-		reverseShooterCycle++;
-		if (reverseShooterCycle<200){
-			m_shooter->Drive(triggerCycle*0.002, true); // Gradually increase forward speed
-		} else {
-			m_shooter->Drive(0.5, true);
-		}
-	} else {
-		reverseShooterCycle = 0;
-		bool trigger = m_leftStick->GetTrigger();
-		if (trigger != lastTrigger) { 	// Change in trigger status
-			if (trigger) {				// If it was just pressed
-				triggerCycle = 0;
-				// Stop the shooter
-				m_shooter->Drive(0.0, true);
-				// Back off the pickup
-				m_pickup->Drive(-0.5,true);
-			} else {					// If it was just released
-				triggerCycle = 0;
-				m_shooter->Drive(0.0, true);
-				m_pickup->Drive(m_leftStick->GetY(), true);
-			}
-			lastTrigger = trigger; 
-		} else { 						// No change in trigger
-			if (trigger) {				// Trigger is still pressed
-				triggerCycle++;
-				if (triggerCycle<5) {
-					// Brake the shooter by moving it back slightly
-					m_shooter->Drive(-0.25, true);
-					// Back off the pickup
-					m_pickup->Drive(0.5,true);
-				}
-				else if (triggerCycle<CYCLES_TO_BACK_OFF_PICKUP) {
-					// Stop the shooter
-					m_shooter->Drive(0.0, true);
-					// Back off the pickup
-					m_pickup->Drive(0.5,true);
-				} else {
-					float shooterSpeed;
-					// If override button pressed, or camera has lost connection, use Z-axis
-					if (m_leftStick->GetRawButton(SHOOTER_SPEED_BUTTON) /*|| !CameraInitialized()*/)
-					{
-						shooterSpeed = m_leftStick->GetZ();
-						if (shooterSpeed<SHOOT_MIN)
-						{
-							shooterSpeed=SHOOT_MIN;
-						}
-						printf("Shooter speed %5.4f\n",shooterSpeed);
-					}
-					else // Otherwise use auto shooter speed:
-					{
-						if ( m_camera->lockedOn())
-						{
-							//shooterSpeed = (m_camera->getTargetY()-CAM_MIN)*(SHOOT_MAX-SHOOT_MIN)/(CAM_MAX-CAM_MIN)+SHOOT_MIN;
-							shooterSpeed = SHOOT_DEFAULT;
-							printf("Auto shooter speed %5.2f; targetY= %5.4f\n",shooterSpeed,m_camera->getTargetY());
-						}
-						else // Lost camera lock; assume we are too close
-						{
-							shooterSpeed = SHOOT_MIN;
-							printf("Lost camera lock; speed %5.2f\n",shooterSpeed);
-						}
-					}
-					if (triggerCycle<CYCLES_TO_BACK_OFF_PICKUP+CYCLES_TO_SPEED_SHOOTER)
-					{
-						// Spin up the shooter
-						m_shooter->Drive(shooterSpeed,true);
-						// Stop the pickup
-						m_pickup->Drive(0.0,true);
-					} else {
-						// Run the shooter and the pickup
-						m_shooter->Drive(shooterSpeed,true);
-						m_pickup->Drive(m_leftStick->GetY(),true);
-					}
-				}
-			} else {					// Trigger still not pressed
-				triggerCycle++;
-				if (triggerCycle<75) {
-					m_shooter->Drive(-triggerCycle*0.002, true); // Gradually increase braking
-					m_pickup->Drive(m_leftStick->GetY(), true);
-				} else {
-					m_shooter->Drive(0.0, true);
-					m_pickup->Drive(m_leftStick->GetY(), true);
-				}
-			}
-		}
-	}
-
-	if (m_leftStick->GetRawButton(HOPPER_OPEN_BUTTON)) {
-		hopperPosition += 0.01;
-	}
-	if (m_leftStick->GetRawButton(HOPPER_CLOSE_BUTTON)) {
-		hopperPosition -= 0.01;
-	}
-	m_hopper->Drive(0.0,true);
+	// TODO:  check various button states and
+	// control the robot appropriately
 }
 
 // Spins the robot 90 degrees to the left or right depending on argument.

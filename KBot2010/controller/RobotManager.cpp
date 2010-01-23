@@ -9,7 +9,6 @@
 #include "StrategyTurn45.h"
 #include "StrategyGoAlongEnd.h"
 #include "StrategyGoAlongEdge.h"
-#include "StrategyLoadBalls.h"
 #include "StrategyWeave.h"
 #include "StrategySpin.h"
 #include "StrategyCircle.h"
@@ -37,7 +36,6 @@ RobotManager::RobotManager(KBot *kbot)
     m_lstStrategy[knTurn45] = new StrategyTurn45(m_kbot);
     m_lstStrategy[knGoAlongEnd] = new StrategyGoAlongEnd(m_kbot);
     m_lstStrategy[knGoAlongEdge] = new StrategyGoAlongEdge(m_kbot);
-    m_lstStrategy[knLoadBalls] = new StrategyLoadBalls(m_kbot);
     
     m_lstStrategy[knWeave] = new StrategyWeave(m_kbot);
     m_lstStrategy[knSpin] = new StrategySpin(m_kbot);

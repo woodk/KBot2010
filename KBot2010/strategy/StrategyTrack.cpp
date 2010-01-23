@@ -2,6 +2,8 @@
 
 /*
 Constructor initalizes object
+
+TODO: handle new camera/target/dribbler hardware
 */
 StrategyTrack::StrategyTrack(KBot* kbot) : Strategy(kbot)
 {
@@ -11,7 +13,6 @@ StrategyTrack::StrategyTrack(KBot* kbot) : Strategy(kbot)
 	m_cameraTurnCtrl->setDesiredValue(0.0);
     m_kbot = kbot;
     m_robotDrive = m_kbot->getRobotDrive();
-    m_shooter = m_kbot->getShooter();
     m_lossCount=0;
 }
 
@@ -47,38 +48,19 @@ eState StrategyTrack::apply()
     	if (m_lossCount>100)
     	{
 	        // we have lost the target, switch to spin strategy
-			m_shooter->Drive(0.0, true); // give up on shooter
 			printf("lost target, going inactive\n");
 	        nNewState = knSpin; 
     	}
     }
     else    // still hunting
     {
+    	// TODO:  actual target hunting with new camera
     	m_lossCount=0;
-    	float d=m_camera->getDistanceToTarget();
-    	float realx=m_camera->getTargetX()*d;
-    	m_xval = m_cameraTurnCtrl->calcPID(-realx);
+    	m_xval = m_cameraTurnCtrl->calcPID(0.0f);
    		//printf("d= %5.4f realx=%5.4f xval= %5.4f\n",d, realx, m_xval);
     
     	m_robotDrive->ArcadeDrive(-0.9, m_xval, false); //.75
     	
-    	// Could try this, from the tracker sample code:
-    	//m_xval = m_camera->getCentreMassXNormalized();
-    	//m_robotDrive->Drive(-0.9,m_xval);
-
-    	// Or, using PID: (change PID Kp to 1.0)
-    	//realx = m_camera->getCentreMassXNormalized();
-    	//m_xval = m_cameraTurnCtrl->calcPID(realx);
-    	//m_robotDrive->Drive(-0.9,m_xval);
-    	
-    	
-    	// Or could try this:
-    	// m_xval = atan(m_camera->getCentreMassXNormalized())*4.0/3.1416
-    	//m_robotDrive->Drive(-0.9,m_xval);
-    	
-    	
-    	// Get the shooter up to full speed to be ready
-		//m_shooter->Drive(1.0, true);
     }
 
     return nNewState;
@@ -106,17 +88,16 @@ Checks camera to see if target has escaped
 */
 bool StrategyTrack::getTargetEscaped()
 {
-    return !m_camera->lockedOn();
+	// TODO: rename to getTargetLost and implement
+    return true;
 }
 
 void StrategyTrack::init()
 {
+	// TODO: implement with new camera and target code
     printf("Track state\n");
 	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
-	m_camera->setPanEnabled(false);
-	m_camera->setFixedServoPos(0.5);
 	
     m_lossCount=0;
-    //m_robotDrive->setTorque(110);
 }
 

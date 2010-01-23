@@ -2,13 +2,14 @@
 
 /*
 Constructor initalizes object
+
+TODO:  handle new camera/target/kicker hardware
 */
 StrategySpin::StrategySpin(KBot* kbot) : Strategy(kbot)
 {
     // Create initial state here
     m_kbot = kbot;
     m_robotDrive = m_kbot->getRobotDrive();
-    m_shooter = m_kbot->getShooter();
 }
 
 /*
@@ -42,7 +43,6 @@ eState StrategySpin::apply()
     	{
     		m_robotDrive->ArcadeDrive(-0.8, 0.9, false);
     	}
-		m_shooter->Drive(0.0, true);
     }
 
     return nNewState;
@@ -58,5 +58,6 @@ void StrategySpin::init()
 /* Check camera to see if we can see any targets */
 bool StrategySpin::TargetInSight()
 {
-	return m_camera->lockedOn();
+	// TODO: set up to operate with new camera
+	return false;
 }

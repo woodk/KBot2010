@@ -84,5 +84,5 @@ bool StrategyGoAlongEnd::getKeepMoving()
 /* Check camera to see if we can see any targets */
 bool StrategyGoAlongEnd::TargetInSight()
 {
-	return m_camera->lockedOn();
+	return false;
 }

@@ -4,8 +4,6 @@
 #include "State.h"
 #include "KBot.h"
 
-class KBot;
-
 /* Represents a control strategy used by the robot
  * 
  * Every state of the robot has one or more strategies
@@ -36,7 +34,7 @@ protected:
     RobotDrive *m_robotDrive;
 	Gyro *m_gyro;
 	KbotPID *m_gyroDriveCtrl;
-    Camera *m_camera;
+
 };
 
 #endif

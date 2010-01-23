@@ -3,5 +3,5 @@
 
 Strategy::Strategy(KBot* kbot) : m_kbot(kbot) 
 {
-	m_camera = m_kbot->getCamera();
+	// initialize any state common to all strategies.
 }

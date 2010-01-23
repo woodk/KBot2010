@@ -23,8 +23,6 @@ public:
 
 private:
     
-    Shooter *m_shooter;
-    
 	bool TargetInSight();
     
 };

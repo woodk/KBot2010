@@ -230,25 +230,6 @@ PPC603gnu_DEBUG/StrategyWeave.o: StrategyWeave.cpp StrategyWeave.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h \
   C:/windriver/workspace/KBot2010/KBot2010/controller/KbotPID.h \
   C:/windriver/vxworks-6.3/target/h/WPILib/RobotDrive.h \
-  C:/windriver/workspace/KBot2010/KBot2010/Shooter.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Victor.h \
-  C:/windriver/workspace/KBot2010/KBot2010/Pickup.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Jaguar.h \
-  C:/windriver/workspace/KBot2010/KBot2010/hardware/Hopper.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Jaguar.h \
-  C:/windriver/workspace/KBot2010/KBot2010/hardware/Camera.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/AxisCamera.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/BaeUtilities.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/FrcError.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/TrackAPI.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/VisionAPI.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/BaeUtilities.h \
-  C:/windriver/workspace/KBot2010/KBot2010/Target.h \
-  C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/TrackAPI.h \
-  C:/windriver/workspace/KBot2010/KBot2010/KBot.h \
   C:/windriver/workspace/KBot2010/KBot2010/controller/RobotManager.h \
   C:/windriver/workspace/KBot2010/KBot2010/strategy/State.h \
   C:/windriver/workspace/KBot2010/KBot2010/KBot.h \
@@ -724,44 +705,6 @@ C:/windriver/vxworks-6.3/target/h/WPILib/PIDOutput.h:
 C:/windriver/workspace/KBot2010/KBot2010/controller/KbotPID.h:
 
 C:/windriver/vxworks-6.3/target/h/WPILib/RobotDrive.h:
-
-C:/windriver/workspace/KBot2010/KBot2010/Shooter.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Victor.h:
-
-C:/windriver/workspace/KBot2010/KBot2010/Pickup.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Jaguar.h:
-
-C:/windriver/workspace/KBot2010/KBot2010/hardware/Hopper.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Jaguar.h:
-
-C:/windriver/workspace/KBot2010/KBot2010/hardware/Camera.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/WPILib.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/AxisCamera.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/BaeUtilities.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/FrcError.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/TrackAPI.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/VisionAPI.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/nivision.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/BaeUtilities.h:
-
-C:/windriver/workspace/KBot2010/KBot2010/Target.h:
-
-C:/windriver/vxworks-6.3/target/h/WPILib/Vision2009/TrackAPI.h:
-
-C:/windriver/workspace/KBot2010/KBot2010/KBot.h:
 
 C:/windriver/workspace/KBot2010/KBot2010/controller/RobotManager.h:
 

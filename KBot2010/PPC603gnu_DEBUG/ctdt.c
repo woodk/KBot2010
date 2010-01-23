@@ -11,27 +11,21 @@ void _GLOBAL__I__ZN4KBotC2Ev();
 
 void _GLOBAL__I__ZN11RobotMacrosC2EP4KBot();
 
-void _GLOBAL__I_tdataGreen();
-
 void _GLOBAL__I__ZN12RobotManagerC2EP4KBot();
 
 void _GLOBAL__I__ZN9CANJaguar10InitJaguarEv();
-
-void _GLOBAL__I__ZN6CameraC2EP4KBot();
 
 void _GLOBAL__I__ZN18StrategyGoStraightC2EP4KBot();
 
 void _GLOBAL__I__ZN19StrategyGoAlongEdgeC2EP4KBot();
 
-void _GLOBAL__I__ZN14StrategyTurn45C2EP4KBot();
-
 void _GLOBAL__I__ZN17StrategyCurveLeftC2EP4KBot();
+
+void _GLOBAL__I__ZN14StrategyTurn45C2EP4KBot();
 
 void _GLOBAL__I__ZN13StrategyTrackC2EP4KBot();
 
 void _GLOBAL__I__ZN13StrategyWeaveC2EP4KBot();
-
-void _GLOBAL__I__ZN17StrategyLoadBallsC2EP4KBot();
 
 void _GLOBAL__I__ZN18StrategyCurveRightC2EP4KBot();
 
@@ -66,17 +60,14 @@ void (*_ctors[])() =
     {
     _GLOBAL__I__ZN4KBotC2Ev,
     _GLOBAL__I__ZN11RobotMacrosC2EP4KBot,
-    _GLOBAL__I_tdataGreen,
     _GLOBAL__I__ZN12RobotManagerC2EP4KBot,
     _GLOBAL__I__ZN9CANJaguar10InitJaguarEv,
-    _GLOBAL__I__ZN6CameraC2EP4KBot,
     _GLOBAL__I__ZN18StrategyGoStraightC2EP4KBot,
     _GLOBAL__I__ZN19StrategyGoAlongEdgeC2EP4KBot,
-    _GLOBAL__I__ZN14StrategyTurn45C2EP4KBot,
     _GLOBAL__I__ZN17StrategyCurveLeftC2EP4KBot,
+    _GLOBAL__I__ZN14StrategyTurn45C2EP4KBot,
     _GLOBAL__I__ZN13StrategyTrackC2EP4KBot,
     _GLOBAL__I__ZN13StrategyWeaveC2EP4KBot,
-    _GLOBAL__I__ZN17StrategyLoadBallsC2EP4KBot,
     _GLOBAL__I__ZN18StrategyCurveRightC2EP4KBot,
     _GLOBAL__I__ZN14StrategyCircleC2EP4KBot,
     _GLOBAL__I__ZN18StrategyGoAlongEndC2EP4KBot,
@@ -98,27 +89,21 @@ void _GLOBAL__D__ZN4KBotC2Ev();
 
 void _GLOBAL__D__ZN11RobotMacrosC2EP4KBot();
 
-void _GLOBAL__D_tdataGreen();
-
 void _GLOBAL__D__ZN12RobotManagerC2EP4KBot();
 
 void _GLOBAL__D__ZN9CANJaguar10InitJaguarEv();
-
-void _GLOBAL__D__ZN6CameraC2EP4KBot();
 
 void _GLOBAL__D__ZN18StrategyGoStraightC2EP4KBot();
 
 void _GLOBAL__D__ZN19StrategyGoAlongEdgeC2EP4KBot();
 
-void _GLOBAL__D__ZN14StrategyTurn45C2EP4KBot();
-
 void _GLOBAL__D__ZN17StrategyCurveLeftC2EP4KBot();
+
+void _GLOBAL__D__ZN14StrategyTurn45C2EP4KBot();
 
 void _GLOBAL__D__ZN13StrategyTrackC2EP4KBot();
 
 void _GLOBAL__D__ZN13StrategyWeaveC2EP4KBot();
-
-void _GLOBAL__D__ZN17StrategyLoadBallsC2EP4KBot();
 
 void _GLOBAL__D__ZN18StrategyCurveRightC2EP4KBot();
 
@@ -151,17 +136,14 @@ void (*_dtors[])() =
     {
     _GLOBAL__D__ZN4KBotC2Ev,
     _GLOBAL__D__ZN11RobotMacrosC2EP4KBot,
-    _GLOBAL__D_tdataGreen,
     _GLOBAL__D__ZN12RobotManagerC2EP4KBot,
     _GLOBAL__D__ZN9CANJaguar10InitJaguarEv,
-    _GLOBAL__D__ZN6CameraC2EP4KBot,
     _GLOBAL__D__ZN18StrategyGoStraightC2EP4KBot,
     _GLOBAL__D__ZN19StrategyGoAlongEdgeC2EP4KBot,
-    _GLOBAL__D__ZN14StrategyTurn45C2EP4KBot,
     _GLOBAL__D__ZN17StrategyCurveLeftC2EP4KBot,
+    _GLOBAL__D__ZN14StrategyTurn45C2EP4KBot,
     _GLOBAL__D__ZN13StrategyTrackC2EP4KBot,
     _GLOBAL__D__ZN13StrategyWeaveC2EP4KBot,
-    _GLOBAL__D__ZN17StrategyLoadBallsC2EP4KBot,
     _GLOBAL__D__ZN18StrategyCurveRightC2EP4KBot,
     _GLOBAL__D__ZN14StrategyCircleC2EP4KBot,
     _GLOBAL__D__ZN18StrategyGoAlongEndC2EP4KBot,

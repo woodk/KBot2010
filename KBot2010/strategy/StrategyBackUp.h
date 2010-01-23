@@ -25,8 +25,6 @@ public:
 
 private:
 
-	Shooter *m_shooter;
-	
     // the time we should run for in seconds
     float m_fRunTimeInSeconds;
 

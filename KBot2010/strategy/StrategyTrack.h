@@ -24,7 +24,6 @@ public:
 
 private:
     
-    Shooter *m_shooter;
     KbotPID *m_cameraTurnCtrl;
     int m_lossCount;
     float m_xval;
