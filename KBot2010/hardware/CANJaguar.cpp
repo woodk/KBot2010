@@ -273,25 +273,25 @@ void CANJaguar::sendMessage(UINT32 messageID, const UINT8 *data, UINT8 dataSize)
 				// TODO: Error
 				return;
 			}
-			printf("Trusted command: %08x ",messageID);
+			//printf("Trusted command: %08x ",messageID);
 			for (UINT8 j=0; j < dataSize; j++)
 			{
 				dataBuffer[j + 2] = data[j];
-				printf("%02x",data[j]);
+				//printf("%02x",data[j]);
 			}
-			printf("\n");
+			//printf("\n");
 			FRC_NetworkCommunication_JaguarCANDriver_sendMessage(messageID, dataBuffer, dataSize + 2, &status);
 			wpi_assertCleanStatus(status);
 			return;
 		}
 
 	}
-	printf("non trusted command sent: %08x ",messageID);
-	for (UINT8 j=0; j < dataSize; j++)
-	{
-		printf("%02x",data[j]);
-	}
-	printf("\n");
+	//printf("non trusted command sent: %08x ",messageID);
+	//for (UINT8 j=0; j < dataSize; j++)
+	//{
+	//	printf("%02x",data[j]);
+	//}
+	//printf("\n");
 	FRC_NetworkCommunication_JaguarCANDriver_sendMessage(messageID, data, dataSize, &status);
 	wpi_assertCleanStatus(status);
 }
