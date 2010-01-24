@@ -1,2 +1,4 @@
 # Ignore object files
 *.[oad]
+*.out
+PPC603gnu*
