@@ -8,6 +8,7 @@
 
 #include "Mappings.h"
 #include "CANJaguar.h"
+#include "KbotCamera.h"
 #include "KbotPID.h"
 #include "RobotDrive.h"
 
@@ -67,6 +68,9 @@ private:
 	// High level controllers
 	RobotManager *m_autoManager;
 	RobotMacros *m_teleMacros;
+	
+	// camera wrapper class
+	KbotCamera* m_pCamera;
 	
 	// Declare a variable to use to access the driver station object
 	DriverStation *m_driverStation;

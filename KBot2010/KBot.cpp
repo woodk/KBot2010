@@ -1,10 +1,5 @@
 #include "KBot.h"
 
-/// TEMPORARY:  for image testing
-#include "Vision/AxisCamera2010.h"
-#include "Vision/HSLImage.h"
-#include "Target.h"
-
 /**
  * This is the K-Bot 2010 main code.
  * 
@@ -75,6 +70,8 @@
 		// **** MUST BE AFTER ALL OTHER OBJECTS ARE CREATED, as the constructors
 		// create links to the other objects. ****
 
+		m_pCamera = new KbotCamera();
+		
 		m_autoManager = new RobotManager(this);
 		m_teleMacros = new RobotMacros(this);
 				
@@ -125,9 +122,7 @@
 
 		// TODO:  do we want to reset gyro initial direction?
 		
-		AxisCamera& camera = AxisCamera::getInstance();
-		camera.writeResolution(k320x240);
-		camera.writeBrightness(0);
+		m_pCamera->teleopInit();
 
 		m_pDashboardDataSender = new DashboardDataSender();
 		
@@ -157,6 +152,9 @@
 		
 	}
 	
+	/*!
+	 * TODO: document
+	*/
 	void KBot::AutonomousPeriodic(void) {
 		// feed the user watchdog at every period when in autonomous
 		// AUtonomous runs at 50 Hz
@@ -188,19 +186,13 @@
 		GetWatchdog().Feed();
 		checkCameraReset();
 
-		AxisCamera& camera = AxisCamera::getInstance();
-		
 		if ((m_telePeriodicLoops % 10) == 0) { // 20 Hz
 			// TODO: use new camera to acquire target and
 			// change driverstation calls to reflect actual state
-			
-			if (camera.freshImage()) {
-				// get the camera image
-				ColorImage *pImage = camera.GetImage();
-				
-				vector<Target> vecTargets = Target::FindCircularTargets(pImage);
-				delete pImage;
-				
+
+			vector<Target> vecTargets = m_pCamera->findTargets();
+			if (0 != vecTargets.size())
+			{
 				m_pDashboardDataSender->sendVisionData(0.0, 0.0, 0.0, 1.0, vecTargets);
 			}
 			

@@ -7,7 +7,7 @@
 #ifndef KBOTCAMERA_H_
 #define KBOTCAMERA_H_
 
-#include "Vision/AxisCamera2010.h"
+#include "Target.h"
 
 /**
  * High level hardware class for controlling all camera functions.
@@ -17,7 +17,13 @@ class KbotCamera
 {
 public:
 	KbotCamera();
-
+	
+	//! set up camer for teleop mode
+	void teleopInit();
+	
+	//! find targets using standard algorithms
+	vector<Target> findTargets();
+	
 private:
 	
 };
