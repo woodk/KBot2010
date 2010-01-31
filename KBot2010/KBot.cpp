@@ -32,21 +32,24 @@
 		// call m_gyro->SetSensitivity here (was 0.0122)
 		
 		// wheel encoders
-		m_leftEncoder = new Encoder(L_ENC_A_CHANNEL,L_ENC_B_CHANNEL,false);
-		m_rightEncoder = new Encoder(R_ENC_A_CHANNEL,R_ENC_B_CHANNEL,true);
+		//m_leftEncoder = new Encoder(L_ENC_A_CHANNEL,L_ENC_B_CHANNEL,false);
+		//m_rightEncoder = new Encoder(R_ENC_A_CHANNEL,R_ENC_B_CHANNEL,true);
 
 		// 250 counts per rev.; gear ratio x:y; 6" wheel
 		// 1 count = 1/250 * x / y * 2*PI*6 /12 feet
 		//         = 0.151  (@ 1:1)
-		m_leftEncoder->SetDistancePerPulse(0.01257);
-		m_rightEncoder->SetDistancePerPulse(0.01257);
-		m_leftEncoder->Start();
-		m_rightEncoder->Start();
+		//m_leftEncoder->SetDistancePerPulse(0.01257);
+		//m_rightEncoder->SetDistancePerPulse(0.01257);
+		//m_leftEncoder->Start();
+		//m_rightEncoder->Start();
 
 		// digital inputs
 		m_autoDirection = new DigitalInput(AUTO_LEFT_RIGHT);
 		m_autoMode0 = new DigitalInput(AUTO_MODE0);
 		m_autoMode1 = new DigitalInput(AUTO_MODE1);
+		
+		m_ultrasoundNear = new DigitalInput(ULTRA_NEAR);
+		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);
 		
 		/************************************/
 		// Create and initialize output devices
@@ -54,10 +57,12 @@
 		// TODO:  create Dribbler, Kicker and Arm (others?)
 		
 		m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
+		m_leftJaguar->SetEncoder(3600);
 		m_leftJaguar->SetPIDConstants(1,0.001,100);
 		m_leftJaguar->Set(0.0);
 
 		m_rightJaguar = new CANJaguar(2, CANJaguar::kSpeed);
+		m_rightJaguar->SetEncoder(3600);
 		m_rightJaguar->SetPIDConstants(1,0.001,100);
 		m_rightJaguar->Set(0.0);
 		m_robotDrive = new RobotDrive(m_leftJaguar, m_rightJaguar);
@@ -131,6 +136,8 @@
 		m_driverStation->SetDigitalOut(6,false);
 		m_driverStation->SetDigitalOut(7,false);
 		m_driverStation->SetDigitalOut(8,false);
+		m_driverStation->SetDigitalOut(9,false);
+		m_driverStation->SetDigitalOut(10,false);
 
 		m_leftJaguar->SetPIDConstants(1.0,0.001,100);
 		m_rightJaguar->SetPIDConstants(1.0,0.001,100);
@@ -187,9 +194,10 @@
 		checkCameraReset();
 
 		if ((m_telePeriodicLoops % 10) == 0) { // 20 Hz
-			// TODO: use new camera to acquire target and
-			// change driverstation calls to reflect actual state
 
+			printf("Near state: %d\n",m_ultrasoundNear->Get());
+			printf("Far state: %d\n",m_ultrasoundFar->Get());
+			
 			vector<Target> vecTargets = m_pCamera->findTargets();
 			if (0 != vecTargets.size())
 			{
@@ -199,6 +207,7 @@
 			m_driverStation->SetDigitalOut(DS_LED_CAMERA_LOCK, false);
 			m_driverStation->SetDigitalOut(DS_LED_IN_RANGE, false);
 		}
+		
 		
 		// this is where the actual robotic driving is done
 		m_teleMacros->OnClock();

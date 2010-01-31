@@ -65,6 +65,9 @@ private:
 	DigitalInput *m_autoMode0;
 	DigitalInput *m_autoMode1;
 			
+	DigitalInput *m_ultrasoundNear;
+	DigitalInput *m_ultrasoundFar;
+	
 	// High level controllers
 	RobotManager *m_autoManager;
 	RobotMacros *m_teleMacros;

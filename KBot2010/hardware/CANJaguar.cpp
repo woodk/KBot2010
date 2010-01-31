@@ -113,7 +113,9 @@ void CANJaguar::Set(float outputValue)
  * 
  * The inputs are any floating point values
  * 
- * @param outputValue The P I and D constants for the motor control.
+ * @param kp The proportional constant Kp for the motor PID control.
+ * @param ki The integral constant Ki for the motor PID control.
+ * @param kd The differential constant Kd for the motor PID control.
  */
 void CANJaguar::SetPIDConstants(float kp, float ki, float kd)
 {
@@ -172,6 +174,33 @@ void CANJaguar::SetPIDConstants(float kp, float ki, float kd)
 	dataSize = sizeof(INT32);
 	sendMessage(messageID, dataBuffer, dataSize);
 
+}
+
+/**
+ * Set the Jaguar number of encoder lines.  
+ * 
+ * The input is an integer (UINT16)
+ * 
+ * @param encoderLines the number of lines per revolution of the encoder
+ */
+void CANJaguar::SetEncoder(UINT16 encoderLines)
+{
+	UINT32 messageID;
+	UINT8 dataBuffer[8];
+	UINT8 dataSize;
+
+	switch(m_controlMode)
+	{
+	case kSpeed:
+	case kPosition:
+		messageID = LM_API_CFG_ENC_LINES  | m_deviceNumber;
+		*((INT16*)dataBuffer) = swap16(encoderLines);
+		dataSize = sizeof(INT16);
+		break;
+	default: // Do nothing; encoder not used for other modes
+		return;
+	}
+	sendMessage(messageID, dataBuffer, dataSize);
 }
 
 /**

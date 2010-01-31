@@ -51,6 +51,8 @@
 #define AUTO_LEFT_RIGHT		6
 #define AUTO_MODE0			7
 #define AUTO_MODE1			8
+#define ULTRA_NEAR			9
+#define ULTRA_FAR			10
 
 #define AUTO_STRAIGHT		0
 #define AUTO_CURVE			2

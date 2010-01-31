@@ -22,6 +22,9 @@ public:
 	// SpeedController interface
 	float Get();
 	void Set(float value);
+
+	// Set Jaguar encoder lines
+	void SetEncoder(UINT16 encoderLines);
 	
 	// Set Jaguar PID constants
 	void SetPIDConstants(float kp, float ki, float kd);

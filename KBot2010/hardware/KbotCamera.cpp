@@ -33,7 +33,7 @@ vector<Target> KbotCamera::findTargets()
 	if (camera.freshImage()) {
 		// get the camera image
 		ColorImage *pImage = camera.GetImage();
-		
+	
 		vecTargets = Target::FindCircularTargets(pImage);
 		delete pImage;
 		
