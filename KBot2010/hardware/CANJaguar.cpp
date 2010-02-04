@@ -30,6 +30,7 @@ void CANJaguar::InitJaguar()
 	UINT32 fwVer = GetFirmwareVersion();
 	if (/*fwVer >= 3330 ||*/ fwVer < 85)
 	{
+		printf("fwVer %08x\n",fwVer);
 		wpi_assertCleanStatus(kRIOStatusVersionMismatch);
 		return;
 	}

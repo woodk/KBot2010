@@ -393,7 +393,10 @@ OBJECTS := $(OBJ_DIR)/KBot.o $(OBJ_DIR)/Macros.o
 
 PROJECT_TARGETS := $(OBJ_DIR)/KBot.out
 
-SUB_OBJECTS := controller/$(OBJ_DIR)/DashboardDataSender.o \
+SUB_OBJECTS := controller/$(OBJ_DIR)/ManagerMidField.o \
+	 controller/$(OBJ_DIR)/ManagerDefense.o \
+	 controller/$(OBJ_DIR)/DashboardDataSender.o \
+	 controller/$(OBJ_DIR)/ManagerForward.o \
 	 controller/$(OBJ_DIR)/KbotPID.o \
 	 controller/$(OBJ_DIR)/RobotController.o \
 	 controller/$(OBJ_DIR)/RobotManager.o \
@@ -408,19 +411,24 @@ SUB_OBJECTS := controller/$(OBJ_DIR)/DashboardDataSender.o \
 	 hardware/$(OBJ_DIR)/Kicker.o \
 	 strategy/$(OBJ_DIR)/StrategyGoStraight.o \
 	 strategy/$(OBJ_DIR)/StrategyGoAlongEdge.o \
-	 strategy/$(OBJ_DIR)/StrategyCurveLeft.o \
 	 strategy/$(OBJ_DIR)/StrategyTurn45.o \
+	 strategy/$(OBJ_DIR)/StrategyCurveLeft.o \
 	 strategy/$(OBJ_DIR)/StrategyTrack.o \
+	 strategy/$(OBJ_DIR)/StrategyShoot.o \
+	 strategy/$(OBJ_DIR)/StrategySearch.o \
 	 strategy/$(OBJ_DIR)/StrategyWeave.o \
+	 strategy/$(OBJ_DIR)/StrategyAim.o \
+	 strategy/$(OBJ_DIR)/StrategyCapture.o \
 	 strategy/$(OBJ_DIR)/StrategyCurveRight.o \
 	 strategy/$(OBJ_DIR)/StrategyCircle.o \
+	 strategy/$(OBJ_DIR)/StrategyProgrammedMove.o \
 	 strategy/$(OBJ_DIR)/StrategyGoAlongEnd.o \
 	 strategy/$(OBJ_DIR)/StrategyBackUp.o \
 	 strategy/$(OBJ_DIR)/StrategyInactive.o \
 	 strategy/$(OBJ_DIR)/StrategyTurn90.o \
+	 strategy/$(OBJ_DIR)/StrategySpin.o \
 	 strategy/$(OBJ_DIR)/Strategy.o \
-	 strategy/$(OBJ_DIR)/StrategySCurve.o \
-	 strategy/$(OBJ_DIR)/StrategySpin.o
+	 strategy/$(OBJ_DIR)/StrategySCurve.o
 SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC604diab)

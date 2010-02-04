@@ -18,24 +18,29 @@ public:
 	RobotManager(KBot *kbot);
 
     // Destructor cleans up
-    ~RobotManager();
+    virtual ~RobotManager();
 
     // This method is called by the handler for the 200 Hz clock
-    void onClock(bool bActive);
+    virtual void onClock(bool bActive);
 
     // Accessor for state
     eState getState() {return m_nState;}
 
     // Accessor for state
     void setState(eState nState) {m_nState = nState;}
+    
+    // set initial state 
+    void setStartState(eState nState) {m_nStartState = nState;}
+    
+    // set back to initial state
     void reset();
 
-private:
+protected:
 
     // The current state
     eState m_nState;
     
-    eState m_initialState;
+    eState m_nStartState;
     
     KBot *m_kbot;
     DriverStation *m_driverStation;

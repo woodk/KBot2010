@@ -3,6 +3,21 @@
 
 enum eState
 {
+    knAim,
+    knBackUp,
+    knCapture,
+    knCircle,
+    knProgrammedMove1,
+    knProgrammedMove2,
+    knProgrammedMove3,
+    knSearch,
+    knShootHard,
+    knShootMid,
+    knShootSoft,
+    knInactive,
+    knInitial,	// ADD NEW STATES ABOVE THIS ONE
+    
+    // LEGACY STATES:  DO NOT CHANGE BELOW THIS LINE
     knGoStraight,
     knSCurve,
     knCurveLeft,
@@ -13,13 +28,9 @@ enum eState
     knGoAlongEdge,
     knWeave,
     knSpin,
-    knCircle,
     knTrack,
     knAttack,
     knLoadBalls,
-    knInactive,
-    knBackUp,
-    knInitial
 };
 
 #endif
