@@ -43,7 +43,7 @@ public:
 
 	DriverStation *getDriverStation();
 
-	int getAutoDirection();
+	int getAutoDirection();	// ALWAYS RETURNS 1
 	int getAutoMode();
 	
 private: 
@@ -61,9 +61,9 @@ private:
 	Encoder *m_leftEncoder;
 	Encoder *m_rightEncoder;
 
-	DigitalInput *m_autoDirection;
-	DigitalInput *m_autoMode0;
-	DigitalInput *m_autoMode1;
+	DigitalInput *m_DefenseSwitch;
+	DigitalInput *m_MidFieldSwitch;
+	DigitalInput *m_ForwardSwitch;
 			
 	DigitalInput *m_ultrasoundNear;
 	DigitalInput *m_ultrasoundFar;

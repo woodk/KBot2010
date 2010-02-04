@@ -1,5 +1,9 @@
 #include "KBot.h"
 
+#include "ManagerDefense.h"
+#include "ManagerMidField.h"
+#include "ManagerForward.h"
+
 /**
  * This is the K-Bot 2010 main code.
  * 
@@ -32,22 +36,22 @@
 		// call m_gyro->SetSensitivity here (was 0.0122)
 		
 		// wheel encoders
-		//m_leftEncoder = new Encoder(L_ENC_A_CHANNEL,L_ENC_B_CHANNEL,false);
-		//m_rightEncoder = new Encoder(R_ENC_A_CHANNEL,R_ENC_B_CHANNEL,true);
+		m_leftEncoder = new Encoder(L_ENC_A_CHANNEL,L_ENC_B_CHANNEL,false);
+		m_rightEncoder = new Encoder(R_ENC_A_CHANNEL,R_ENC_B_CHANNEL,true);
 
 		// 250 counts per rev.; gear ratio x:y; 6" wheel
 		// 1 count = 1/250 * x / y * 2*PI*6 /12 feet
 		//         = 0.151  (@ 1:1)
-		//m_leftEncoder->SetDistancePerPulse(0.01257);
-		//m_rightEncoder->SetDistancePerPulse(0.01257);
-		//m_leftEncoder->Start();
-		//m_rightEncoder->Start();
+		m_leftEncoder->SetDistancePerPulse(0.01257);
+		m_rightEncoder->SetDistancePerPulse(0.01257);
+		m_leftEncoder->Start();
+		m_rightEncoder->Start();
 
 		// digital inputs
-		m_autoDirection = new DigitalInput(AUTO_LEFT_RIGHT);
-		m_autoMode0 = new DigitalInput(AUTO_MODE0);
-		m_autoMode1 = new DigitalInput(AUTO_MODE1);
-		
+		m_DefenseSwitch = new DigitalInput(DEFENSE_SWITCH);		
+		m_MidFieldSwitch = new DigitalInput(MIDFIELD_SWITCH);		
+		m_ForwardSwitch = new DigitalInput(FORWARD_SWITCH);		
+			
 		m_ultrasoundNear = new DigitalInput(ULTRA_NEAR);
 		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);
 		
@@ -79,7 +83,6 @@
 
 		m_pCamera = new KbotCamera();
 		
-		m_autoManager = new RobotManager(this);
 		m_teleMacros = new RobotMacros(this);
 				
 		// Initialize counters to record the number of loops completed in autonomous and teleop modes
@@ -101,6 +104,22 @@
 	void KBot::RobotInit(void) {
 		// Actions which would be performed once (and only once) upon initialization of the
 		// robot would be put here.
+		if (m_DefenseSwitch->Get())
+		{
+			m_autoManager = new ManagerDefense(this);
+		}
+		else if (m_MidFieldSwitch->Get())
+		{
+			m_autoManager = new ManagerMidField(this);
+		}
+		else if (m_ForwardSwitch->Get())
+		{
+			m_autoManager = new ManagerForward(this);
+		}
+		else	// should do something more clever here
+		{
+			m_autoManager = new ManagerMidField(this);
+		}
 	}
 	
 	void KBot::DisabledInit(void) {
@@ -203,8 +222,10 @@
 
 		if ((m_telePeriodicLoops % 10) == 0) { // 20 Hz
 
-			printf("Near state: %d\n",m_ultrasoundNear->Get());
-			printf("Far state: %d\n",m_ultrasoundFar->Get());
+			//printf("Near state: %d\n",m_ultrasoundNear->Get());
+			//printf("Far state: %d\n",m_ultrasoundFar->Get());
+
+			printf("Right/Left: %lf/%lf\n",m_rightJaguar->GetPosition(),m_leftJaguar->GetPosition());
 			
 			vector<Target> vecTargets = m_pCamera->findTargets();
 			if (0 != vecTargets.size())
@@ -333,11 +354,6 @@
 	}
 	int KBot::getAutoDirection()
 	{
-		return m_autoDirection->Get();
+		return 1;
 	}
-	int KBot::getAutoMode()
-	{
-		return m_autoMode0->Get() + 2*m_autoMode1->Get();
-	}
-	
 	START_ROBOT_CLASS(KBot);

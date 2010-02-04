@@ -48,9 +48,12 @@
 #define R_ENC_A_CHANNEL		3
 #define R_ENC_B_CHANNEL		4
 #define TEAM_SELECT			5
-#define AUTO_LEFT_RIGHT		6
-#define AUTO_MODE0			7
-#define AUTO_MODE1			8
+// Driver Station Inputs--note that if more than one
+// zone (d/mid/forward) switch is set we take the LOWEST
+// and if none is set we become a midfielder
+#define DEFENSE_SWITCH		6	//	0 = off		1 = Defensive player
+#define MIDFIELD_SWITCH		7	//	0 = off		1 = Midfielder
+#define FORWARD_SWITCH		8	//	0 = off		1 = Forward
 #define ULTRA_NEAR			9
 #define ULTRA_FAR			10
 
@@ -73,12 +76,6 @@
 #define L_SHIFT_CHANNEL		7
 #define R_SHIFT_CHANNEL		8
 #define CAMERA_VERTICAL		9
-
-// Driver Station Inputs
-//#define TEAM_SWITCH				8	//	0 = green/pink (blue)	1 = pink/green (Red)
-//#define STRAIGHT_CURVE_SWITCH	7	//	0 = go straight		1 = curve
-//#define CURVE_LEFT_RIGHT_SWITCH	6	//	0 = curve left		1 = curve right
-//#define AUTOSHOOT_OVERRIDE		1
 
 // Driver Station Analog 
 
