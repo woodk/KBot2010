@@ -23,6 +23,9 @@ public:
     // This method is called by the handler for the 200 Hz clock
     virtual void onClock(bool bActive);
 
+    // Sets up intial state data for first strategy
+    void init();
+    
     // Accessor for state
     eState getState() {return m_nState;}
 

@@ -15,9 +15,17 @@ Constructor sets up initial strategy
 ManagerDefense::ManagerDefense(KBot *kbot) : RobotManager(kbot)
 {
 	setStartState(knProgrammedMove1);
+	
+	StrategyProgrammedMove* pMove1 = (StrategyProgrammedMove*)(m_lstStrategy[knProgrammedMove1]);
+	pMove1->setState(knProgrammedMove1);
+	pMove1->addPointToPath(0,0);
+	pMove1->addPointToPath(100,0);
+	pMove1->addPointToPath(0,100);
+	
 	reset();
 	
-    // TODO: set parameters on programmed moves
+    // TODO: set parameters on programmed move properly
+	
     
 }
 

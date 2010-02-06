@@ -46,6 +46,12 @@ public:
 	int getAutoDirection();	// ALWAYS RETURNS 1
 	int getAutoMode();
 	
+	// used by strategies
+	Encoder* getLeftEncoder() {return m_leftEncoder;}
+	Encoder* getRightEncoder() {return m_rightEncoder;}
+	
+	UINT32 getAutoClocks() {return m_autoPeriodicLoops;}
+	
 private: 
 	// Output devices
 

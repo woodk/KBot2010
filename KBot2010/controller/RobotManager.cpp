@@ -76,6 +76,13 @@ void RobotManager::onClock(bool bActive)
             m_lstStrategy[nNewState]->init();
     }
 }
+
+// Sets up intial state data for first strategy
+void RobotManager::init() 
+{
+	m_lstStrategy[m_nStartState]->init();
+}
+
 void RobotManager::reset()
 {
     setState(m_nStartState);

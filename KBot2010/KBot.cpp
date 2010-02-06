@@ -139,9 +139,11 @@
 		m_driverStation->SetDigitalOut(9,false);
 		m_driverStation->SetDigitalOut(10,false);
 		
-		// TODO:  set gyro initial direction
+		// set gyro initial direction
+		m_gyro->Reset();
 		
 		m_autoManager->reset();
+		m_autoManager->init();
 	}
 	
 	void KBot::TeleopInit(void) {
@@ -225,7 +227,7 @@
 			//printf("Near state: %d\n",m_ultrasoundNear->Get());
 			//printf("Far state: %d\n",m_ultrasoundFar->Get());
 
-			printf("Right/Left: %lf/%lf\n",m_rightJaguar->GetPosition(),m_leftJaguar->GetPosition());
+			printf("Right/Left: %lf/%lf\n",m_leftEncoder->GetRate(),m_rightEncoder->GetRate());
 			
 			vector<Target> vecTargets = m_pCamera->findTargets();
 			if (0 != vecTargets.size())
