@@ -125,7 +125,9 @@ void RobotMacros::OperatorDrive()
 		yval=1.0;
 	else if (yval<-0.1)
 		yval=-1.0;*/
-	m_robotDrive->ArcadeDrive(yval, -xval, m_rightStick->GetTrigger());			// drive with arcade style (use right stick
+	//m_robotDrive->ArcadeDrive(yval, -xval, m_rightStick->GetTrigger());			// drive with arcade style (use right stick
+	m_kbot->m_leftJaguar->Set(-500.0);
+	m_kbot->m_rightJaguar->Set(500.0);
 }
 
 // the goal of the macro is to weave back and forth, while still taking input from the operator

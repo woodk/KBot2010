@@ -51,12 +51,13 @@ public:
 	Encoder* getRightEncoder() {return m_rightEncoder;}
 	
 	UINT32 getAutoClocks() {return m_autoPeriodicLoops;}
+
+	CANJaguar *m_leftJaguar;
+	CANJaguar *m_rightJaguar;
 	
 private: 
 	// Output devices
 
-	CANJaguar *m_leftJaguar;
-	CANJaguar *m_rightJaguar;
 	RobotDrive *m_robotDrive;
 
 	// Input devices

@@ -21,8 +21,6 @@ void _GLOBAL__I__ZN14ManagerForwardC2EP4KBot();
 
 void _GLOBAL__I__ZN12RobotManagerC2EP4KBot();
 
-void _GLOBAL__I__ZN9CANJaguar10InitJaguarEv();
-
 void _GLOBAL__I__ZN18StrategyGoStraightC2EP4KBot();
 
 void _GLOBAL__I__ZN19StrategyGoAlongEdgeC2EP4KBot();
@@ -83,7 +81,6 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN19DashboardDataSenderC2Ev,
     _GLOBAL__I__ZN14ManagerForwardC2EP4KBot,
     _GLOBAL__I__ZN12RobotManagerC2EP4KBot,
-    _GLOBAL__I__ZN9CANJaguar10InitJaguarEv,
     _GLOBAL__I__ZN18StrategyGoStraightC2EP4KBot,
     _GLOBAL__I__ZN19StrategyGoAlongEdgeC2EP4KBot,
     _GLOBAL__I__ZN14StrategyTurn45C2EP4KBot,
@@ -125,8 +122,6 @@ void _GLOBAL__D__ZN19DashboardDataSenderC2Ev();
 void _GLOBAL__D__ZN14ManagerForwardC2EP4KBot();
 
 void _GLOBAL__D__ZN12RobotManagerC2EP4KBot();
-
-void _GLOBAL__D__ZN9CANJaguar10InitJaguarEv();
 
 void _GLOBAL__D__ZN18StrategyGoStraightC2EP4KBot();
 
@@ -186,7 +181,6 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN19DashboardDataSenderC2Ev,
     _GLOBAL__D__ZN14ManagerForwardC2EP4KBot,
     _GLOBAL__D__ZN12RobotManagerC2EP4KBot,
-    _GLOBAL__D__ZN9CANJaguar10InitJaguarEv,
     _GLOBAL__D__ZN18StrategyGoStraightC2EP4KBot,
     _GLOBAL__D__ZN19StrategyGoAlongEdgeC2EP4KBot,
     _GLOBAL__D__ZN14StrategyTurn45C2EP4KBot,

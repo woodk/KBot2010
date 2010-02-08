@@ -60,16 +60,16 @@
 		
 		// TODO:  create Dribbler, Kicker and Arm (others?)
 		
-		m_leftJaguar = new CANJaguar(1, CANJaguar::kPercentVoltage);
-		//m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
-		//m_leftJaguar->SetEncoder(10000);
-		//m_leftJaguar->SetPIDConstants(1,0.001,100);
+		//m_leftJaguar = new CANJaguar(1, CANJaguar::kPercentVoltage);
+		m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
+		m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
+		m_leftJaguar->SetPID(0.1,0.0,0.0);
 		m_leftJaguar->Set(0.0);
 
-		m_rightJaguar = new CANJaguar(2, CANJaguar::kPercentVoltage);
-		//m_rightJaguar = new CANJaguar(2, CANJaguar::kSpeed);
-		//m_rightJaguar->SetEncoder(1000);
-		//m_rightJaguar->SetPIDConstants(1,0.001,100);
+		//m_rightJaguar = new CANJaguar(2, CANJaguar::kPercentVoltage);
+		m_rightJaguar = new CANJaguar(2, CANJaguar::kSpeed);
+		m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
+		m_rightJaguar->SetPID(0.1,0.0,0.0);
 		m_rightJaguar->Set(0.0);
 		m_robotDrive = new RobotDrive(m_leftJaguar, m_rightJaguar);
 		
@@ -136,8 +136,8 @@
 		m_driverStation->SetDigitalOut(6,false);
 		m_driverStation->SetDigitalOut(7,false);
 		m_driverStation->SetDigitalOut(8,false);
-		m_driverStation->SetDigitalOut(9,false);
-		m_driverStation->SetDigitalOut(10,false);
+		//m_driverStation->SetDigitalOut(9,false);  only 8 of them!?!
+		//m_driverStation->SetDigitalOut(10,false);
 		
 		// set gyro initial direction
 		m_gyro->Reset();
@@ -161,15 +161,19 @@
 		m_driverStation->SetDigitalOut(6,false);
 		m_driverStation->SetDigitalOut(7,false);
 		m_driverStation->SetDigitalOut(8,false);
-		m_driverStation->SetDigitalOut(9,false);
-		m_driverStation->SetDigitalOut(10,false);
+		//m_driverStation->SetDigitalOut(9,false); only 8 of them?!?
+		//m_driverStation->SetDigitalOut(10,false);
 
-		//printf("Setting encoders\n");
-		//m_leftJaguar->SetEncoder(10000);
-		//m_rightJaguar->SetEncoder(1000);
-		//printf("Setting PID constants\n");
-		//m_leftJaguar->SetPIDConstants(1.0,0.001,100);
-		//m_rightJaguar->SetPIDConstants(1.0,0.001,100);
+		printf("Setting encoders\n");
+		m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
+		m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
+		printf("Setting PID constants\n");
+		m_leftJaguar->SetPID(0.1,0.0,0.0);
+		m_rightJaguar->SetPID(0.1,0.0,0.0);
+		m_leftJaguar->EnableControl();
+		m_rightJaguar->EnableControl();
+		m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
+		m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
 	}
 	
 	/********************************** Periodic Routines *************************************/
@@ -223,11 +227,13 @@
 		checkCameraReset();
 
 		if ((m_telePeriodicLoops % 10) == 0) { // 20 Hz
-
+			printf("Signal: L = %f R = %f\n",m_leftJaguar->Get(),m_rightJaguar->Get());
+			printf("Speed: L = %f R = %f\n",(float)(m_leftJaguar->GetSpeed()),(float)(m_rightJaguar->GetSpeed()));
+			printf("Bus voltage = %f\n",m_leftJaguar->GetBusVoltage());
 			//printf("Near state: %d\n",m_ultrasoundNear->Get());
 			//printf("Far state: %d\n",m_ultrasoundFar->Get());
 
-			printf("Right/Left: %lf/%lf\n",m_leftEncoder->GetRate(),m_rightEncoder->GetRate());
+			//printf("Right/Left: %lf/%lf\n",m_leftEncoder->GetRate(),m_rightEncoder->GetRate());
 			
 			vector<Target> vecTargets = m_pCamera->findTargets();
 			if (0 != vecTargets.size())
