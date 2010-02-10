@@ -72,7 +72,9 @@ private:
 	DigitalInput *m_DefenseSwitch;
 	DigitalInput *m_MidFieldSwitch;
 	DigitalInput *m_ForwardSwitch;
-			
+
+	DigitalInput *m_IRSensor1;
+	
 	DigitalInput *m_ultrasoundNear;
 	DigitalInput *m_ultrasoundFar;
 	

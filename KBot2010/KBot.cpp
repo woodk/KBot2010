@@ -33,7 +33,7 @@
 		
 		// gyro for direction keeping (TODO: wrap in direction keeper class)
 		m_gyro = new Gyro(GYRO_CHANNEL);
-		m_gyro->SetSensitivity(0.00540); // for LPR530AL 4x output (says 0.333 in datasheet)
+		//m_gyro->SetSensitivity(0.0122); // 0.00540 for LPR530AL 4x output (says 0.333 in datasheet)
 				// LPR530AL 1x output: (says 0.000830 in datasheet)
 				// ADW22307 & ADW22305: 0.0122 or 0.0125 (says 0.007 in datasheet)
 		// wheel encoders
@@ -52,7 +52,9 @@
 		m_DefenseSwitch = new DigitalInput(DEFENSE_SWITCH);		
 		m_MidFieldSwitch = new DigitalInput(MIDFIELD_SWITCH);		
 		m_ForwardSwitch = new DigitalInput(FORWARD_SWITCH);		
-			
+
+		m_IRSensor1 = new DigitalInput(IR_SENSOR_1);
+
 		m_ultrasoundNear = new DigitalInput(ULTRA_NEAR);
 		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);
 		
@@ -233,7 +235,7 @@
 			//printf("Speed: L = %f R = %f\n",(float)(m_leftJaguar->GetSpeed()),(float)(m_rightJaguar->GetSpeed()));
 			//printf("Bus voltage = %f\n",m_leftJaguar->GetBusVoltage());
 
-			printf("Gyro angle = %f\n",m_gyro->GetAngle());			
+			//printf("Gyro angle = %f\n",m_gyro->GetAngle());			
 			//printf("Near state: %d\n",m_ultrasoundNear->Get());
 			//printf("Far state: %d\n",m_ultrasoundFar->Get());
 
@@ -257,6 +259,7 @@
 			m_driverStation->SetDigitalOut(DS_LED_IN_RANGE, false);
 		}
 		
+		printf("%d %d %d\n",m_IRSensor1->Get(), m_ultrasoundNear->Get(), m_ultrasoundFar->Get());
 		
 		// this is where the actual robotic driving is done
 		m_teleMacros->OnClock();

@@ -47,7 +47,7 @@
 #define L_ENC_B_CHANNEL		2
 #define R_ENC_A_CHANNEL		3
 #define R_ENC_B_CHANNEL		4
-#define TEAM_SELECT			5
+#define IR_SENSOR_1			5
 // Driver Station Inputs--note that if more than one
 // zone (d/mid/forward) switch is set we take the LOWEST
 // and if none is set we become a midfielder
