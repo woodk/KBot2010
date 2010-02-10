@@ -49,6 +49,7 @@ public:
 	// used by strategies
 	Encoder* getLeftEncoder() {return m_leftEncoder;}
 	Encoder* getRightEncoder() {return m_rightEncoder;}
+	KbotCamera* getCamera() {return m_pCamera;}
 	
 	UINT32 getAutoClocks() {return m_autoPeriodicLoops;}
 

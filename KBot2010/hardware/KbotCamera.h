@@ -18,8 +18,8 @@ class KbotCamera
 public:
 	KbotCamera();
 	
-	//! set up camer for teleop mode
-	void teleopInit();
+	//! set up camera
+	void init();
 	
 	//! find targets using standard algorithms
 	vector<Target> findTargets();

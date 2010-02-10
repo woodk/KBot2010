@@ -33,8 +33,9 @@
 		
 		// gyro for direction keeping (TODO: wrap in direction keeper class)
 		m_gyro = new Gyro(GYRO_CHANNEL);
-		// call m_gyro->SetSensitivity here (was 0.0122)
-		
+		m_gyro->SetSensitivity(0.00540); // for LPR530AL 4x output (says 0.333 in datasheet)
+				// LPR530AL 1x output: (says 0.000830 in datasheet)
+				// ADW22307 & ADW22305: 0.0122 or 0.0125 (says 0.007 in datasheet)
 		// wheel encoders
 		m_leftEncoder = new Encoder(L_ENC_A_CHANNEL,L_ENC_B_CHANNEL,false);
 		m_rightEncoder = new Encoder(R_ENC_A_CHANNEL,R_ENC_B_CHANNEL,true);
@@ -60,16 +61,16 @@
 		
 		// TODO:  create Dribbler, Kicker and Arm (others?)
 		
-		//m_leftJaguar = new CANJaguar(1, CANJaguar::kPercentVoltage);
-		m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
-		m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
-		m_leftJaguar->SetPID(0.1,0.0,0.0);
+		m_leftJaguar = new CANJaguar(1, CANJaguar::kPercentVoltage);
+		//m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
+		//m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
+		//m_leftJaguar->SetPID(0.1,0.0,0.0);
 		m_leftJaguar->Set(0.0);
 
-		//m_rightJaguar = new CANJaguar(2, CANJaguar::kPercentVoltage);
-		m_rightJaguar = new CANJaguar(2, CANJaguar::kSpeed);
-		m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
-		m_rightJaguar->SetPID(0.1,0.0,0.0);
+		m_rightJaguar = new CANJaguar(2, CANJaguar::kPercentVoltage);
+		//m_rightJaguar = new CANJaguar(2, CANJaguar::kSpeed);
+		//m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
+		//m_rightJaguar->SetPID(0.1,0.0,0.0);
 		m_rightJaguar->Set(0.0);
 		m_robotDrive = new RobotDrive(m_leftJaguar, m_rightJaguar);
 		
@@ -120,6 +121,8 @@
 		{
 			m_autoManager = new ManagerMidField(this);
 		}
+		
+		m_pCamera->init();
 	}
 	
 	void KBot::DisabledInit(void) {
@@ -151,8 +154,7 @@
 		m_dsPacketsPerSecond = 0;				// Reset the number of dsPackets in current second
 
 		// TODO:  do we want to reset gyro initial direction?
-		
-		m_pCamera->teleopInit();
+		m_gyro->Reset();
 
 		m_pDashboardDataSender = new DashboardDataSender();
 		
@@ -167,13 +169,13 @@
 		printf("Setting encoders\n");
 		m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
 		m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
-		printf("Setting PID constants\n");
-		m_leftJaguar->SetPID(0.1,0.0,0.0);
-		m_rightJaguar->SetPID(0.1,0.0,0.0);
-		m_leftJaguar->EnableControl();
-		m_rightJaguar->EnableControl();
-		m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
-		m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
+		//printf("Setting PID constants\n");
+		//m_leftJaguar->SetPID(0.1,0.0,0.0);
+		//m_rightJaguar->SetPID(0.1,0.0,0.0);
+		//m_leftJaguar->EnableControl();
+		//m_rightJaguar->EnableControl();
+		//m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
+		//m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
 	}
 	
 	/********************************** Periodic Routines *************************************/
@@ -227,9 +229,11 @@
 		checkCameraReset();
 
 		if ((m_telePeriodicLoops % 10) == 0) { // 20 Hz
-			printf("Signal: L = %f R = %f\n",m_leftJaguar->Get(),m_rightJaguar->Get());
-			printf("Speed: L = %f R = %f\n",(float)(m_leftJaguar->GetSpeed()),(float)(m_rightJaguar->GetSpeed()));
-			printf("Bus voltage = %f\n",m_leftJaguar->GetBusVoltage());
+			//printf("Signal: L = %f R = %f\n",m_leftJaguar->Get(),m_rightJaguar->Get());
+			//printf("Speed: L = %f R = %f\n",(float)(m_leftJaguar->GetSpeed()),(float)(m_rightJaguar->GetSpeed()));
+			//printf("Bus voltage = %f\n",m_leftJaguar->GetBusVoltage());
+
+			printf("Gyro angle = %f\n",m_gyro->GetAngle());			
 			//printf("Near state: %d\n",m_ultrasoundNear->Get());
 			//printf("Far state: %d\n",m_ultrasoundFar->Get());
 

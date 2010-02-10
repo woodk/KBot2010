@@ -3,6 +3,8 @@
 
 #include "Strategy.h"
 
+class KbotPID;
+
 /*
 The strategy used to execute a progammed move
 */
@@ -71,6 +73,21 @@ private:
 	
 	// the current state
 	eState m_nState;
+	
+	// PID control for angle
+	KbotPID* m_pidAngle;
+	
+	// PID control for distance
+	KbotPID* m_pidDistance;
+	
+	// current forward speed
+	float m_fForwardSpeed;
+	
+	// current angular speed
+	float m_fAngularSpeed;
+	
+	// flag to tell if people are turning
+	bool m_bTurning;
 };
 
 #endif

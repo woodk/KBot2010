@@ -1,5 +1,7 @@
 #include "StrategyProgrammedMove.h"
 
+#include "KbotPID.h"
+
 #include "time.h"
 /*
 Constructor initalizes object
@@ -23,6 +25,9 @@ StrategyProgrammedMove::StrategyProgrammedMove(KBot* kbot) : Strategy(kbot)
 	m_fAngleTolerance = 0.1f;
 	
 	m_fLastTime=0.0f;
+	
+	m_pidAngle = 0;
+	m_pidDistance = 0;
 }
 
 /*
@@ -30,7 +35,9 @@ Destructor cleans up
 */
 StrategyProgrammedMove::~StrategyProgrammedMove()
 {
-    // Probably does not do anything in particular
+    // delete PID controllers
+	delete m_pidAngle;
+	delete m_pidDistance;
 }
 
 /*
@@ -56,22 +63,29 @@ eState StrategyProgrammedMove::apply()
     float fDeltaT = 0.020f;
 
     // update position along path
-    // TODO:  add calibrations, both linear and angular
-	float fAverageSpeed = 0.5f*(m_kbot->getLeftEncoder()->GetRate()+
+    // TODO:  set calibrations properly, both linear and angular
+    float fAverageSpeedFactor = 1.0;
+    float fAngularSpeedFactor = 0.1;
+	float fAverageSpeed = fAverageSpeedFactor*0.5f*(m_kbot->getLeftEncoder()->GetRate()+
 								m_kbot->getRightEncoder()->GetRate());
 	m_fDistance += fDeltaT*fAverageSpeed;
-	float fTurnSpeed = (m_kbot->getRightEncoder()->GetRate()-
+	float fTurnSpeed = fAngularSpeedFactor*(m_kbot->getRightEncoder()->GetRate()-
 							m_kbot->getLeftEncoder()->GetRate());
 	m_fAngle += fDeltaT*fTurnSpeed;
 	
-	if (fabs(m_fDirection-m_fAngle) < m_fAngleTolerance)
+	printf("%d %f %f %f %f %f %f\n",m_nPathIndex, m_fLength, fAverageSpeed, m_fDistance, m_fDirection, m_fAngle, fTurnSpeed);
+
+	if ((fabs(m_fDirection-m_fAngle) < m_fAngleTolerance))
 	{
+		m_bTurning = false; // if we were turning we are no longer
+		
 		// we are headed in the right direction
-   		m_robotDrive->ArcadeDrive(-0.5f, 0.0f, false);
+		m_fForwardSpeed = -0.5f;
+		m_fAngularSpeed = 0.0f;
    		
 		if (m_fDistance > m_fLength)
 		{
-       		m_robotDrive->ArcadeDrive(0.0f, 0.0f, false);
+			m_fForwardSpeed = 0.0f;
 			// we are at end of segment
 			if (m_nPathIndex+1 == (int)(m_vecX.size()-1))
 			{
@@ -87,6 +101,7 @@ eState StrategyProgrammedMove::apply()
 				float fDeltaY = m_vecY[m_nPathIndex+1]-m_vecY[m_nPathIndex];
 				m_fLength = sqrt(fDeltaX*fDeltaX+fDeltaY*fDeltaY);
 	    		m_fDirection = atan2(fDeltaY, fDeltaX);
+	    		m_bTurning = true;
 			}
 		}
 	}
@@ -95,13 +110,22 @@ eState StrategyProgrammedMove::apply()
 		// turning logic
 		if (m_fDirection < m_fAngle)
 		{
-       		m_robotDrive->ArcadeDrive(0.0f, 0.1f, false);    			
+			m_fAngularSpeed =  0.1f;
 		}
 		else
 		{
-       		m_robotDrive->ArcadeDrive(0.0f, -0.1f, false);
+			m_fAngularSpeed = -0.1f;
 		}    		
 	}
+
+	// absolutely no forward motion allowed while turning
+	// between segments
+	if (m_bTurning)
+	{
+		m_fForwardSpeed = 0.0f;
+		m_fAngularSpeed *= 2.0f;
+	}
+	m_robotDrive->ArcadeDrive(m_fForwardSpeed, m_fAngularSpeed, false);
 
     return nNewState;
 }
@@ -114,6 +138,9 @@ void StrategyProgrammedMove::init()
 	m_fLength = sqrt(fDeltaX*fDeltaX+fDeltaY*fDeltaY);
 	m_fDirection = atan2(fDeltaY, fDeltaX);
 	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
+	m_fForwardSpeed = 0.0f;
+	m_fAngularSpeed = 0.0f;
+	m_bTurning = true;
 }
 
 /* Check camera to see if we can see any targets */

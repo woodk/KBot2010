@@ -29,7 +29,7 @@ eState StrategyCapture::apply()
     if (TargetCaptured())
     {
         // start tracking the target
-        nNewState = knCapture;
+        nNewState = knAim;
     }
     else	// TODO:  capture logic here
     {
@@ -40,7 +40,7 @@ eState StrategyCapture::apply()
 
 void StrategyCapture::init()
 {
-    printf("Spin state\n");
+    printf("Capture state\n");
 	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
     //m_robotDrive->setTorque(120);
 }
@@ -49,5 +49,5 @@ void StrategyCapture::init()
 bool StrategyCapture::TargetCaptured()
 {
 	// TODO: set up to operate with new camera
-	return false;
+	return true;
 }

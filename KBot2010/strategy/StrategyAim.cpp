@@ -7,7 +7,20 @@ TODO:  handle new camera/target/kicker hardware
 */
 StrategyAim::StrategyAim(KBot* kbot) : Strategy(kbot)
 {
-    // Create initial state here
+	m_nNextState = knShootHard;
+	m_nState = knAim;
+	
+	m_fDistance = 0.0f;
+	m_fLength = 0.0f;
+	
+	m_fAngle = 0.0f;
+	m_fDirection = 0.0f;
+	m_fAngleTolerance = 0.1f;
+	
+	m_fLastTime=0.0f;
+	
+	m_pidAngle = 0;
+	m_pidDistance = 0;
 }
 
 /*
@@ -16,6 +29,8 @@ Destructor cleans up
 StrategyAim::~StrategyAim()
 {
     // Probably does not do anything in particular
+	delete m_pidAngle;
+	delete m_pidDistance;
 }
 
 /*
@@ -25,24 +40,59 @@ eState StrategyAim::apply()
 {
     eState nNewState = knAim;    // assume we will keep running
 
-    // Keep turning until we find a target
-    if (TargetLocked())
-    {
-        // start tracking the target
-        nNewState = knShootHard;  // TODO:  parameterize this
-    }
-    else	// TODO:  do guidance here
-    {
-    }
+    // update times
+    float fDeltaT = 0.020f;
+
+    // update position along path
+    // TODO:  set calibrations properly, both linear and angular
+    float fAverageSpeedFactor = 1.0;
+    float fAngularSpeedFactor = 0.1;
+    float fAngleFactor = 2.0;
+    
+	float fAverageSpeed = fAverageSpeedFactor*0.5f*(m_kbot->getLeftEncoder()->GetRate()+
+								m_kbot->getRightEncoder()->GetRate());
+	m_fDistance += fDeltaT*fAverageSpeed;
+	float fTurnSpeed = fAngularSpeedFactor*(m_kbot->getRightEncoder()->GetRate()-
+							m_kbot->getLeftEncoder()->GetRate());
+	m_fAngle += fDeltaT*fTurnSpeed;
+
+	vector<Target> vecTargets = m_kbot->getCamera()->findTargets();
+	if (0 < vecTargets.size())
+	{
+		m_fDirection = fAngleFactor*vecTargets[0].m_xPos;
+	}
+
+	printf("%f %f %f\n",m_fDirection, m_fAngle, fTurnSpeed);
+
+	if ((fabs(m_fDirection-m_fAngle) < m_fAngleTolerance))
+	{
+		nNewState = m_nNextState;  
+	}
+	else
+	{
+		// turning logic--may want PID here
+		if (m_fDirection < m_fAngle)
+		{
+			m_fAngularSpeed =  0.1f;
+		}
+		else
+		{
+			m_fAngularSpeed = -0.1f;
+		}    		
+	}
+
+	m_robotDrive->ArcadeDrive(m_fForwardSpeed, m_fAngularSpeed, false);
 
     return nNewState;
 }
 
 void StrategyAim::init()
 {
-    printf("Spin state\n");
+    printf("Aim state\n");
 	m_kbot->getDriverStation()->SetDigitalOut(DS_SPIN_STATE,true);
-    //m_robotDrive->setTorque(120);
+	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
+	m_fForwardSpeed = 0.0f;
+	m_fAngularSpeed = 0.0f;
 }
 
 /* Check camera to see if we can see any targets */

@@ -24,7 +24,45 @@ public:
 private:
     
 	bool TargetLocked();
-    
+
+	// The current direction (angle in radians from initial direction)
+	float m_fAngle;
+	
+	// The desired direction
+	float m_fDirection;
+	
+	// the tolerance on angles
+	float m_fAngleTolerance;
+	
+	// The time of the last call in ms
+	float m_fLastTime;
+	
+	// The distance along the current segment
+	float m_fDistance;
+	
+	// The length of the current segment
+	float m_fLength;
+	
+	bool MoveComplete();
+	
+	// the state to change into when the move is complete
+	eState m_nNextState;
+	
+	// the current state
+	eState m_nState;
+	
+	// PID control for angle
+	KbotPID* m_pidAngle;
+	
+	// PID control for distance
+	KbotPID* m_pidDistance;
+	
+	// current forward speed
+	float m_fForwardSpeed;
+	
+	// current angular speed
+	float m_fAngularSpeed;
+	
 };
 
 #endif

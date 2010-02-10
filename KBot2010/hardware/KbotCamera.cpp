@@ -18,7 +18,7 @@ KbotCamera::KbotCamera()
 {
 }
 
-void KbotCamera::teleopInit()
+void KbotCamera::init()
 {
 	AxisCamera& camera = AxisCamera::getInstance();
 	camera.writeResolution(k320x240);
