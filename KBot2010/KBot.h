@@ -17,6 +17,8 @@
 
 #include "DashboardDataSender.h"
 
+#include "Solenoid.h"
+
 class RobotManager;  // circular dependency handling
 class RobotMacros;
 
@@ -77,6 +79,8 @@ private:
 	
 	DigitalInput *m_ultrasoundNear;
 	DigitalInput *m_ultrasoundFar;
+	
+	Solenoid	*m_armRelease;
 	
 	// High level controllers
 	RobotManager *m_autoManager;

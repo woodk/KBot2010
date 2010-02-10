@@ -58,6 +58,8 @@
 		m_ultrasoundNear = new DigitalInput(ULTRA_NEAR);
 		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);
 		
+		m_armRelease = new Solenoid(SOLENOID_SLOT, ARM_RELEASE);
+		
 		/************************************/
 		// Create and initialize output devices
 		
@@ -255,6 +257,14 @@
 				}			
 			}
 
+			if (getRightStick()->GetTrigger())
+			{
+				m_armRelease->Set(true);
+			}
+			else
+			{
+				m_armRelease->Set(false);
+			}
 			m_driverStation->SetDigitalOut(DS_LED_CAMERA_LOCK, false);
 			m_driverStation->SetDigitalOut(DS_LED_IN_RANGE, false);
 		}

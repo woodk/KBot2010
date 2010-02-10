@@ -67,6 +67,11 @@
 
 // Digital Outputs
 
+#define SOLENOID_SLOT			8 // solenoid controller slot
+#define ARM_RELEASE				1 // arm release channel
+#define PISTON_ACUTATOR			2 // piston accuator channel
+#define PISTON_RELEASE			3 // piston release channel
+
 // PWM Outputs
 #define L_WHEEL_CHANNEL		1 
 #define R_WHEEL_CHANNEL		2
