@@ -72,15 +72,13 @@
 #define PISTON_ACUTATOR			2 // piston accuator channel
 #define PISTON_RELEASE			3 // piston release channel
 
-// PWM Outputs
-#define L_WHEEL_CHANNEL		1 
-#define R_WHEEL_CHANNEL		2
-#define SHOOTER_CHANNEL		4
-#define PICKUP_CHANNEL		5
-#define HOPPER_CHANNEL		6		// not used
-#define L_SHIFT_CHANNEL		7
-#define R_SHIFT_CHANNEL		8
-#define CAMERA_VERTICAL		9
+// CAN Devices
+#define L_WHEEL1_ID		3 
+#define L_WHEEL2_ID		2 
+#define R_WHEEL1_ID		4
+#define R_WHEEL2_ID		5
+#define WINCH_ID		1
+#define ROLLER_ID		6
 
 // Driver Station Analog 
 

@@ -63,9 +63,10 @@ void RobotMacros::DriverControl()
 		m_gyro->Reset();
 	} else {
 		m_gyroDriveCtrl->setConstants(0.01, 0.0, 0.0);
-		xval += m_gyroDriveCtrl->calcPID(m_gyro->GetAngle());
+		//xval += m_gyroDriveCtrl->calcPID(m_gyro->GetAngle());
 	}
 	yval = m_rightStick->GetY();
+	printf("x=%f  y=%f\n",xval,yval);
 	m_robotDrive->ArcadeDrive(yval, -xval, m_rightStick->GetTrigger());			// drive with arcade style (use right stick
 }
 
