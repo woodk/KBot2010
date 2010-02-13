@@ -45,6 +45,11 @@ public:
 
 	DriverStation *getDriverStation();
 
+	bool getNearUltrasoundState() {return m_ultrasoundNear->Get();}
+	bool getFarUltrasoundState() {return m_ultrasoundFar->Get();}
+	bool getLeftIRSensorState() {return m_leftIRSensor->Get();}
+	bool getRightIRSensorState() {return m_rightIRSensor->Get();}
+	
 	int getAutoDirection();	// ALWAYS RETURNS 1
 	int getAutoMode();
 	
@@ -75,7 +80,8 @@ private:
 	DigitalInput *m_MidFieldSwitch;
 	DigitalInput *m_ForwardSwitch;
 
-	DigitalInput *m_IRSensor1;
+	DigitalInput *m_leftIRSensor;
+	DigitalInput *m_rightIRSensor;
 	
 	DigitalInput *m_ultrasoundNear;
 	DigitalInput *m_ultrasoundFar;

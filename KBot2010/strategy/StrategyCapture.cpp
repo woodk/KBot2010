@@ -1,13 +1,18 @@
 #include "StrategyCapture.h"
 
+static const float kfDriveForward = 0.5;	// % voltage to drive forward
+static const float kfFarTurn = 0.5;		// % voltage for turn when far away
+static const float kfNearTurn = 0.25;		// % voltage for turn when nearer
+static const int knLostSweep = 250;		// half second sweep
 /*
 Constructor initalizes object
 
-TODO:  handle new camera/target/kicker hardware
 */
 StrategyCapture::StrategyCapture(KBot* kbot) : Strategy(kbot)
 {
     // Create initial state here
+	m_nLostCounter = 0;
+
 }
 
 /*
@@ -26,13 +31,54 @@ eState StrategyCapture::apply()
     eState nNewState = knCapture;    // assume we will keep running
 
     // Keep turning until we find a target
-    if (TargetCaptured())
+    if (BallCaptured())
     {
         // start tracking the target
         nNewState = knAim;
+        m_robotDrive->ArcadeDrive(0.0, 0.0, false);        
     }
-    else	// TODO:  capture logic here
+    else	// move toward the ball and steer to capture
     {
+    	// here we assume we have a ball in sight of something
+    	// either one of the IR sensors or the near or far US
+    	// sensors.  When the ball is in sight of BOTH IR
+    	// sensors we are done, so that will never be true here.
+    	if (m_kbot->getLeftIRSensorState())
+    	{
+    		m_robotDrive->ArcadeDrive(kfDriveForward, kfNearTurn, false);
+    		m_nLostCounter = 0;
+    	}
+    	else if (m_kbot->getRightIRSensorState())
+    	{
+    		m_robotDrive->ArcadeDrive(kfDriveForward, -kfNearTurn, false);
+    		m_nLostCounter = 0;
+    	}
+    	else if (m_kbot->getNearUltrasoundState())
+    	{
+    		m_robotDrive->ArcadeDrive(kfDriveForward, 0.0, false);
+    		m_nLostCounter = 0;
+    	}
+    	else if (m_kbot->getFarUltrasoundState())
+    	{
+    		m_robotDrive->ArcadeDrive(kfDriveForward, 0.0, false);
+    		m_nLostCounter = 0;
+    	}
+    	else	// we lost the ball!
+    	{
+    		++m_nLostCounter;
+    		if (knLostSweep < m_nLostCounter)	// turn one way
+    		{
+    			m_robotDrive->ArcadeDrive(0.0, kfFarTurn, false);
+    		}
+    		else	// turn the other
+    		{
+    			m_robotDrive->ArcadeDrive(0.0, -kfFarTurn, false);
+    		}
+    		if (knLostSweep*3 < m_nLostCounter) // factor of 3 means we go:  <- -->
+    		{
+    			nNewState = knSearch;	// could not find, so go back to search
+    		}
+    	}
     }
 
     return nNewState;
@@ -42,12 +88,11 @@ void StrategyCapture::init()
 {
     printf("Capture state\n");
 	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
-    //m_robotDrive->setTorque(120);
+	m_nLostCounter = 0;
 }
 
-/* Check camera to see if we can see any targets */
-bool StrategyCapture::TargetCaptured()
+/* Check IR sensors to see if we have a ball */
+bool StrategyCapture::BallCaptured()
 {
-	// TODO: set up to operate with new camera
-	return true;
+	return (m_kbot->getLeftIRSensorState() && m_kbot->getRightIRSensorState());
 }
