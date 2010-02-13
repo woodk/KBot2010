@@ -55,7 +55,7 @@
 		m_MidFieldSwitch = new DigitalInput(MIDFIELD_SWITCH);		
 		m_ForwardSwitch = new DigitalInput(FORWARD_SWITCH);		
 
-		m_IRSensor1 = new DigitalInput(IR_SENSOR_1);
+		m_IRSensor1 = new DigitalInput(L_IR_SENSOR);
 
 		m_ultrasoundNear = new DigitalInput(ULTRA_NEAR);
 		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);

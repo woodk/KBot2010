@@ -36,34 +36,24 @@
 
 // Analog Inputs
 #define GYRO_CHANNEL		1
-#define ACCEL_X_CHANNEL		2
-#define ACCEL_Y_CHANNEL		3
-#define ACCEL_Z_CHANNEL		4
-#define L_CURRENT_CHANNEL	5
-#define R_CURRENT_CHANNEL	6
 
 // Digital Inputs
 #define L_ENC_A_CHANNEL		1
 #define L_ENC_B_CHANNEL		2
 #define R_ENC_A_CHANNEL		3
 #define R_ENC_B_CHANNEL		4
-#define IR_SENSOR_1			5
+#define L_IR_SENSOR			5
+#define R_IR_SENSOR			6
+#define ULTRA_NEAR			7
+#define ULTRA_FAR			8
 // Driver Station Inputs--note that if more than one
 // zone (d/mid/forward) switch is set we take the LOWEST
 // and if none is set we become a midfielder
-#define DEFENSE_SWITCH		6	//	0 = off		1 = Defensive player
-#define MIDFIELD_SWITCH		7	//	0 = off		1 = Midfielder
-#define FORWARD_SWITCH		8	//	0 = off		1 = Forward
-#define ULTRA_NEAR			9
-#define ULTRA_FAR			10
-
-#define AUTO_STRAIGHT		0
-#define AUTO_CURVE			2
-#define AUTO_45_LOAD		1
-#define AUTO_90_LOAD		3
-
-#define AUTO_LEFT			0
-#define AUTO_RIGHT			1
+#define DEFENSE_SWITCH		10	//	0 = off		1 = Defensive player
+#define MIDFIELD_SWITCH		11	//	0 = off		1 = Midfielder
+#define FORWARD_SWITCH		12	//	0 = off		1 = Forward
+#define PATTERN_A			13	// Binary code for 4 different patterns for each zone
+#define PATTERN_B			14
 
 // Digital Outputs
 

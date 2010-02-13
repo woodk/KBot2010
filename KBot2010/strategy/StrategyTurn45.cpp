@@ -16,7 +16,7 @@ StrategyTurn45::StrategyTurn45(KBot* kbot) : Strategy(kbot)
 	m_gyro->Reset();
 	m_gyroDriveCtrl->resetErrorSum();
 	m_gyroDriveCtrl->setConstants(0.015, 0.0, 0.0);
-	if (m_kbot->getAutoDirection()==AUTO_LEFT)
+	if (m_kbot->getAutoDirection())
 	{
 		printf("45 left\n");
 		m_gyroDriveCtrl->setDesiredValue(45.0f);
@@ -64,7 +64,7 @@ eState StrategyTurn45::apply()
 void StrategyTurn45::init()
 {
 	m_gyro->Reset();
-	if (m_kbot->getAutoDirection()==AUTO_LEFT)
+	if (m_kbot->getAutoDirection())
 	{
 		m_gyroDriveCtrl->setDesiredValue(45.0f);
 	    printf("Turn45 Left state\n");
