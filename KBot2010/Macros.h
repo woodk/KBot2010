@@ -12,10 +12,10 @@ class KBot; // handle circular includes
 enum MacroNames
 {
     mcNONE=1,
-    mcWEAVE=2,
-    mcTURNLEFT=4,
-    mcTURNRIGHT=8,
-    mcDUMP=16
+    mcCAPTURE=2,
+    mcAIM_AND_SHOOT=4,
+    mcDEPLOY_ARM=8,
+    mcWINCH=16
 };
 
 class RobotMacros
@@ -32,11 +32,6 @@ private:
 	MacroNames m_macroState;
 	int m_macroCycle;
 	
-	bool lastTrigger;
-	int triggerCycle;
-	int reverseShooterCycle;
-	bool m_firstTurnCycle;
-
 	// TODO:  add new hardware, rename this class
 	// and add more state/strategy-like logic
 	RobotDrive *m_robotDrive;
@@ -46,10 +41,7 @@ private:
 	KbotPID *m_gyroDriveCtrl;
 	
 	void OperatorControl();
-	void OperatorDrive();
-	void WeaveDrive();
-	void Turn(MacroNames dir);
-	void PickupReverse();
+	void DriverControl();
 
 };
 
