@@ -29,11 +29,11 @@ eState StrategySearch::apply()
     {
         // start tracking the target
         nNewState = knCapture;
+  		m_robotDrive->ArcadeDrive(0.0, 0.0, false);
     }
-    else
+    else	// just spin to search (safe: will not cross line)
     {
-    	// TODO: driving logic here
-  		//m_robotDrive->ArcadeDrive(-0.8, -0.9, false);
+  		m_robotDrive->ArcadeDrive(0.0, -0.9, false);
     }
 
     return nNewState;
@@ -45,9 +45,8 @@ void StrategySearch::init()
 	m_kbot->getDriverStation()->SetDigitalOut(DS_SPIN_STATE,true);
 }
 
-/* Check camera to see if we can see any targets */
+/* Check ultrasound to see if ball is in sight */
 bool StrategySearch::BallInSight()
 {
-	// TODO: set up to operate with new camera
-	return false;
+	return (m_kbot->getNearUltrasoundState() || m_kbot->getFarUltrasoundState());
 }

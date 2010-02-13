@@ -53,7 +53,8 @@
 		m_MidFieldSwitch = new DigitalInput(MIDFIELD_SWITCH);		
 		m_ForwardSwitch = new DigitalInput(FORWARD_SWITCH);		
 
-		m_IRSensor1 = new DigitalInput(IR_SENSOR_1);
+		m_leftIRSensor = new DigitalInput(L_IR_SENSOR);
+		m_rightIRSensor = new DigitalInput(R_IR_SENSOR);
 
 		m_ultrasoundNear = new DigitalInput(ULTRA_NEAR);
 		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);
@@ -245,7 +246,7 @@
 			m_driverStation->SetDigitalOut(DS_LED_IN_RANGE, false);
 		}
 		
-		printf("%d %d %d\n",m_IRSensor1->Get(), m_ultrasoundNear->Get(), m_ultrasoundFar->Get());
+		printf("%d %d %d\n",m_leftIRSensor->Get(), m_ultrasoundNear->Get(), m_ultrasoundFar->Get());
 		
 		// this is where the actual robotic driving is done
 		m_teleMacros->OnClock();

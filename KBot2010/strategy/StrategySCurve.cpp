@@ -19,7 +19,7 @@ StrategySCurve::StrategySCurve(KBot* kbot) : Strategy(kbot)
 	m_gyroDriveCtrl->setDesiredValue(0.0);
 	m_gyroDriveCtrl->setConstants(0.02, 0.0, 0.0);
     //m_pickup = m_kbot->getPickup();
-	if (m_kbot->getAutoDirection()==AUTO_LEFT)
+	if (m_kbot->getAutoDirection())
 	{
 		m_curveDir=45.0f;
 	}
@@ -90,7 +90,7 @@ eState StrategySCurve::apply()
 
 void StrategySCurve::init()
 {
-	if (m_kbot->getAutoDirection()==AUTO_LEFT)
+	if (m_kbot->getAutoDirection())
 	{
 	    printf("SCurve left\n");
 		m_curveDir=45.0f;

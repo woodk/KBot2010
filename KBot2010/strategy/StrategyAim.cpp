@@ -59,6 +59,14 @@ eState StrategyAim::apply()
 	vector<Target> vecTargets = m_kbot->getCamera()->findTargets();
 	if (0 < vecTargets.size())
 	{
+		// do something to reject bad frames: eg:
+		// keep list of last x values & time stamps
+		// find most common within certain range
+		//	 - make new list, copy of original
+		//   - sort list by x
+		//   - find median
+		// remake this list from original, rejecting outliers (ie too far from median) 
+		// pick lastest value in new list
 		m_fDirection = fAngleFactor*vecTargets[0].m_xPos;
 	}
 

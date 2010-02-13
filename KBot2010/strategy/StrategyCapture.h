@@ -23,7 +23,10 @@ public:
 
 private:
     
-	bool TargetCaptured();
+	bool BallCaptured();
+	
+	// if we lose the ball, keep track of how many cycles it was
+	int m_nLostCounter;
 };
 
 #endif

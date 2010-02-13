@@ -35,7 +35,7 @@ eState StrategySpin::apply()
     }
     else
     {
-    	if (m_kbot->getAutoDirection()==AUTO_LEFT)
+    	if (m_kbot->getAutoDirection())
     	{
     		m_robotDrive->ArcadeDrive(-0.8, -0.9, false);
     	}
