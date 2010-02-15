@@ -38,6 +38,7 @@ public:
 	void AutonomousContinuous(void);
 	void TeleopContinuous(void);
 	RobotDrive *getRobotDrive();
+	SpeedController *getWinchMotor();
 
 	Joystick *getLeftStick();
 	Joystick *getRightStick();
@@ -60,17 +61,21 @@ public:
 	
 	UINT32 getAutoClocks() {return m_autoPeriodicLoops;}
 
-	CANJaguar *m_leftJaguar;
-	CANJaguar *m_rightJaguar;
+	CANJaguar *m_leftJaguar1;
+	CANJaguar *m_leftJaguar2;
+	CANJaguar *m_rightJaguar1;
+	CANJaguar *m_rightJaguar2;
 	
 private: 
 	// Output devices
 
 	RobotDrive *m_robotDrive;
-
+	SpeedController *m_winchMotor;
+	
 	// Input devices
 	Joystick *m_rightStick;			// joystick 1 (arcade stick 
 	Joystick *m_leftStick;			// joystick 2 (operator stick)
+	
 	Gyro *m_gyro;
 
 	Encoder *m_leftEncoder;

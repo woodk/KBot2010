@@ -7,6 +7,7 @@ RobotMacros::RobotMacros(KBot *kbot)
 	m_macroCycle = 0;
 	
 	m_robotDrive = m_kbot->getRobotDrive();
+	m_winchMotor = m_kbot->getWinchMotor();
 	m_leftStick = m_kbot->getLeftStick();
 	m_rightStick = m_kbot->getRightStick();
 	m_gyro = m_kbot->getGyro();
@@ -75,5 +76,7 @@ void RobotMacros::OperatorControl()
 {
 	// TODO:  check various button states and
 	// control the robot appropriately
+	float zval = m_rightStick->GetZ();
+	m_winchMotor->Set(zval);	
 }
 

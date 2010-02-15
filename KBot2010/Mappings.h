@@ -63,12 +63,12 @@
 #define PISTON_RELEASE			3 // piston release channel
 
 // CAN Devices
-#define L_WHEEL1_ID		3 
-#define L_WHEEL2_ID		2 
-#define R_WHEEL1_ID		4
-#define R_WHEEL2_ID		5
-#define WINCH_ID		1
-#define ROLLER_ID		6
+#define L_WHEEL1_JAG_ID		3 
+#define L_WHEEL2_JAG_ID		2 
+#define R_WHEEL1_JAG_ID		4
+#define R_WHEEL2_JAG_ID		5
+#define WINCH_JAG_ID		1
+#define ROLLER_JAG_ID		6
 
 // Driver Station Analog 
 

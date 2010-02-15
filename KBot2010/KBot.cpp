@@ -66,18 +66,25 @@
 		
 		// TODO:  create Dribbler, Kicker and Arm (others?)
 		
-		m_leftJaguar = new CANJaguar(L_WHEEL1_ID, CANJaguar::kPercentVoltage);
+		m_leftJaguar1 = new CANJaguar(L_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
 		//m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
 		//m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
 		//m_leftJaguar->SetPID(0.1,0.0,0.0);
-		m_leftJaguar->Set(0.0);
+		m_leftJaguar1->Set(0.0);
+		m_leftJaguar2 = new CANJaguar(L_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
+		m_leftJaguar2->Set(0.0);
 
-		m_rightJaguar = new CANJaguar(R_WHEEL1_ID, CANJaguar::kPercentVoltage);
+		m_rightJaguar1 = new CANJaguar(R_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
 		//m_rightJaguar = new CANJaguar(2, CANJaguar::kSpeed);
 		//m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
 		//m_rightJaguar->SetPID(0.1,0.0,0.0);
-		m_rightJaguar->Set(0.0);
-		m_robotDrive = new RobotDrive(m_leftJaguar, m_rightJaguar);
+		m_rightJaguar1->Set(0.0);
+		m_rightJaguar2 = new CANJaguar(R_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rightJaguar2->Set(0.0);
+
+		m_robotDrive = new RobotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
+		m_winchMotor = new CANJaguar(WINCH_JAG_ID, CANJaguar::kPercentVoltage);
+		m_winchMotor->Set(0.0);
 		
 		m_driverStation = DriverStation::GetInstance();
 		m_priorPacketNumber = 0;
@@ -337,6 +344,10 @@
 	RobotDrive *KBot::getRobotDrive()
 	{
 		return m_robotDrive;
+	}
+	SpeedController *KBot::getWinchMotor()
+	{
+		return m_winchMotor;
 	}
 	Joystick *KBot::getLeftStick()
 	{

@@ -35,6 +35,7 @@ private:
 	// TODO:  add new hardware, rename this class
 	// and add more state/strategy-like logic
 	RobotDrive *m_robotDrive;
+	SpeedController *m_winchMotor;
 	Joystick *m_leftStick;
 	Joystick *m_rightStick;
 	Gyro *m_gyro;
