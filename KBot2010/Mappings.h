@@ -1,6 +1,12 @@
 #ifndef MAPPINGS_H
 #define MAPPINGS_H
 
+#define KICK_STRENGTH_FORWARD	50
+#define KICK_STRENGTH_MIDFIELD	100
+#define KICK_STRENGTH_DEFENSE	200
+
+
+
 /*  USB 1 - The "right" joystick = Driver control 
  *  USB 2 - The "left" joystick  = Operator control
  */ 
@@ -10,15 +16,15 @@
  *   - Z 		- Torque setting programmed by button 7
  *   - trigger	- squared inputs for finer control
  */
-#define HIGH_TORQUE_BUTTON	2
-//#define WEAVE_BUTTON		3
-#define PULSE_BUTTON		3
-#define LEFT_90_BUTTON		4
-#define RIGHT_90_BUTTON		5
-#define TORQUE_BUTTON		6
-#define SET_TORQUE_BUTTON	7
-#define LEFT_180_BUTTON		8
-#define RIGHT_180_BUTTON	9
+#define KICK_BUTTON				1
+//#define _BUTTON		2
+#define CAPTURE_AIM_BUTTON		3
+//#define _BUTTON		4
+//#define _BUTTON		5
+//#define _BUTTON		6
+//#define _BUTTON		7
+//#define _BUTTON		8
+//#define _BUTTON		9
 
 /* Operator (left) Stick Buttons
  *   - X		-
@@ -26,13 +32,15 @@
  *   - Z		- shooter speed
  *   - trigger	- shoot 
  */
-#define SHOOTER_SPEED_BUTTON	3
-#define HOPPER_OPEN_BUTTON		6	// Not used
-#define HOPPER_CLOSE_BUTTON		7	// Not used
-#define RESET_CAMERA_BUTTON		9
-#define REVERSE_SHOOTER_BUTTON	10
-#define ADVANCE_SHOOTER_BUTTON	11
-#define POWER_DUMP_BUTTON		6
+//#define _BUTTON		1
+//#define _BUTTON		2
+//#define _BUTTON		3
+//#define _BUTTON		4
+//#define _BUTTON		5
+//#define _BUTTON		6
+//#define _BUTTON		7
+//#define _BUTTON		8
+//#define _BUTTON		9
 
 // Analog Inputs
 #define GYRO_CHANNEL		1
@@ -46,6 +54,7 @@
 #define R_IR_SENSOR			6
 #define ULTRA_NEAR			7
 #define ULTRA_FAR			8
+#define PRESSURE_SWITCH_CHANNEL		9
 // Driver Station Inputs--note that if more than one
 // zone (d/mid/forward) switch is set we take the LOWEST
 // and if none is set we become a midfielder
@@ -55,11 +64,14 @@
 #define PATTERN_A			13	// Binary code for 4 different patterns for each zone
 #define PATTERN_B			14
 
-// Digital Outputs
+// Relay outputs
+#define COMPRESSOR_RELAY_CHANNEL 1 	// Compressor spike channel
+#define ELECTROMAGNET_CHANNEL 2		// Electromagnet spike channel
 
+// Solonoid Outputs
 #define SOLENOID_SLOT			8 // solenoid controller slot
 #define ARM_RELEASE				1 // arm release channel
-#define PISTON_ACUTATOR			2 // piston accuator channel
+#define PISTON_ACTUATOR			2 // piston actuator channel
 #define PISTON_RELEASE			3 // piston release channel
 
 // CAN Devices

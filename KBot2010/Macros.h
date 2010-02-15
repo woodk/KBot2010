@@ -12,8 +12,8 @@ class KBot; // handle circular includes
 enum MacroNames
 {
     mcNONE=1,
-    mcCAPTURE=2,
-    mcAIM_AND_SHOOT=4,
+    mcCAPTURE_AND_AIM=2,
+    mcSHOOT=4,
     mcDEPLOY_ARM=8,
     mcWINCH=16
 };
@@ -36,6 +36,7 @@ private:
 	// and add more state/strategy-like logic
 	RobotDrive *m_robotDrive;
 	SpeedController *m_winchMotor;
+	SpeedController *m_rollerMotor;
 	Joystick *m_leftStick;
 	Joystick *m_rightStick;
 	Gyro *m_gyro;

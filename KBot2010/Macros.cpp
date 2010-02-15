@@ -8,6 +8,7 @@ RobotMacros::RobotMacros(KBot *kbot)
 	
 	m_robotDrive = m_kbot->getRobotDrive();
 	m_winchMotor = m_kbot->getWinchMotor();
+	m_rollerMotor = m_kbot->getRollerMotor();
 	m_leftStick = m_kbot->getLeftStick();
 	m_rightStick = m_kbot->getRightStick();
 	m_gyro = m_kbot->getGyro();
@@ -39,14 +40,11 @@ void RobotMacros::OnClock()
 	else if (m_macroState == mcWINCH) {
 		
 	}
-	else if (m_macroState == mcCAPTURE) {
+	else if (m_macroState == mcCAPTURE_AND_AIM) {
+		
 	}
-	else if (m_macroState == mcAIM_AND_SHOOT) {
-		if (true /*trigger*/) {
-			// shoot
-		} else {
-			// aim
-		}
+	else if (m_macroState == mcSHOOT) {
+		m_kbot->getKicker()->Kick();
 	} else {
 		DriverControl();
 	}
@@ -77,6 +75,6 @@ void RobotMacros::OperatorControl()
 	// TODO:  check various button states and
 	// control the robot appropriately
 	float zval = m_rightStick->GetZ();
-	m_winchMotor->Set(zval);	
+	m_rollerMotor->Set(zval);
 }
 

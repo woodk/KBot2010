@@ -85,11 +85,17 @@
 		m_robotDrive = new RobotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
 		m_winchMotor = new CANJaguar(WINCH_JAG_ID, CANJaguar::kPercentVoltage);
 		m_winchMotor->Set(0.0);
+		m_rollerMotor = new CANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rollerMotor->Set(0.0);
 		
 		m_driverStation = DriverStation::GetInstance();
 		m_priorPacketNumber = 0;
 		m_dsPacketsPerSecond = 0;
 		
+		m_compressor = new Compressor(PRESSURE_SWITCH_CHANNEL, COMPRESSOR_RELAY_CHANNEL);
+		m_compressor->Start(); //TODO: maybe move this to autonomous init
+		
+		m_kicker = new Kicker(PISTON_ACTUATOR, PISTON_RELEASE, ELECTROMAGNET_CHANNEL);
 		// Create high level controllers
 		// **** MUST BE AFTER ALL OTHER OBJECTS ARE CREATED, as the constructors
 		// create links to the other objects. ****
@@ -103,7 +109,6 @@
 		m_disabledPeriodicLoops = 0;
 		m_telePeriodicLoops = 0;
 		
-		m_camReset=false;
 		printf("KBot Constructor Completed\n");
 	}
 
@@ -120,18 +125,22 @@
 		if (m_DefenseSwitch->Get())
 		{
 			m_autoManager = new ManagerDefense(this);
+			m_kicker->Init(KICK_STRENGTH_DEFENSE);
 		}
 		else if (m_MidFieldSwitch->Get())
 		{
 			m_autoManager = new ManagerMidField(this);
+			m_kicker->Init(KICK_STRENGTH_MIDFIELD);
 		}
 		else if (m_ForwardSwitch->Get())
 		{
 			m_autoManager = new ManagerForward(this);
+			m_kicker->Init(KICK_STRENGTH_FORWARD);
 		}
 		else	// should do something more clever here
 		{
 			m_autoManager = new ManagerMidField(this);
+			m_kicker->Init(KICK_STRENGTH_MIDFIELD);
 		}
 		
 		m_pCamera->init();
@@ -154,7 +163,7 @@
 		
 		// set gyro initial direction
 		m_gyro->Reset();
-		
+
 		m_autoManager->reset();
 		m_autoManager->init();
 	}
@@ -165,7 +174,7 @@
 
 		// TODO:  do we want to reset gyro initial direction?
 		m_gyro->Reset();
-
+		
 		m_pDashboardDataSender = new DashboardDataSender();
 		
 		m_driverStation->SetDigitalOut(4,false);
@@ -182,7 +191,6 @@
 	void KBot::DisabledPeriodic(void)  {
 		// feed the user watchdog at every period when disabled
 		GetWatchdog().Feed();
-		checkCameraReset();
 		
 		// increment the number of disabled periodic loops completed
 		m_disabledPeriodicLoops++;
@@ -200,7 +208,6 @@
 		// feed the user watchdog at every period when in autonomous
 		// AUtonomous runs at 50 Hz
 		GetWatchdog().Feed();
-		checkCameraReset();
 		
 		if ((m_autoPeriodicLoops % 10) == 0) { // 5 Hz
 
@@ -212,6 +219,7 @@
 		
 		// call the manager to figure out what to to now
 		m_autoManager->onClock(true);
+		m_kicker->onClock();
 		
 		m_autoPeriodicLoops++;
 
@@ -257,7 +265,9 @@
 		
 		// this is where the actual robotic driving is done
 		m_teleMacros->OnClock();
-		
+
+		m_kicker->onClock();
+
 		// increment the number of teleop periodic loops completed
 		m_telePeriodicLoops++;
 
@@ -334,11 +344,6 @@
 	void KBot::TeleopContinuous(void) {
 	}
 
-	void KBot::checkCameraReset(void)
-	{
-		// TODO:  put camera reset code here if required
-	}
-	
 	/* Accessor methods
 	 */
 	RobotDrive *KBot::getRobotDrive()
@@ -348,6 +353,10 @@
 	SpeedController *KBot::getWinchMotor()
 	{
 		return m_winchMotor;
+	}
+	SpeedController *KBot::getRollerMotor()
+	{
+		return m_rollerMotor;
 	}
 	Joystick *KBot::getLeftStick()
 	{

@@ -11,6 +11,7 @@
 #include "KbotCamera.h"
 #include "KbotPID.h"
 #include "RobotDrive.h"
+#include "Kicker.h"
 
 #include "RobotManager.h"
 #include "Macros.h"
@@ -39,11 +40,13 @@ public:
 	void TeleopContinuous(void);
 	RobotDrive *getRobotDrive();
 	SpeedController *getWinchMotor();
+	SpeedController *getRollerMotor();
 
 	Joystick *getLeftStick();
 	Joystick *getRightStick();
 	Gyro *getGyro();
 
+	Kicker *getKicker() {return m_kicker;}
 	DriverStation *getDriverStation();
 
 	bool getNearUltrasoundState() {return m_ultrasoundNear->Get();}
@@ -60,17 +63,17 @@ public:
 	KbotCamera* getCamera() {return m_pCamera;}
 	
 	UINT32 getAutoClocks() {return m_autoPeriodicLoops;}
-
+	
+private: 
+	// Output devices
 	CANJaguar *m_leftJaguar1;
 	CANJaguar *m_leftJaguar2;
 	CANJaguar *m_rightJaguar1;
 	CANJaguar *m_rightJaguar2;
-	
-private: 
-	// Output devices
 
 	RobotDrive *m_robotDrive;
 	SpeedController *m_winchMotor;
+	SpeedController *m_rollerMotor;
 	
 	// Input devices
 	Joystick *m_rightStick;			// joystick 1 (arcade stick 
@@ -92,6 +95,10 @@ private:
 	DigitalInput *m_ultrasoundFar;
 	
 	Solenoid	*m_armRelease;
+	
+	Compressor *m_compressor;
+	
+	Kicker *m_kicker;
 	
 	// High level controllers
 	RobotManager *m_autoManager;
@@ -120,10 +127,6 @@ private:
 	// Target position from camera
 	float m_targetX; // range 0.0 - 1.0
 	float m_targetY; // range 0.0 - 1.0
-	
-	bool m_camReset;
-	void checkCameraReset(void);
-	
 };
 
 #endif
