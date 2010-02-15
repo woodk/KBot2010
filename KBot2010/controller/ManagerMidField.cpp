@@ -15,6 +15,7 @@ Constructor sets up initial strategy
 ManagerMidField::ManagerMidField(KBot *kbot) : RobotManager(kbot)
 {
 	setStartState(knProgrammedMove1);
+	dynamic_cast<StrategyShoot*>(m_lstStrategy[knShoot])->getNextStates().push_back(knProgrammedMove2);
 	reset();
 	
     // TODO: set parameters on programmed moves

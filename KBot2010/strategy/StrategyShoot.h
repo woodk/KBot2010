@@ -20,10 +20,16 @@ public:
     eState apply();
     
     void init();
+    
+    std::vector<eState> getNextStates() {return m_vecNextState;}
 
 private:
     
 	bool TargetInSight();
+	
+	std::vector<eState> m_vecNextState;
+	
+	int m_nKickCounter;
     
 };
 

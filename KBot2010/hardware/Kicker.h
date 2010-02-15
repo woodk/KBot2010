@@ -25,6 +25,8 @@ public:
 	void	Init(int strength);
 	void	Kick();
 	void	onClock();
+	
+	bool 	getIsReady() {return READY == state;}
 
 private:
 	States		state;

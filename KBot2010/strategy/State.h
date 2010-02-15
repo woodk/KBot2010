@@ -11,9 +11,7 @@ enum eState
     knProgrammedMove2,
     knProgrammedMove3,
     knSearch,
-    knShootHard,
-    knShootMid,
-    knShootSoft,
+    knShoot,
     knInactive,
     knInitial,	// ADD NEW STATES ABOVE THIS ONE
     

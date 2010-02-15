@@ -34,9 +34,7 @@ RobotManager::RobotManager(KBot *kbot)
     m_lstStrategy[knProgrammedMove2] = new StrategyProgrammedMove(m_kbot);
     m_lstStrategy[knProgrammedMove3] = new StrategyProgrammedMove(m_kbot);
     m_lstStrategy[knSearch] = new StrategySearch(m_kbot);
-    m_lstStrategy[knShootHard] = new StrategyShoot(m_kbot);
-    m_lstStrategy[knShootMid] = new StrategyShoot(m_kbot);
-    m_lstStrategy[knShootSoft] = new StrategyShoot(m_kbot);
+    m_lstStrategy[knShoot] = new StrategyShoot(m_kbot);
     m_lstStrategy[knInactive] = new StrategyInactive(m_kbot);
 
     reset();

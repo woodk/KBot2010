@@ -7,7 +7,7 @@ TODO:  handle new camera/target/kicker hardware
 */
 StrategyAim::StrategyAim(KBot* kbot) : Strategy(kbot)
 {
-	m_nNextState = knShootHard;
+	m_nNextState = knShoot;
 	m_nState = knAim;
 	
 	m_fDistance = 0.0f;
