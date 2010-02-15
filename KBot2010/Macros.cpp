@@ -1,4 +1,5 @@
 #include "Macros.h"
+#include "Strategy.h"
 
 RobotMacros::RobotMacros(KBot *kbot)
 {
@@ -15,8 +16,6 @@ RobotMacros::RobotMacros(KBot *kbot)
 	m_gyroDriveCtrl = new KbotPID(0.01,0.0,0.0);
 	m_gyro->Reset();
 	m_gyroDriveCtrl->resetErrorSum();
-
-	// TODO:  get Kicker, Dribbler, Arm, etc.
 	
 	printf("constructed RobotMacros\n");
 }
@@ -40,8 +39,23 @@ void RobotMacros::OnClock()
 	else if (m_macroState == mcWINCH) {
 		
 	}
-	else if (m_macroState == mcCAPTURE_AND_AIM) {
-		
+	else if (m_macroState == mcCAPTURE) {
+		eState nNext = m_kbot->getManager()->getCaptureStrategy()->apply();
+		if (knAim == nNext)
+		{
+			// TODO:  notify driver?
+		}
+		else if (knSearch == nNext)
+		{
+			// TODO: notify driver
+		}
+	}
+	else if (m_macroState == mcAIM) {
+		eState nNext = m_kbot->getManager()->getAimStrategy()->apply();
+		if (knShoot == nNext)
+		{
+			// TODO:  notify driver?
+		}
 	}
 	else if (m_macroState == mcSHOOT) {
 		m_kbot->getKicker()->Kick();

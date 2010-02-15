@@ -37,6 +37,12 @@ public:
     
     // set back to initial state
     void reset();
+    
+    // get capture strategy
+    Strategy* getCaptureStrategy() {return m_lstStrategy[knCapture];}
+
+    // get aim strategy
+    Strategy* getAimStrategy() {return m_lstStrategy[knAim];}
 
 protected:
 

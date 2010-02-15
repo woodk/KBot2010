@@ -49,6 +49,8 @@ public:
 	Kicker *getKicker() {return m_kicker;}
 	DriverStation *getDriverStation();
 
+	RobotManager* getManager() {return m_autoManager;}
+	
 	bool getNearUltrasoundState() {return m_ultrasoundNear->Get();}
 	bool getFarUltrasoundState() {return m_ultrasoundFar->Get();}
 	bool getLeftIRSensorState() {return m_leftIRSensor->Get();}

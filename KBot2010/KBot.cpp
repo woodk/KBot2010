@@ -239,29 +239,24 @@
 			if (0 != vecTargets.size())
 			{
 				m_pDashboardDataSender->sendVisionData(0.0, 0.0, 0.0, 1.0, vecTargets);
-				
-				// TODO: camera drive testing.  Move to appropriate
-				// place
-				if (getRightStick()->GetTrigger())
-				{
-					printf("Targets: %d\n",vecTargets.size());
-					printf("%lf %lf\n",vecTargets[0].m_xPos,vecTargets[0].m_yPos);
-				}			
-			}
+			}				
 
-			if (getRightStick()->GetTrigger())
-			{
-				m_armRelease->Set(true);
-			}
-			else
-			{
-				m_armRelease->Set(false);
-			}
 			m_driverStation->SetDigitalOut(DS_LED_CAMERA_LOCK, false);
 			m_driverStation->SetDigitalOut(DS_LED_IN_RANGE, false);
 		}
 		
-		printf("%d %d %d\n",m_leftIRSensor->Get(), m_ultrasoundNear->Get(), m_ultrasoundFar->Get());
+		if (getRightStick()->GetTrigger())
+		{
+			m_teleMacros->Set(mcSHOOT);
+		}			
+		else if (getRightStick()->GetRawButton(CAPTURE_BUTTON))
+		{
+			m_teleMacros->Set(mcCAPTURE);
+		}
+		else if (getRightStick()->GetRawButton(AIM_BUTTON))
+		{
+			m_teleMacros->Set(mcAIM);
+		}
 		
 		// this is where the actual robotic driving is done
 		m_teleMacros->OnClock();

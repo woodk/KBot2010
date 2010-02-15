@@ -16,9 +16,9 @@
  *   - Z 		- Torque setting programmed by button 7
  *   - trigger	- squared inputs for finer control
  */
-#define KICK_BUTTON				1
-//#define _BUTTON		2
-#define CAPTURE_AIM_BUTTON		3
+#define KICK_BUTTON		1
+#define CAPTURE_BUTTON	2
+#define AIM_BUTTON		3
 //#define _BUTTON		4
 //#define _BUTTON		5
 //#define _BUTTON		6

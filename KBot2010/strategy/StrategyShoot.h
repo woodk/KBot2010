@@ -3,6 +3,8 @@
 
 #include "Strategy.h"
 
+#include <vector>
+
 /*
 The strategy used to spin on the spot, looking for targets.
 */

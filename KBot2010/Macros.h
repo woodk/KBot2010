@@ -12,7 +12,8 @@ class KBot; // handle circular includes
 enum MacroNames
 {
     mcNONE=1,
-    mcCAPTURE_AND_AIM=2,
+    mcCAPTURE=2,
+    mcAIM=3,
     mcSHOOT=4,
     mcDEPLOY_ARM=8,
     mcWINCH=16
