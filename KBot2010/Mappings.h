@@ -32,14 +32,14 @@
  *   - Z		- shooter speed
  *   - trigger	- shoot 
  */
-//#define _BUTTON		1
+#define ARM_BUTTON		1 	// can use GetTrigger instead
 //#define _BUTTON		2
 //#define _BUTTON		3
 //#define _BUTTON		4
 //#define _BUTTON		5
 //#define _BUTTON		6
 //#define _BUTTON		7
-//#define _BUTTON		8
+#define WINCH_BUTTON	8	// hard to hit by accident
 //#define _BUTTON		9
 
 // Analog Inputs
@@ -71,8 +71,9 @@
 // Solonoid Outputs
 #define SOLENOID_SLOT			8 // solenoid controller slot
 #define ARM_RELEASE				1 // arm release channel
-#define PISTON_ACTUATOR			2 // piston actuator channel
-#define PISTON_RELEASE			3 // piston release channel
+#define ARM_RETRACT				2 // retract arm channel
+#define PISTON_ACTUATOR			3 // piston actuator channel
+#define PISTON_RELEASE			4 // piston release channel
 
 // CAN Devices
 #define L_WHEEL1_JAG_ID		3 

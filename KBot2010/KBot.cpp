@@ -60,6 +60,7 @@
 		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);
 		
 		m_armRelease = new Solenoid(SOLENOID_SLOT, ARM_RELEASE);
+		m_armRetract = new Solenoid(SOLENOID_SLOT, ARM_RETRACT);
 		
 		/************************************/
 		// Create and initialize output devices
@@ -108,6 +109,8 @@
 		m_autoPeriodicLoops = 0;
 		m_disabledPeriodicLoops = 0;
 		m_telePeriodicLoops = 0;
+		
+		m_nStartTime = 0;
 		
 		printf("KBot Constructor Completed\n");
 	}
@@ -257,7 +260,19 @@
 		{
 			m_teleMacros->Set(mcAIM);
 		}
-		
+
+		// if t >= 100 s in teleop allow arm/winch operation
+		if (m_telePeriodicLoops >= 10000)
+		{
+			if (getLeftStick()->GetTrigger())
+			{
+				m_teleMacros->Set(mcDEPLOY_ARM);
+			}
+			else if (getLeftStick()->GetRawButton(WINCH_BUTTON))
+			{
+				m_teleMacros->Set(mcWINCH);
+			}
+		}
 		// this is where the actual robotic driving is done
 		m_teleMacros->OnClock();
 

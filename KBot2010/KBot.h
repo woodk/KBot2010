@@ -41,6 +41,8 @@ public:
 	RobotDrive *getRobotDrive();
 	SpeedController *getWinchMotor();
 	SpeedController *getRollerMotor();
+	Solenoid*	getArmRelease() {return m_armRelease;}
+	Solenoid*	getArmRetract() {return m_armRetract;}
 
 	Joystick *getLeftStick();
 	Joystick *getRightStick();
@@ -97,6 +99,7 @@ private:
 	DigitalInput *m_ultrasoundFar;
 	
 	Solenoid	*m_armRelease;
+	Solenoid	*m_armRetract;
 	
 	Compressor *m_compressor;
 	
@@ -108,6 +111,9 @@ private:
 	
 	// camera wrapper class
 	KbotCamera* m_pCamera;
+	
+	// start time
+	time_t m_nStartTime;
 	
 	// Declare a variable to use to access the driver station object
 	DriverStation *m_driverStation;

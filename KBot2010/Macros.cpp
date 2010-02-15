@@ -1,6 +1,8 @@
 #include "Macros.h"
 #include "Strategy.h"
 
+static float kfWinchSpeed = 0.9f;
+
 RobotMacros::RobotMacros(KBot *kbot)
 {
 	m_kbot = kbot;
@@ -32,12 +34,33 @@ void RobotMacros::OnClock()
 {
 	m_macroCycle ++;
 	
+	if (m_macroState != mcWINCH) 
+	{
+		m_kbot->getWinchMotor()->Set(0.0f);
+	}
+	
 	if (m_macroState == mcDEPLOY_ARM) {
 		// do arm stuff
+		float fY = m_leftStick->GetY();		
+		if (fY > 0.5)
+		{
+			m_kbot->getArmRelease()->Set(false);
+			m_kbot->getArmRetract()->Set(true);
+		}
+		else if (fY < -0.5)
+		{
+			m_kbot->getArmRelease()->Set(false);
+			m_kbot->getArmRetract()->Set(true);
+		}
+		else
+		{
+			m_kbot->getArmRelease()->Set(true);
+			m_kbot->getArmRetract()->Set(true);
+		}
 		DriverControl();
 	}
 	else if (m_macroState == mcWINCH) {
-		
+		m_kbot->getWinchMotor()->Set(kfWinchSpeed);		
 	}
 	else if (m_macroState == mcCAPTURE) {
 		eState nNext = m_kbot->getManager()->getCaptureStrategy()->apply();
