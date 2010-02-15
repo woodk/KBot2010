@@ -58,6 +58,7 @@ public:
 	bool getLeftIRSensorState() {return m_leftIRSensor->Get();}
 	bool getRightIRSensorState() {return m_rightIRSensor->Get();}
 	
+	int getAutoPattern();	// Reads pattern from 2 switches; returns 0-3
 	int getAutoDirection();	// ALWAYS RETURNS 1
 	int getAutoMode();
 	

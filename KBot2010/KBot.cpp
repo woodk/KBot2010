@@ -383,6 +383,11 @@
 	{
 		return m_driverStation;
 	}
+	int KBot::getAutoPattern()
+	{
+		// Read switches and return pattern to use (0-3)
+		return 1;
+	}
 	int KBot::getAutoDirection()
 	{
 		return 1;

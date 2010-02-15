@@ -29,10 +29,10 @@ eState StrategyShoot::apply()
     if (m_kbot->getKicker()->getIsReady())
     {
     	m_kbot->getKicker()->Kick();
-    	++m_nKickCounter;
     	if (m_nKickCounter < (int)(m_vecNextState.size()))
     	{
     		nNewState = m_vecNextState[m_nKickCounter];
+        	++m_nKickCounter;
     	}
     	else
     	{
