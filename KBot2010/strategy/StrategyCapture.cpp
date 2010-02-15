@@ -3,7 +3,7 @@
 static const float kfDriveForward = 0.5;	// % voltage to drive forward
 static const float kfFarTurn = 0.5;		// % voltage for turn when far away
 static const float kfNearTurn = 0.25;		// % voltage for turn when nearer
-static const int knLostSweep = 250;		// half second sweep
+static const int knLostSweep = 25;		// half second sweep
 /*
 Constructor initalizes object
 

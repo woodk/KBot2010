@@ -2,11 +2,12 @@
 
 #include "KbotPID.h"
 
-#include "time.h"
+static const float kfAngularSpeed = 0.3f;
+static const float kfForwardSpeed = 0.8f;
+
 /*
 Constructor initalizes object
 
-TODO:  handle new camera/target/kicker hardware
 */
 StrategyProgrammedMove::StrategyProgrammedMove(KBot* kbot) : Strategy(kbot)
 {
@@ -28,6 +29,9 @@ StrategyProgrammedMove::StrategyProgrammedMove(KBot* kbot) : Strategy(kbot)
 	
 	m_pidAngle = 0;
 	m_pidDistance = 0;
+	
+	m_fStartAngle = 0.0f;
+	m_fStartPosition = 0.0f;
 }
 
 /*
@@ -59,28 +63,25 @@ eState StrategyProgrammedMove::apply()
      * current state.  Otherwise return current state
      */
 
-    // update times
-    float fDeltaT = 0.020f;
-
     // update position along path
-    // TODO:  set calibrations properly, both linear and angular
-    float fAverageSpeedFactor = 1.0;
-    float fAngularSpeedFactor = 0.1;
-	float fAverageSpeed = fAverageSpeedFactor*0.5f*(m_kbot->getLeftEncoder()->GetRate()+
-								m_kbot->getRightEncoder()->GetRate());
-	m_fDistance += fDeltaT*fAverageSpeed;
-	float fTurnSpeed = fAngularSpeedFactor*(m_kbot->getRightEncoder()->GetRate()-
+    // TODO:  check calibrations, both linear and angular
+    float fPositionCalibration = 19.25/1440;  // inches per pulse
+    float fAngleCalibration = fPositionCalibration/22.0f; // robot wheels are 22 inches apart
+	float fAveragePosition = fPositionCalibration*(m_kbot->getLeftEncoder()->Get()+
+								m_kbot->getRightEncoder()->Get());
+	m_fDistance = fAveragePosition-m_fStartPosition;
+	float fTurnAngle = fAngleCalibration*(m_kbot->getRightEncoder()->GetRate()-
 							m_kbot->getLeftEncoder()->GetRate());
-	m_fAngle += fDeltaT*fTurnSpeed;
+	m_fAngle = fTurnAngle-m_fStartAngle;
 	
-	printf("%d %f %f %f %f %f %f\n",m_nPathIndex, m_fLength, fAverageSpeed, m_fDistance, m_fDirection, m_fAngle, fTurnSpeed);
+//	printf("%d %f %f %f %f %f %f\n",m_nPathIndex, m_fLength, fAverageSpeed, m_fDistance, m_fDirection, m_fAngle, fTurnSpeed);
 
 	if ((fabs(m_fDirection-m_fAngle) < m_fAngleTolerance))
 	{
 		m_bTurning = false; // if we were turning we are no longer
 		
 		// we are headed in the right direction
-		m_fForwardSpeed = -0.5f;
+		m_fForwardSpeed = -kfForwardSpeed;
 		m_fAngularSpeed = 0.0f;
    		
 		if (m_fDistance > m_fLength)
@@ -102,6 +103,11 @@ eState StrategyProgrammedMove::apply()
 				m_fLength = sqrt(fDeltaX*fDeltaX+fDeltaY*fDeltaY);
 	    		m_fDirection = atan2(fDeltaY, fDeltaX);
 	    		m_bTurning = true;
+	    		m_fStartPosition = fPositionCalibration*(m_kbot->getLeftEncoder()->Get()+
+	    									m_kbot->getRightEncoder()->Get());
+	    		m_fDistance = fAveragePosition-m_fStartPosition;
+	    		m_fStartAngle = fAngleCalibration*(m_kbot->getRightEncoder()->GetRate()-
+	    								m_kbot->getLeftEncoder()->GetRate());
 			}
 		}
 	}
@@ -110,11 +116,11 @@ eState StrategyProgrammedMove::apply()
 		// turning logic
 		if (m_fDirection < m_fAngle)
 		{
-			m_fAngularSpeed =  0.1f;
+			m_fAngularSpeed =  kfAngularSpeed;
 		}
 		else
 		{
-			m_fAngularSpeed = -0.1f;
+			m_fAngularSpeed = -kfAngularSpeed;
 		}    		
 	}
 
@@ -124,6 +130,10 @@ eState StrategyProgrammedMove::apply()
 	{
 		m_fForwardSpeed = 0.0f;
 		m_fAngularSpeed *= 2.0f;
+		if (m_fAngularSpeed > 1.0f)
+		{
+			m_fAngularSpeed = 1.0f;
+		}
 	}
 	m_robotDrive->ArcadeDrive(m_fForwardSpeed, m_fAngularSpeed, false);
 
@@ -140,6 +150,8 @@ void StrategyProgrammedMove::init()
 	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
 	m_fForwardSpeed = 0.0f;
 	m_fAngularSpeed = 0.0f;
+	m_fStartAngle = 0.0f;
+	m_fStartPosition = 0.0f;
 	m_bTurning = true;
 }
 

@@ -3,7 +3,6 @@
 /*
 Constructor initalizes object
 
-TODO:  handle new camera/target/kicker hardware
 */
 StrategyCircle::StrategyCircle(KBot* kbot) : Strategy(kbot)
 {

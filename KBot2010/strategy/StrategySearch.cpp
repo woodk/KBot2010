@@ -3,7 +3,6 @@
 /*
 Constructor initalizes object
 
-TODO:  handle new camera/target/kicker hardware
 */
 StrategySearch::StrategySearch(KBot* kbot) : Strategy(kbot)
 {

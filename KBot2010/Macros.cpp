@@ -63,22 +63,10 @@ void RobotMacros::OnClock()
 		m_kbot->getWinchMotor()->Set(kfWinchSpeed);		
 	}
 	else if (m_macroState == mcCAPTURE) {
-		eState nNext = m_kbot->getManager()->getCaptureStrategy()->apply();
-		if (knAim == nNext)
-		{
-			// TODO:  notify driver?
-		}
-		else if (knSearch == nNext)
-		{
-			// TODO: notify driver
-		}
+		m_kbot->getManager()->getCaptureStrategy()->apply();
 	}
 	else if (m_macroState == mcAIM) {
-		eState nNext = m_kbot->getManager()->getAimStrategy()->apply();
-		if (knShoot == nNext)
-		{
-			// TODO:  notify driver?
-		}
+		m_kbot->getManager()->getAimStrategy()->apply();
 	}
 	else if (m_macroState == mcSHOOT) {
 		m_kbot->getKicker()->Kick();
@@ -109,8 +97,6 @@ void RobotMacros::DriverControl()
 // Allow complete operator control.
 void RobotMacros::OperatorControl()
 {
-	// TODO:  check various button states and
-	// control the robot appropriately
 	float zval = m_rightStick->GetZ();
 	m_rollerMotor->Set(zval);
 }

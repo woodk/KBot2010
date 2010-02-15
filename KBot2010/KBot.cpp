@@ -24,9 +24,6 @@
 		/************************************/
 		// Create and initialize input devices
 
-		// TODO:  create new camera (or use AxisCamera::getInstance)
-		// and create other inputs:  BallSensor, ...?
-		
 		// Joysticks
 		m_rightStick = new Joystick(1);
 		m_leftStick = new Joystick(2);
@@ -64,8 +61,6 @@
 		
 		/************************************/
 		// Create and initialize output devices
-		
-		// TODO:  create Dribbler, Kicker and Arm (others?)
 		
 		m_leftJaguar1 = new CANJaguar(L_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
 		//m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
@@ -175,7 +170,6 @@
 		m_telePeriodicLoops = 0;				// Reset the loop counter for teleop mode
 		m_dsPacketsPerSecond = 0;				// Reset the number of dsPackets in current second
 
-		// TODO:  do we want to reset gyro initial direction?
 		m_gyro->Reset();
 		
 		m_pDashboardDataSender = new DashboardDataSender();

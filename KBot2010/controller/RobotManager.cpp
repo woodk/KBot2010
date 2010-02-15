@@ -38,7 +38,7 @@ RobotManager::RobotManager(KBot *kbot)
     m_lstStrategy[knInactive] = new StrategyInactive(m_kbot);
 
     reset();
-    // TODO:  parameterize the shooting strategies
+
 }
 
 /*!
