@@ -40,10 +40,15 @@
 		// 250 counts per rev.; gear ratio x:y; 6" wheel
 		// 1 count = 1/250 * x / y * 2*PI*6 /12 feet
 		//         = 0.151  (@ 1:1)
+		
+		// NOTE:  Programmed move calibration is independent of
+		// these values and set in StrategyProgrammedMove.cpp
 		m_leftEncoder->SetDistancePerPulse(0.01257);
 		m_rightEncoder->SetDistancePerPulse(0.01257);
 		m_leftEncoder->Start();
 		m_rightEncoder->Start();
+		m_leftEncoder->Reset();
+		m_rightEncoder->Reset();
 
 		// digital inputs
 		m_DefenseSwitch = new DigitalInput(DEFENSE_SWITCH);		
