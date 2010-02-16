@@ -30,6 +30,7 @@ ManagerDefense::ManagerDefense(KBot *kbot) : RobotManager(kbot)
 	//		1	2	3
 	//		4	5	6
 	//		7	8	9
+	// Defense gets 3 balls.
 	switch(kbot->getAutoPattern())
 	{
 	case 0:	// Kick balls in positions 9, 5 then 1
@@ -41,9 +42,6 @@ ManagerDefense::ManagerDefense(KBot *kbot) : RobotManager(kbot)
 	
 		pMove3->addPointToPath(0,0);
 		pMove3->addPointToPath(3.3*12,-2.7*12);
-
-		// No more moves; remove knProgrammedMove4 from the list.
-		//(StrategyShoot*)(m_lstStrategy[knShoot])->getNextState().pop_back();
 		break;
 	case 1:	// Kick balls in positions 7, 5 then 3
 		pMove1->addPointToPath(0,0);
