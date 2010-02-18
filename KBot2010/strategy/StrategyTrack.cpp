@@ -3,7 +3,6 @@
 /*
 Constructor initalizes object
 
-TODO: handle new camera/target/dribbler hardware
 */
 StrategyTrack::StrategyTrack(KBot* kbot) : Strategy(kbot)
 {
@@ -54,7 +53,6 @@ eState StrategyTrack::apply()
     }
     else    // still hunting
     {
-    	// TODO:  actual target hunting with new camera
     	m_lossCount=0;
     	m_xval = m_cameraTurnCtrl->calcPID(0.0f);
    		//printf("d= %5.4f realx=%5.4f xval= %5.4f\n",d, realx, m_xval);

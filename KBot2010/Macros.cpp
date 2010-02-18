@@ -1,6 +1,8 @@
 #include "Macros.h"
 #include "Strategy.h"
 
+static float kfWinchSpeed = 0.9f;
+
 RobotMacros::RobotMacros(KBot *kbot)
 {
 	m_kbot = kbot;
@@ -32,30 +34,39 @@ void RobotMacros::OnClock()
 {
 	m_macroCycle ++;
 	
+	if (m_macroState != mcWINCH) 
+	{
+		m_kbot->getWinchMotor()->Set(0.0f);
+	}
+	
 	if (m_macroState == mcDEPLOY_ARM) {
 		// do arm stuff
+		float fY = m_leftStick->GetY();		
+		if (fY > 0.5)
+		{
+			m_kbot->getArmRelease()->Set(false);
+			m_kbot->getArmRetract()->Set(true);
+		}
+		else if (fY < -0.5)
+		{
+			m_kbot->getArmRelease()->Set(false);
+			m_kbot->getArmRetract()->Set(true);
+		}
+		else
+		{
+			m_kbot->getArmRelease()->Set(true);
+			m_kbot->getArmRetract()->Set(true);
+		}
 		DriverControl();
 	}
 	else if (m_macroState == mcWINCH) {
-		
+		m_kbot->getWinchMotor()->Set(kfWinchSpeed);		
 	}
 	else if (m_macroState == mcCAPTURE) {
-		eState nNext = m_kbot->getManager()->getCaptureStrategy()->apply();
-		if (knAim == nNext)
-		{
-			// TODO:  notify driver?
-		}
-		else if (knSearch == nNext)
-		{
-			// TODO: notify driver
-		}
+		m_kbot->getManager()->getCaptureStrategy()->apply();
 	}
 	else if (m_macroState == mcAIM) {
-		eState nNext = m_kbot->getManager()->getAimStrategy()->apply();
-		if (knShoot == nNext)
-		{
-			// TODO:  notify driver?
-		}
+		m_kbot->getManager()->getAimStrategy()->apply();
 	}
 	else if (m_macroState == mcSHOOT) {
 		m_kbot->getKicker()->Kick();
@@ -86,8 +97,6 @@ void RobotMacros::DriverControl()
 // Allow complete operator control.
 void RobotMacros::OperatorControl()
 {
-	// TODO:  check various button states and
-	// control the robot appropriately
 	float zval = m_rightStick->GetZ();
 	m_rollerMotor->Set(zval);
 }

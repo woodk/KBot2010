@@ -4,7 +4,6 @@
 /*
 Constructor initalizes object
 
-TODO:  handle new camera/target/dribbler hardware
 */
 StrategyBackUp::StrategyBackUp(KBot* kbot) : Strategy(kbot)
 {

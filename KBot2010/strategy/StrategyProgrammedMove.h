@@ -86,6 +86,12 @@ private:
 	// current angular speed
 	float m_fAngularSpeed;
 	
+	// angle at start of move (radians)
+	float m_fStartAngle;
+	
+	// encoder position at start of move (inches)
+	float m_fStartPosition;
+	
 	// flag to tell if people are turning
 	bool m_bTurning;
 };

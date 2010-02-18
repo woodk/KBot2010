@@ -24,9 +24,6 @@
 		/************************************/
 		// Create and initialize input devices
 
-		// TODO:  create new camera (or use AxisCamera::getInstance)
-		// and create other inputs:  BallSensor, ...?
-		
 		// Joysticks
 		m_rightStick = new Joystick(1);
 		m_leftStick = new Joystick(2);
@@ -43,10 +40,15 @@
 		// 250 counts per rev.; gear ratio x:y; 6" wheel
 		// 1 count = 1/250 * x / y * 2*PI*6 /12 feet
 		//         = 0.151  (@ 1:1)
+		
+		// NOTE:  Programmed move calibration is independent of
+		// these values and set in StrategyProgrammedMove.cpp
 		m_leftEncoder->SetDistancePerPulse(0.01257);
 		m_rightEncoder->SetDistancePerPulse(0.01257);
 		m_leftEncoder->Start();
 		m_rightEncoder->Start();
+		m_leftEncoder->Reset();
+		m_rightEncoder->Reset();
 
 		// digital inputs
 		m_DefenseSwitch = new DigitalInput(DEFENSE_SWITCH);		
@@ -60,11 +62,10 @@
 		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);
 		
 		m_armRelease = new Solenoid(SOLENOID_SLOT, ARM_RELEASE);
+		m_armRetract = new Solenoid(SOLENOID_SLOT, ARM_RETRACT);
 		
 		/************************************/
 		// Create and initialize output devices
-		
-		// TODO:  create Dribbler, Kicker and Arm (others?)
 		
 		m_leftJaguar1 = new CANJaguar(L_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
 		//m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
@@ -108,6 +109,8 @@
 		m_autoPeriodicLoops = 0;
 		m_disabledPeriodicLoops = 0;
 		m_telePeriodicLoops = 0;
+		
+		m_nStartTime = 0;
 		
 		printf("KBot Constructor Completed\n");
 	}
@@ -172,7 +175,6 @@
 		m_telePeriodicLoops = 0;				// Reset the loop counter for teleop mode
 		m_dsPacketsPerSecond = 0;				// Reset the number of dsPackets in current second
 
-		// TODO:  do we want to reset gyro initial direction?
 		m_gyro->Reset();
 		
 		m_pDashboardDataSender = new DashboardDataSender();
@@ -257,12 +259,33 @@
 		{
 			m_teleMacros->Set(mcAIM);
 		}
-		
-		// this is where the actual robotic driving is done
-		m_teleMacros->OnClock();
+		else if (getRightStick()->GetRawButton(7))
+		{
+			m_kicker->SetState(GET_CROSSBOW);
+		}
+		else if (getRightStick()->GetRawButton(8))
+		{
+			m_kicker->SetState(TENSION_CROSSBOW);
+		}
 
 		m_kicker->onClock();
+				
 
+		// if t >= 100 s in teleop allow arm/winch operation
+		if (m_telePeriodicLoops >= 10000)
+		{
+			if (getLeftStick()->GetTrigger())
+			{
+				m_teleMacros->Set(mcDEPLOY_ARM);
+			}
+			else if (getLeftStick()->GetRawButton(WINCH_BUTTON))
+			{
+				m_teleMacros->Set(mcWINCH);
+			}
+		}
+		// this is where the actual robotic driving is done
+		m_teleMacros->OnClock();
+		
 		// increment the number of teleop periodic loops completed
 		m_telePeriodicLoops++;
 
