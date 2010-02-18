@@ -103,6 +103,7 @@ private:
 	Solenoid	*m_armRetract;
 	
 	Compressor *m_compressor;
+	Relay	*m_compressorRelay;
 	
 	Kicker *m_kicker;
 	

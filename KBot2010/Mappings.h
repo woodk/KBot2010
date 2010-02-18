@@ -1,9 +1,10 @@
 #ifndef MAPPINGS_H
 #define MAPPINGS_H
 
-#define KICK_STRENGTH_FORWARD	50
-#define KICK_STRENGTH_MIDFIELD	100
-#define KICK_STRENGTH_DEFENSE	200
+// TODO: remove commented out zeros--for testing only!
+#define KICK_STRENGTH_FORWARD	5//0
+#define KICK_STRENGTH_MIDFIELD	10//0
+#define KICK_STRENGTH_DEFENSE	20//0
 
 
 
@@ -72,8 +73,8 @@
 #define SOLENOID_SLOT			8 // solenoid controller slot
 #define ARM_RELEASE				1 // arm release channel
 #define ARM_RETRACT				2 // retract arm channel
-#define PISTON_ACTUATOR			3 // piston actuator channel
-#define PISTON_RELEASE			4 // piston release channel
+#define PISTON_ACTUATOR			3 // piston IN channel
+#define PISTON_RELEASE			4 // piston OUT channel
 
 // CAN Devices
 #define L_WHEEL1_JAG_ID		3 

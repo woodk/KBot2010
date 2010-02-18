@@ -4,6 +4,8 @@
 #include "ManagerMidField.h"
 #include "ManagerForward.h"
 
+#include "Relay.h"
+
 /**
  * This is the K-Bot 2010 main code.
  * 
@@ -93,8 +95,8 @@
 		m_priorPacketNumber = 0;
 		m_dsPacketsPerSecond = 0;
 		
-		m_compressor = new Compressor(PRESSURE_SWITCH_CHANNEL, COMPRESSOR_RELAY_CHANNEL);
-		m_compressor->Start(); //TODO: maybe move this to autonomous init
+//		m_compressor = new Compressor(PRESSURE_SWITCH_CHANNEL, COMPRESSOR_RELAY_CHANNEL);
+		m_compressorRelay = new Relay(COMPRESSOR_RELAY_CHANNEL);
 		
 		m_kicker = new Kicker(PISTON_ACTUATOR, PISTON_RELEASE, ELECTROMAGNET_CHANNEL);
 		// Create high level controllers
@@ -147,6 +149,11 @@
 		}
 		
 		m_pCamera->init();
+//		m_compressor->SetRelayValue(Relay::kForward);
+//		m_compressor->Start();
+		
+		m_compressorRelay->Set(Relay::kForward);
+		
 	}
 	
 	void KBot::DisabledInit(void) {

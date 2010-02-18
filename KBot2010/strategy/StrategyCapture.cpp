@@ -76,6 +76,7 @@ eState StrategyCapture::apply()
     		}
     		if (knLostSweep*3 < m_nLostCounter) // factor of 3 means we go:  <- -->
     		{
+    			m_nLostCounter = 0;
     			nNewState = knSearch;	// could not find, so go back to search
     		}
     	}

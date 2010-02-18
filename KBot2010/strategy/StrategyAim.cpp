@@ -44,6 +44,9 @@ eState StrategyAim::apply()
 
     // update position along path
     // TODO:  set calibrations properly, both linear and angular
+ //   float fPositionCalibration = 19.25/1440;  // inches per pulse
+ //   float fAngleCalibration = fPositionCalibration/22.0f; // robot wheels are 22 inches apart
+    
     float fAverageSpeedFactor = 1.0;
     float fAngularSpeedFactor = 0.1;
     float fAngleFactor = 2.0;

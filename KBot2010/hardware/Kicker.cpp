@@ -18,6 +18,7 @@ Kicker::Kicker(int kickerOutChannel, int kickerInChannel, int electromagnetChann
 	m_electromagnet = new Relay(electromagnetChannel);
 	counter=0;
 	state=READY;
+	reloadTime = 10;
 }
 void	Kicker::Init(int strength)
 {
