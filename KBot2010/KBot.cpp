@@ -266,6 +266,17 @@
 		{
 			m_teleMacros->Set(mcAIM);
 		}
+		else if (getRightStick()->GetRawButton(7))
+		{
+			m_kicker->SetState(GET_CROSSBOW);
+		}
+		else if (getRightStick()->GetRawButton(8))
+		{
+			m_kicker->SetState(TENSION_CROSSBOW);
+		}
+
+		m_kicker->onClock();
+				
 
 		// if t >= 100 s in teleop allow arm/winch operation
 		if (m_telePeriodicLoops >= 10000)
@@ -281,9 +292,7 @@
 		}
 		// this is where the actual robotic driving is done
 		m_teleMacros->OnClock();
-
-		m_kicker->onClock();
-
+		
 		// increment the number of teleop periodic loops completed
 		m_telePeriodicLoops++;
 
