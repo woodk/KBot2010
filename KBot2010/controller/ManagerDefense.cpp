@@ -34,49 +34,51 @@ ManagerDefense::ManagerDefense(KBot *kbot) : RobotManager(kbot)
 	{
 	case 0:	// Kick balls in positions 9, 5 then 1
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(6.0*12-ROBOT_LENGTH,0);
+		pMove1->addPointToPath(0,6.0*12-ROBOT_LENGTH);
 	
 		pMove2->addPointToPath(0,0);
-		pMove2->addPointToPath(3.3*12,-2.7*12);
+		pMove2->addPointToPath(-31.3,28.19);
+		pMove2->addPointToPath(9.37,7.5);	// angle towards goal
 	
 		pMove3->addPointToPath(0,0);
-		pMove3->addPointToPath(3.3*12,-2.7*12);
+		pMove3->addPointToPath(-33.61,26.93);
+		pMove3->addPointToPath(9.83,6.88);	// angle towards goal
 
 		// No more moves; remove knProgrammedMove4 from the list.
 		//(StrategyShoot*)(m_lstStrategy[knShoot])->getNextState().pop_back();
 		break;
 	case 1:	// Kick balls in positions 7, 5 then 3
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(6.0*12-ROBOT_LENGTH,0);
+		pMove1->addPointToPath(0,6.0*12-ROBOT_LENGTH);
 	
 		pMove2->addPointToPath(0,0);
-		pMove2->addPointToPath(2.4*12,3.3*12);
-		pMove2->addPointToPath(-0.9*12,0.3*12);	// angle towards goal
+		pMove2->addPointToPath(37.43,23.39);
+		pMove2->addPointToPath(-10.59,5.65);	// angle towards goal
 	
 		pMove3->addPointToPath(0,0);
-		pMove3->addPointToPath(2.4*12,3.3*12);
-		pMove3->addPointToPath(-0.9*12,0.3*12);	// angle towards goal
+		pMove3->addPointToPath(39.85,20.83);
+		pMove3->addPointToPath(-11.02,4.75);	// angle towards goal
 		break;
 	case 2:	// Kick balls in positions 9, 6 then 3
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(6.0*12-ROBOT_LENGTH,0);
 	
 		pMove2->addPointToPath(0,0);
-		pMove2->addPointToPath(5.7*12,0.3*12);
+		pMove2->addPointToPath(5.07,35.64);
 	
 		pMove3->addPointToPath(0,0);
-		pMove3->addPointToPath(5.7*12,0.3*12);
+		pMove3->addPointToPath(5.38,35.6);
 		break;
 	case 3:	// Kick balls in positions 7, 4 then 1
 	default:
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(6.0*12-ROBOT_LENGTH,0);
+		pMove1->addPointToPath(0,6.0*12-ROBOT_LENGTH,0);
 	
 		pMove2->addPointToPath(0,0);
-		pMove2->addPointToPath(6.0*12,0);
+		pMove2->addPointToPath(0,36.0);
 	
 		pMove3->addPointToPath(0,0);
-		pMove3->addPointToPath(6.0*12,0);
+		pMove3->addPointToPath(0,36.0);
 	}
 		
 	reset();
