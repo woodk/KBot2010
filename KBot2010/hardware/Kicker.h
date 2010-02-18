@@ -25,6 +25,7 @@ public:
 	void	Init(int strength);
 	void	Kick();
 	void	onClock();
+	void	SetState(States newState) {state = newState;} // for H/W debug
 	
 	bool 	getIsReady() {return READY == state;}
 
