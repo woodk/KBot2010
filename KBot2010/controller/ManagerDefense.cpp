@@ -70,7 +70,7 @@ ManagerDefense::ManagerDefense(KBot *kbot) : RobotManager(kbot)
 	case 3:	// Kick balls in positions 7, 4 then 1
 	default:
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(0,6.0*12-ROBOT_LENGTH,0);
+		pMove1->addPointToPath(0,6.0*12-ROBOT_LENGTH);
 	
 		pMove2->addPointToPath(0,0);
 		pMove2->addPointToPath(0,36.0);
