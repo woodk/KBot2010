@@ -57,8 +57,7 @@
 		m_MidFieldSwitch = new DigitalInput(MIDFIELD_SWITCH);		
 		m_ForwardSwitch = new DigitalInput(FORWARD_SWITCH);		
 
-		m_leftIRSensor = new DigitalInput(L_IR_SENSOR);
-		m_rightIRSensor = new DigitalInput(R_IR_SENSOR);
+		m_gateSensor = new DigitalInput(GATE_SENSOR);
 
 		m_ultrasoundNear = new DigitalInput(ULTRA_NEAR);
 		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);
@@ -250,6 +249,16 @@
 		if ((m_telePeriodicLoops % 50) == 0) { // 1 Hz
 			//printf("Tele count=%d\n",m_telePeriodicLoops);
 			printf("Pressure switch %d\n",m_pressureSwitch->Get());
+
+			// control the compressor based on pressure switch reading
+			if (0 == m_pressureSwitch->Get())
+			{
+				m_compressorRelay->Set(Relay::kForward);
+			}
+			else
+			{
+				m_compressorRelay->Set(Relay::kOff);				
+			}
 		}
 
 		if ((m_telePeriodicLoops % 10) == 0) { // 5 Hz

@@ -51,8 +51,8 @@
 #define L_ENC_B_CHANNEL		2
 #define R_ENC_A_CHANNEL		3
 #define R_ENC_B_CHANNEL		4
-#define L_IR_SENSOR			5
-#define R_IR_SENSOR			6
+#define GATE_SENSOR			5
+//#define R_IR_SENSOR			6	// not used--feel free to take it for any input you need
 #define ULTRA_NEAR			7
 #define ULTRA_FAR			8
 #define PRESSURE_SWITCH_CHANNEL		9

@@ -1,9 +1,9 @@
 #include "StrategyCapture.h"
 
 static const float kfDriveForward = 0.25;	// % voltage to drive forward
-static const float kfFarTurn = 0.5;		// % voltage for turn when far away
-static const float kfNearTurn = 0.25;		// % voltage for turn when nearer
+static const float kfFarTurn = 0.25;		// % voltage for turn when far away
 static const int knLostSweep = 25;		// half second sweep
+static const int knNearMax = 25;		// half second to get close after losing near sensor
 /*
 Constructor initalizes object
 
@@ -12,6 +12,8 @@ StrategyCapture::StrategyCapture(KBot* kbot) : Strategy(kbot)
 {
     // Create initial state here
 	m_nLostCounter = 0;
+	m_nNearCounter = 0;
+	m_bFarLast = true;
 
 }
 
@@ -39,32 +41,23 @@ eState StrategyCapture::apply()
     }
     else	// move toward the ball and steer to capture
     {
-    	// here we assume we have a ball in sight of something
-    	// either one of the IR sensors or the near or far US
-    	// sensors.  When the ball is in sight of BOTH IR
-    	// sensors we are done, so that will never be true here.
-    	if (m_kbot->getLeftIRSensorState())
-    	{
-    		m_robotDrive->ArcadeDrive(kfDriveForward, kfNearTurn, false);
-    		m_nLostCounter = 0;
-    	}
-    	else if (m_kbot->getRightIRSensorState())
-    	{
-    		m_robotDrive->ArcadeDrive(-kfDriveForward, -kfNearTurn, false);
-    		m_nLostCounter = 0;
-    	}
-    	else if (m_kbot->getNearUltrasoundState())
+    	if (m_kbot->getNearUltrasoundState())
     	{
     		m_robotDrive->ArcadeDrive(-kfDriveForward, 0.0, false);
     		m_nLostCounter = 0;
+    		m_nNearCounter = 0;
+    		m_bFarLast = false;
     	}
     	else if (m_kbot->getFarUltrasoundState())
     	{
     		m_robotDrive->ArcadeDrive(-kfDriveForward, 0.0, false);
     		m_nLostCounter = 0;
+    		m_nNearCounter = 0;
+    		m_bFarLast = true;
     	}
-    	else	// we lost the ball!
+    	else if (m_bFarLast)	// we lost the ball!
     	{
+    		m_nNearCounter = 0;
     		++m_nLostCounter;
     		if (knLostSweep < m_nLostCounter)	// turn one way
     		{
@@ -79,6 +72,18 @@ eState StrategyCapture::apply()
     			m_nLostCounter = 0;
     			nNewState = knSearch;	// could not find, so go back to search
     		}
+    	}
+    	else if (m_nNearCounter < knNearMax)	// we got too close for the ultrasound to see, keep going foward
+    	{
+    		m_robotDrive->ArcadeDrive(-kfDriveForward, 0.0, false);
+    		m_nLostCounter = 0;
+    		++m_nNearCounter;
+    		m_bFarLast = false;
+    	}
+    	else	// we lost the ball close-in
+    	{
+    		m_nNearCounter = 0;
+    		m_bFarLast = true;	// this will force a sweep to redetect the ball
     	}
     }
 
@@ -95,5 +100,5 @@ void StrategyCapture::init()
 /* Check IR sensors to see if we have a ball */
 bool StrategyCapture::BallCaptured()
 {
-	return (m_kbot->getLeftIRSensorState() && m_kbot->getRightIRSensorState());
+	return (m_kbot->getGateSensorState());
 }
