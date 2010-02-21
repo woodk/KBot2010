@@ -82,10 +82,8 @@ void	Kicker::onClock()
 	{
 		//release EM
 		m_electromagnet->Set(Relay::kOff);
-		//wait a little
-		counter++;
 		state=GET_CROSSBOW;
-		counter=0;
+		counter = 0;
 	} else //READY state
 	{
 		if (waitingToKick)
@@ -94,30 +92,11 @@ void	Kicker::onClock()
 			waitingToKick=false;
 			state=KICK;
 		}
-		else
+		else	// just keep pulling back
 		{
-			// turn on kicker out & kicker in
 			m_electromagnet->Set(Relay::kOn);
-			++nFakeHoldCounter;
-			if (2 == nFakeHoldCounter)
-			{
-				nFakeHoldCounter = 0;
-				if (m_bOut)
-				{
-					m_kickerSolenoidIn->Set(true);
-					m_kickerSolenoidOut->Set(false);
-					nFakeHoldCounter = 0;
-					m_bOut = false;
-				}
-				else
-				{
-					m_kickerSolenoidIn->Set(false);
-					m_kickerSolenoidOut->Set(true);
-					nFakeHoldCounter = 0;
-					m_bOut = true;
-				}
-			}
-			counter=0;
+			m_kickerSolenoidIn->Set(true);
+			m_kickerSolenoidOut->Set(false);
 		}
 	}
 }

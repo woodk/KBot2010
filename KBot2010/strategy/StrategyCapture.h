@@ -27,6 +27,12 @@ private:
 	
 	// if we lose the ball, keep track of how many cycles it was
 	int m_nLostCounter;
+	
+	// if we lose the ball close in, keep track of how many cycles it was
+	int m_nNearCounter;
+	
+	// did we last see the ball with the near or the far sensor?
+	bool m_bFarLast;
 };
 
 #endif
