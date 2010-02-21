@@ -31,7 +31,7 @@ void CANJaguar::InitJaguar()
 	}
 	UINT32 fwVer = GetFirmwareVersion();
 	printf("fwVersion[%d]: %d\n", m_deviceNumber, fwVer);
-	if (fwVer >= 3330 || fwVer < 86)
+	if (fwVer >= 3330 || fwVer < 87)
 	{
 		wpi_assertCleanStatus(kRIOStatusVersionMismatch);
 		return;
@@ -42,8 +42,10 @@ void CANJaguar::InitJaguar()
 		sendMessage(LM_API_VOLT_T_EN | m_deviceNumber, NULL, 0);
 		break;
 	default:
-		return;
+		break;
 	}
+	// This is the only option, but Jaguar requires it to be called, so we'll call it for you.
+	SetSpeedReference(kSpeedRef_Encoder);
 }
 
 /**
@@ -55,6 +57,7 @@ CANJaguar::CANJaguar(UINT8 deviceNumber, ControlMode controlMode)
 	: m_deviceNumber (deviceNumber)
 	, m_controlMode (controlMode)
 	, m_transactionSemaphore (NULL)
+	, m_maxOutputVoltage (kApproxBusVoltage)
 {
 	InitJaguar();
 }
@@ -209,19 +212,22 @@ UINT8 CANJaguar::packINT32(UINT8 *buffer, INT32 value)
 double CANJaguar::unpackPercentage(UINT8 *buffer)
 {
 	INT16 value = *((INT16*)buffer);
-	return swap16(value) / 32767.0;
+	value = swap16(value);
+	return value / 32767.0;
 }
 
 double CANJaguar::unpackFXP8_8(UINT8 *buffer)
 {
 	INT16 value = *((INT16*)buffer);
-	return swap16(value) / 256.0;
+	value = swap16(value);
+	return value / 256.0;
 }
 
 double CANJaguar::unpackFXP16_16(UINT8 *buffer)
 {
 	INT32 value = *((INT32*)buffer);
-	return swap32(value) / 65536.0;
+	value = swap32(value);
+	return value / 65536.0;
 }
 
 INT16 CANJaguar::unpackINT16(UINT8 *buffer)
@@ -345,12 +351,30 @@ void CANJaguar::getTransaction(UINT32 messageID, UINT8 *data, UINT8 *dataSize)
 	// Send the message requesting data.
 	status = sendMessage(targetedMessageID, NULL, 0);
 	wpi_assertCleanStatus(status);
+	//caller may have set bit31 for remote frame transmission so clear invalid bits[31-22]
+	targetedMessageID &= 0x1FFFFFFF;
 	// Wait for the data.
 	status = receiveMessage(&targetedMessageID, data, dataSize);
 	wpi_assertCleanStatus(status);
 
 	// Transaction complete.
 	semGive(m_transactionSemaphore);
+}
+
+/**
+ * Set the reference source device for speed controller mode.
+ * 
+ * Choose encoder as the source of speed feedback when in speed control mode.
+ * This is currently the only possible value, so we'll just call it for you in the constructor.
+ * 
+ * @param reference Specify a SpeedReference.
+ */
+void CANJaguar::SetSpeedReference(SpeedReference reference)
+{
+	UINT8 dataBuffer[8];
+
+	dataBuffer[0] = reference;
+	setTransaction(LM_API_SPD_REF, dataBuffer, sizeof(UINT8));
 }
 
 /**
@@ -365,16 +389,8 @@ void CANJaguar::SetPositionReference(PositionReference reference)
 {
 	UINT8 dataBuffer[8];
 
-	switch(m_controlMode)
-	{
-	case kPosition:
-		dataBuffer[0] = reference;
-		setTransaction(LM_API_POS_REF, dataBuffer, sizeof(UINT8));
-		break;
-	default:
-		// TODO: Error, Invalid
-		return;
-	}
+	dataBuffer[0] = reference;
+	setTransaction(LM_API_POS_REF, dataBuffer, sizeof(UINT8));
 }
 
 /**
@@ -387,18 +403,10 @@ CANJaguar::PositionReference CANJaguar::GetPositionReference(void)
 	UINT8 dataBuffer[8];
 	UINT8 dataSize;
 
-	switch(m_controlMode)
+	getTransaction(LM_API_POS_REF, dataBuffer, &dataSize);
+	if (dataSize == sizeof(UINT8))
 	{
-	case kPosition:
-		getTransaction(LM_API_POS_REF, dataBuffer, &dataSize);
-		if (dataSize == sizeof(UINT8))
-		{
-			return (PositionReference)*dataBuffer;
-		}
-		break;
-	default:
-		// TODO: Error, Invalid
-		break;
+		return (PositionReference)*dataBuffer;
 	}
 	return kPosRef_Encoder;
 }
@@ -662,7 +670,7 @@ float CANJaguar::GetOutputVoltage()
 	getTransaction(LM_API_STATUS_VOLTOUT, dataBuffer, &dataSize);
 	if (dataSize == sizeof(INT16))
 	{
-		return busVoltage * unpackPercentage(dataBuffer);
+		return (m_maxOutputVoltage / kApproxBusVoltage) * busVoltage * unpackPercentage(dataBuffer);
 	}
 	return 0.0;
 }
@@ -836,7 +844,7 @@ void CANJaguar::SetVoltageRampRate(double rampRate)
 	switch(m_controlMode)
 	{
 	case kPercentVoltage:
-		dataSize = packPercentage(dataBuffer, rampRate / (kApproxBusVoltage * kApproxBusVoltage));
+		dataSize = packPercentage(dataBuffer, rampRate / (m_maxOutputVoltage * kControllerRate));
 		setTransaction(LM_API_VOLT_SET_RAMP, dataBuffer, dataSize);
 		break;
 	default:
@@ -854,7 +862,8 @@ UINT32 CANJaguar::GetFirmwareVersion()
 	UINT8 dataBuffer[8];
 	UINT8 dataSize;
 
-	getTransaction(CAN_MSGID_API_FIRMVER, dataBuffer, &dataSize);
+	// Set the MSB to tell the 2CAN that this is a remote message.
+	getTransaction(0x80000000 | CAN_MSGID_API_FIRMVER, dataBuffer, &dataSize);
 	if (dataSize == sizeof(UINT32))
 	{
 		return unpackINT32(dataBuffer);
@@ -983,6 +992,7 @@ void CANJaguar::ConfigMaxOutputVoltage(double voltage)
 	UINT8 dataBuffer[8];
 	UINT8 dataSize;
 
+	m_maxOutputVoltage = voltage;
 	dataSize = packFXP8_8(dataBuffer, voltage);
 	setTransaction(LM_API_CFG_MAX_VOUT, dataBuffer, dataSize);
 }
