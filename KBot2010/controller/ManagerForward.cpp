@@ -32,49 +32,51 @@ ManagerForward::ManagerForward(KBot *kbot) : RobotManager(kbot)
 	//		1	2	3
 	//		4	5	6
 	//		7	8	9
-	// Defense gets 3 balls.
+	// Forward gets 1 ball.
 	switch(kbot->getAutoPattern())
 	{
-	case 0:	// Kick balls in positions 6 then 3
+	case 0:	// Kick ball in position 9
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(9.0*12-ROBOT_LENGTH-HALF_RAMP_WIDTH,0);
+		pMove1->addPointToPath(0.0, 72.0-10.42-ROBOT_LENGTH-HALF_RAMP_WIDTH);
+		pMove1->addPointToPath(-5.95, 10.42);
 	
 		pMove2->addPointToPath(0,0);
-		pMove2->addPointToPath(2.8*12,1.0*12);
+		pMove2->addPointToPath(35.67,62.54);	// Get out of the way
 	
 		// No more moves; remove knProgrammedMove3 from the list.
 		((StrategyShoot*)(m_lstStrategy[knShoot]))->getNextStates().pop_back();
 		break;
-	case 1:	// Kick balls in positions 4 then 1
+	case 1:	// Kick ball in position 6
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(9.0*12-ROBOT_LENGTH-HALF_RAMP_WIDTH,0);
+		pMove1->addPointToPath(0.0,9.0*12-9.56-ROBOT_LENGTH-HALF_RAMP_WIDTH);
+		pMove1->addPointToPath(-7.26,9.56);
 	
 		pMove2->addPointToPath(0,0);
-		pMove2->addPointToPath(3.0*12,0.0);
+		pMove2->addPointToPath(21.77,28.68);	// Get out of the way
 	
-		pMove3->addPointToPath(0,0);
-		pMove3->addPointToPath(0.0,6.0*12);	// get out of the way
+		// No more moves; remove knProgrammedMove3 from the list.
+		((StrategyShoot*)(m_lstStrategy[knShoot]))->getNextStates().pop_back();
 		break;
-	case 2:	// Kick balls in positions 9 then 1
+	case 2:	// Kick ball in position 3
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(6.0*12-ROBOT_LENGTH-HALF_RAMP_WIDTH,0);
+		pMove1->addPointToPath(0.0,12.0*12-7.92-ROBOT_LENGTH-HALF_RAMP_WIDTH);
+		pMove1->addPointToPath(-9.02,7.92);
 	
-		pMove2->addPointToPath(0,0);
-		pMove2->addPointToPath(5.0*12,6.0*12);
-	
-		pMove3->addPointToPath(0,0);
-		pMove3->addPointToPath(1.0*12,0.0*12); // line up with goal
+		// No more moves; remove knProgrammedMove2 & 3 from the list.
+		((StrategyShoot*)(m_lstStrategy[knShoot]))->getNextStates().pop_back();
+		((StrategyShoot*)(m_lstStrategy[knShoot]))->getNextStates().pop_back();
 		break;
-	case 3:	// Kick balls in positions 7 then 3
+	case 3:	// Kick ball in position 2
 	default:
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(6.0*12-ROBOT_LENGTH-HALF_RAMP_WIDTH,0);
+		pMove1->addPointToPath(0.0,12.0*12-10.42-ROBOT_LENGTH-HALF_RAMP_WIDTH);
+		pMove1->addPointToPath(-5.95,10.42);
 	
 		pMove2->addPointToPath(0,0);
-		pMove2->addPointToPath(6.0*12,0);
+		pMove2->addPointToPath(31.27,-17.84);	// Get out of the way
 	
-		pMove3->addPointToPath(0,0);
-		pMove3->addPointToPath(6.0*12,0);
+		// No more moves; remove knProgrammedMove3 from the list.
+		((StrategyShoot*)(m_lstStrategy[knShoot]))->getNextStates().pop_back();
 	}
 	
 	reset();
