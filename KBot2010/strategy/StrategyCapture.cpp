@@ -1,6 +1,6 @@
 #include "StrategyCapture.h"
 
-static const float kfDriveForward = 0.5;	// % voltage to drive forward
+static const float kfDriveForward = 0.25;	// % voltage to drive forward
 static const float kfFarTurn = 0.5;		// % voltage for turn when far away
 static const float kfNearTurn = 0.25;		// % voltage for turn when nearer
 static const int knLostSweep = 25;		// half second sweep
@@ -50,17 +50,17 @@ eState StrategyCapture::apply()
     	}
     	else if (m_kbot->getRightIRSensorState())
     	{
-    		m_robotDrive->ArcadeDrive(kfDriveForward, -kfNearTurn, false);
+    		m_robotDrive->ArcadeDrive(-kfDriveForward, -kfNearTurn, false);
     		m_nLostCounter = 0;
     	}
     	else if (m_kbot->getNearUltrasoundState())
     	{
-    		m_robotDrive->ArcadeDrive(kfDriveForward, 0.0, false);
+    		m_robotDrive->ArcadeDrive(-kfDriveForward, 0.0, false);
     		m_nLostCounter = 0;
     	}
     	else if (m_kbot->getFarUltrasoundState())
     	{
-    		m_robotDrive->ArcadeDrive(kfDriveForward, 0.0, false);
+    		m_robotDrive->ArcadeDrive(-kfDriveForward, 0.0, false);
     		m_nLostCounter = 0;
     	}
     	else	// we lost the ball!

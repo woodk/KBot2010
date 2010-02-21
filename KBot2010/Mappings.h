@@ -2,9 +2,9 @@
 #define MAPPINGS_H
 
 // TODO: remove commented out zeros--for testing only!
-#define KICK_STRENGTH_FORWARD	5//0
-#define KICK_STRENGTH_MIDFIELD	10//0
-#define KICK_STRENGTH_DEFENSE	20//0
+#define KICK_STRENGTH_FORWARD	25
+#define KICK_STRENGTH_MIDFIELD	50
+#define KICK_STRENGTH_DEFENSE	100
 
 
 
@@ -71,8 +71,8 @@
 
 // Solonoid Outputs
 #define SOLENOID_SLOT			8 // solenoid controller slot
-#define ARM_RELEASE				1 // arm release channel
-#define ARM_RETRACT				2 // retract arm channel
+#define ARM_RELEASE				1 // arm release (out) channel
+#define ARM_RETRACT				2 // retract arm (in) channel
 #define PISTON_ACTUATOR			3 // piston IN channel
 #define PISTON_RELEASE			4 // piston OUT channel
 

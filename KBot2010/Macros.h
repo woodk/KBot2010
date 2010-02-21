@@ -11,7 +11,7 @@ class KBot; // handle circular includes
 
 enum MacroNames
 {
-    mcNONE=1,
+    mcDRIVE=1,
     mcCAPTURE=2,
     mcAIM=3,
     mcSHOOT=4,

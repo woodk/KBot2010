@@ -19,6 +19,7 @@
 #include "DashboardDataSender.h"
 
 #include "Solenoid.h"
+#include "DigitalInput.h"
 
 class RobotManager;  // circular dependency handling
 class RobotMacros;
@@ -104,6 +105,7 @@ private:
 	
 	Compressor *m_compressor;
 	Relay	*m_compressorRelay;
+	DigitalInput *m_pressureSwitch;
 	
 	Kicker *m_kicker;
 	

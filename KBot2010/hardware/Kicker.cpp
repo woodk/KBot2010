@@ -6,6 +6,7 @@
 
 #include "Kicker.h"
 #include "Mappings.h"
+#include "KBot.h"
 
 /**
  * Kicker constructor--set up lower-level hardware
@@ -19,6 +20,8 @@ Kicker::Kicker(int kickerOutChannel, int kickerInChannel, int electromagnetChann
 	counter=0;
 	state=READY;
 	reloadTime = 10;
+	nFakeHoldCounter = 0;
+	m_bOut = true;
 }
 void	Kicker::Init(int strength)
 {
@@ -26,6 +29,9 @@ void	Kicker::Init(int strength)
 	state=GET_CROSSBOW;
 	reloadTime = strength;
 	waitingToKick=false;
+	nFakeHoldCounter = 0;
+	m_bOut = true;
+	m_electromagnet->Set(Relay::kForward);
 }
 void	Kicker::Kick()
 {
@@ -39,6 +45,7 @@ void	Kicker::Kick()
 		waitingToKick=true;
 	}
 }
+
 void	Kicker::onClock()
 {
 	if (state==GET_CROSSBOW)
@@ -77,11 +84,8 @@ void	Kicker::onClock()
 		m_electromagnet->Set(Relay::kOff);
 		//wait a little
 		counter++;
-		if (counter>KICK_TIME)
-		{
-			state=GET_CROSSBOW;
-			counter=0;
-		}
+		state=GET_CROSSBOW;
+		counter=0;
 	} else //READY state
 	{
 		if (waitingToKick)
@@ -94,11 +98,78 @@ void	Kicker::onClock()
 		{
 			// turn on kicker out & kicker in
 			m_electromagnet->Set(Relay::kOn);
-			m_kickerSolenoidIn->Set(true);
-			m_kickerSolenoidOut->Set(true);
+			++nFakeHoldCounter;
+			if (2 == nFakeHoldCounter)
+			{
+				nFakeHoldCounter = 0;
+				if (m_bOut)
+				{
+					m_kickerSolenoidIn->Set(true);
+					m_kickerSolenoidOut->Set(false);
+					nFakeHoldCounter = 0;
+					m_bOut = false;
+				}
+				else
+				{
+					m_kickerSolenoidIn->Set(false);
+					m_kickerSolenoidOut->Set(true);
+					nFakeHoldCounter = 0;
+					m_bOut = true;
+				}
+			}
 			counter=0;
 		}
 	}
 }
 
+
+#ifdef TEST_KICKER
+void	Kicker::onTest(States state)
+{
+	if (state==GET_CROSSBOW)
+	{
+		// turn on electromagnet
+		// turn off kicker in
+		// turn on kicker out
+		m_kickerSolenoidIn->Set(false);
+		m_kickerSolenoidOut->Set(true);
+	} else if (state==TENSION_CROSSBOW)
+	{
+		// turn on kicker in
+		// turn off kicker out
+		m_kickerSolenoidIn->Set(true);
+		m_kickerSolenoidOut->Set(false);
+	} else if (state==TEST_EM)
+	{
+		m_electromagnet->Set(Relay::kForward);		
+	} else if (state==KICK)
+	{
+		//release EM
+		m_electromagnet->Set(Relay::kOff);
+		nFakeHoldCounter = 0;
+	} else //READY state
+	{
+		m_electromagnet->Set(Relay::kOn);
+		++nFakeHoldCounter;
+		if (10 == nFakeHoldCounter)
+		{
+			nFakeHoldCounter = 0;
+			if (m_bOut)
+			{
+				m_kickerSolenoidIn->Set(true);
+				m_kickerSolenoidOut->Set(false);
+				nFakeHoldCounter = 0;
+				m_bOut = false;
+			}
+			else
+			{
+				m_kickerSolenoidIn->Set(false);
+				m_kickerSolenoidOut->Set(true);
+				nFakeHoldCounter = 0;
+				m_bOut = true;
+			}
+		}
+	}	
+}
+#endif
 

@@ -6,7 +6,7 @@ static float kfWinchSpeed = 0.9f;
 RobotMacros::RobotMacros(KBot *kbot)
 {
 	m_kbot = kbot;
-	m_macroState = mcNONE;
+	m_macroState = mcDRIVE;
 	m_macroCycle = 0;
 	
 	m_robotDrive = m_kbot->getRobotDrive();
@@ -70,8 +70,9 @@ void RobotMacros::OnClock()
 	}
 	else if (m_macroState == mcSHOOT) {
 		m_kbot->getKicker()->Kick();
-	} else {
-		DriverControl();
+	}
+	else if (m_macroState == mcDRIVE) {
+			DriverControl();
 	}
 	OperatorControl();
 }

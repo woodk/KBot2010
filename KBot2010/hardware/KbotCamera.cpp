@@ -20,25 +20,38 @@ KbotCamera::KbotCamera()
 
 void KbotCamera::init()
 {
-	AxisCamera& camera = AxisCamera::getInstance();
-	camera.writeResolution(k320x240);
-	camera.writeBrightness(50);	
+	try
+	{
+		AxisCamera& camera = AxisCamera::getInstance();
+		camera.writeResolution(k320x240);
+		camera.writeBrightness(50);	
+	}
+	catch(...)
+	{
+		// do nothing--testing requires we run without camera
+	}
 }
 
 vector<Target> KbotCamera::findTargets()
 {
-	AxisCamera& camera = AxisCamera::getInstance();
-		
 	vector<Target> vecTargets;
-	if (camera.freshImage()) {
-		// get the camera image
-		ColorImage *pImage = camera.GetImage();
-	
-		vecTargets = Target::FindCircularTargets(pImage);
-		delete pImage;
+	try
+	{
+		AxisCamera& camera = AxisCamera::getInstance();
+			
+		if (camera.freshImage()) {
+			// get the camera image
+			ColorImage *pImage = camera.GetImage();
 		
+			vecTargets = Target::FindCircularTargets(pImage);
+			delete pImage;
+			
+		}
 	}
-	
+	catch(...)
+	{
+		// do nothing
+	}
 	return vecTargets;
 }
 

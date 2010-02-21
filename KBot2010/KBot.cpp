@@ -97,6 +97,7 @@
 		
 //		m_compressor = new Compressor(PRESSURE_SWITCH_CHANNEL, COMPRESSOR_RELAY_CHANNEL);
 		m_compressorRelay = new Relay(COMPRESSOR_RELAY_CHANNEL);
+		m_pressureSwitch = new DigitalInput(PRESSURE_SWITCH_CHANNEL);
 		
 		m_kicker = new Kicker(PISTON_ACTUATOR, PISTON_RELEASE, ELECTROMAGNET_CHANNEL);
 		// Create high level controllers
@@ -149,7 +150,6 @@
 		}
 		
 		m_pCamera->init();
-//		m_compressor->SetRelayValue(Relay::kForward);
 //		m_compressor->Start();
 		
 		m_compressorRelay->Set(Relay::kForward);
@@ -207,7 +207,9 @@
 		if ((m_disabledPeriodicLoops % 10) == 0) { // 20 Hz
 			// TODO:  any disabled mode periodic bookkeeping
 		}
-		
+		if ((m_disabledPeriodicLoops % 200) == 0) { // 1 Hz
+			printf("Pressure switch %d\n",m_pressureSwitch->Get());
+		}
 	}
 	
 	/*!
@@ -215,8 +217,11 @@
 	*/
 	void KBot::AutonomousPeriodic(void) {
 		// feed the user watchdog at every period when in autonomous
-		// AUtonomous runs at 50 Hz
+		// Autonomous runs at 50 Hz
 		GetWatchdog().Feed();
+		if ((m_autoPeriodicLoops % 50) == 0) { // 1 Hz
+			printf("Auto count=%d\n",m_autoPeriodicLoops);
+		}
 		
 		if ((m_autoPeriodicLoops % 10) == 0) { // 5 Hz
 
@@ -242,6 +247,10 @@
 	void KBot::TeleopPeriodic(void) {
 		// feed the user watchdog at every period when in teleop
 		GetWatchdog().Feed();
+		if ((m_telePeriodicLoops % 200) == 0) { // 1 Hz
+			//printf("Tele count=%d\n",m_telePeriodicLoops);
+			printf("Pressure switch %d\n",m_pressureSwitch->Get());
+		}
 
 		if ((m_telePeriodicLoops % 10) == 0) { // 20 Hz
 			vector<Target> vecTargets = m_pCamera->findTargets();
@@ -266,26 +275,54 @@
 		{
 			m_teleMacros->Set(mcAIM);
 		}
-		else if (getRightStick()->GetRawButton(7))
+		else
 		{
-			m_kicker->SetState(GET_CROSSBOW);
+			m_teleMacros->Set(mcDRIVE);
 		}
-		else if (getRightStick()->GetRawButton(8))
+		
+#ifdef TEST_KICKER
+		if (getRightStick()->GetRawButton(11))
 		{
-			m_kicker->SetState(TENSION_CROSSBOW);
+			if (getRightStick()->GetRawButton(6))
+			{
+				m_kicker->onTest(GET_CROSSBOW);
+			}
+			else if (getRightStick()->GetRawButton(7))
+			{
+				m_kicker->onTest(TENSION_CROSSBOW);
+			}
+			else if (getRightStick()->GetRawButton(8))
+			{
+				m_kicker->onTest(TEST_EM);
+			}
+			else if (getRightStick()->GetRawButton(9))
+			{
+				m_kicker->onTest(KICK);
+			}
 		}
-
+		else if (getRightStick()->GetRawButton(1))
+		{
+			m_kicker->onTest(KICK);
+		}
+		else
+		{
+			m_kicker->onClock();
+		}	
+#else
 		m_kicker->onClock();
-				
-
+#endif
+		
 		// if t >= 100 s in teleop allow arm/winch operation
-		if (m_telePeriodicLoops >= 10000)
+		// TODO:  remove test stuff
+		if (true) //m_telePeriodicLoops >= 10000)
 		{
-			if (getLeftStick()->GetTrigger())
+//			if (getLeftStick()->GetTrigger())
+			if (getRightStick()->GetRawButton(4))
 			{
 				m_teleMacros->Set(mcDEPLOY_ARM);
 			}
-			else if (getLeftStick()->GetRawButton(WINCH_BUTTON))
+//			else if (getLeftStick()->GetRawButton(WINCH_BUTTON))
+			else if (getRightStick()->GetRawButton(5))
 			{
 				m_teleMacros->Set(mcWINCH);
 			}
