@@ -21,7 +21,6 @@ public:
 	typedef enum {kCurrentFault = 1, kTemperatureFault = 2, kBusVoltageFault = 4} Faults;
 	typedef enum {kForwardLimit = 1, kReverseLimit = 2} Limits;
 	typedef enum {kPosRef_Encoder = 0, kPosRef_Potentiometer = 1} PositionReference;
-	typedef enum {kSpeedRef_Encoder = 0} SpeedReference;
 	typedef enum {kNeutralMode_Jumper = 0, kNeutralMode_Brake = 1, kNeutralMode_Coast = 2} NeutralMode;
 	typedef enum {kLimitMode_SwitchInputsOnly = 0, kLimitMode_SoftPositionLimits = 1} LimitMode;
 
@@ -36,7 +35,6 @@ public:
 	void PIDWrite(float output);
 
 	// Other Accessors
-	void SetSpeedReference(SpeedReference reference);
 	void SetPositionReference(PositionReference reference);
 	PositionReference GetPositionReference(void);
 	void SetPID(double p, double i, double d);
@@ -84,7 +82,6 @@ protected:
 	UINT8 m_deviceNumber;
 	ControlMode m_controlMode;
 	SEM_ID m_transactionSemaphore;
-	double m_maxOutputVoltage;
 
 private:
 	void InitJaguar();

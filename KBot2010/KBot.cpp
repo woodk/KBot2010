@@ -247,12 +247,12 @@
 	void KBot::TeleopPeriodic(void) {
 		// feed the user watchdog at every period when in teleop
 		GetWatchdog().Feed();
-		if ((m_telePeriodicLoops % 200) == 0) { // 1 Hz
+		if ((m_telePeriodicLoops % 50) == 0) { // 1 Hz
 			//printf("Tele count=%d\n",m_telePeriodicLoops);
 			printf("Pressure switch %d\n",m_pressureSwitch->Get());
 		}
 
-		if ((m_telePeriodicLoops % 10) == 0) { // 20 Hz
+		if ((m_telePeriodicLoops % 10) == 0) { // 5 Hz
 			vector<Target> vecTargets = m_pCamera->findTargets();
 			if (0 != vecTargets.size())
 			{
