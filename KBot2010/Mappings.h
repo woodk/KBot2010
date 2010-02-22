@@ -33,15 +33,15 @@
  *   - Z		- shooter speed
  *   - trigger	- shoot 
  */
-#define ARM_BUTTON		1 	// can use GetTrigger instead
-//#define _BUTTON		2
-//#define _BUTTON		3
+#define OPERATOR_EM_ON_BUTTON		1
+#define OPERATOR_TENSION_CROSSBOW__BUTTON		2
+#define OPERATOR_GET_CROSSBOW_BUTTON		3
 //#define _BUTTON		4
 //#define _BUTTON		5
-//#define _BUTTON		6
-//#define _BUTTON		7
+#define OPERATOR_KICKER_CONTROL_BUTTON		6
 #define WINCH_BUTTON	8	// hard to hit by accident
 //#define _BUTTON		9
+#define ARM_BUTTON		11
 
 // Analog Inputs
 #define GYRO_CHANNEL		1

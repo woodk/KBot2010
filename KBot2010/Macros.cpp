@@ -60,15 +60,19 @@ void RobotMacros::OnClock()
 		DriverControl();
 	}
 	else if (m_macroState == mcWINCH) {
+		printf("Macros: WINCH\n");
 		m_kbot->getWinchMotor()->Set(kfWinchSpeed);		
 	}
 	else if (m_macroState == mcCAPTURE) {
+		printf("Macros: CAPTURE\n");
 		m_kbot->getManager()->getCaptureStrategy()->apply();
 	}
 	else if (m_macroState == mcAIM) {
+		printf("Macros: AIM\n");
 		m_kbot->getManager()->getAimStrategy()->apply();
 	}
 	else if (m_macroState == mcSHOOT) {
+		printf("Macros: SHOOT\n");
 		m_kbot->getKicker()->Kick();
 	}
 	else if (m_macroState == mcDRIVE) {

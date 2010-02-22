@@ -95,7 +95,7 @@
 		m_dsPacketsPerSecond = 0;
 		
 //		m_compressor = new Compressor(PRESSURE_SWITCH_CHANNEL, COMPRESSOR_RELAY_CHANNEL);
-		m_compressorRelay = new Relay(COMPRESSOR_RELAY_CHANNEL);
+		m_compressorRelay = new Relay(COMPRESSOR_RELAY_CHANNEL,Relay::kForwardOnly);
 		m_pressureSwitch = new DigitalInput(PRESSURE_SWITCH_CHANNEL);
 		
 		m_kicker = new Kicker(PISTON_ACTUATOR, PISTON_RELEASE, ELECTROMAGNET_CHANNEL);
@@ -150,8 +150,7 @@
 		
 		m_pCamera->init();
 //		m_compressor->Start();
-		
-		m_compressorRelay->Set(Relay::kForward);
+		m_compressorRelay->SetDirection(Relay::kForwardOnly);
 		
 	}
 	
@@ -182,7 +181,9 @@
 		m_dsPacketsPerSecond = 0;				// Reset the number of dsPackets in current second
 
 		m_gyro->Reset();
-		
+
+		m_compressorRelay->SetDirection(Relay::kForwardOnly);
+
 		m_pDashboardDataSender = new DashboardDataSender();
 		
 		m_driverStation->SetDigitalOut(4,false);
@@ -197,17 +198,22 @@
 	/********************************** Periodic Routines *************************************/
 	
 	void KBot::DisabledPeriodic(void)  {
+		// Runs at 50 Hz
 		// feed the user watchdog at every period when disabled
 		GetWatchdog().Feed();
 		
 		// increment the number of disabled periodic loops completed
 		m_disabledPeriodicLoops++;
 		
-		if ((m_disabledPeriodicLoops % 10) == 0) { // 20 Hz
+		if ((m_disabledPeriodicLoops % 10) == 0) { // 5 Hz
 			// TODO:  any disabled mode periodic bookkeeping
 		}
-		if ((m_disabledPeriodicLoops % 200) == 0) { // 1 Hz
+		if ((m_disabledPeriodicLoops % 50) == 0) { // 1 Hz
+			printf("Gate: %d\n",getGateSensorState());
+			printf("Ultrasound Near/Far: %d/%d\n",getNearUltrasoundState(),getFarUltrasoundState());
 			printf("Pressure switch %d\n",m_pressureSwitch->Get());
+			
+			printf("Encoders: left = %d    right = %d\n",m_leftEncoder->Get(), m_rightEncoder->Get());
 		}
 	}
 	
@@ -215,8 +221,8 @@
 	 * TODO: document
 	*/
 	void KBot::AutonomousPeriodic(void) {
+		// Runs at 50 Hz
 		// feed the user watchdog at every period when in autonomous
-		// Autonomous runs at 50 Hz
 		GetWatchdog().Feed();
 		if ((m_autoPeriodicLoops % 50) == 0) { // 1 Hz
 			printf("Auto count=%d\n",m_autoPeriodicLoops);
@@ -228,6 +234,10 @@
 			// calls below to reflect actual target situation.
 			m_driverStation->SetDigitalOut(DS_LED_CAMERA_LOCK, false);
 			m_driverStation->SetDigitalOut(DS_LED_IN_RANGE, false);
+		}
+		
+		if ((m_telePeriodicLoops % 50) == 0) { // 1 Hz
+			controlCompressor();
 		}
 		
 		// call the manager to figure out what to to now
@@ -242,23 +252,29 @@
 		}
 	}
 
+	void KBot::controlCompressor(void)
+	{
+		// control the compressor based on pressure switch reading
+		if (1 == m_pressureSwitch->Get())
+		{
+			m_compressorRelay->SetDirection(Relay::kForwardOnly);
+			m_compressorRelay->Set(Relay::kForward);
+		}
+		else
+		{
+			m_compressorRelay->SetDirection(Relay::kForwardOnly);
+			m_compressorRelay->Set(Relay::kOff);				
+		}
+	}
 	
 	void KBot::TeleopPeriodic(void) {
+		// Runs at 50 Hz
 		// feed the user watchdog at every period when in teleop
 		GetWatchdog().Feed();
 		if ((m_telePeriodicLoops % 50) == 0) { // 1 Hz
 			//printf("Tele count=%d\n",m_telePeriodicLoops);
-			printf("Pressure switch %d\n",m_pressureSwitch->Get());
-
-			// control the compressor based on pressure switch reading
-			if (0 == m_pressureSwitch->Get())
-			{
-				m_compressorRelay->Set(Relay::kForward);
-			}
-			else
-			{
-				m_compressorRelay->Set(Relay::kOff);				
-			}
+			printf("Pressure switch %d     gyro: %f\n",m_pressureSwitch->Get(),m_gyro->GetAngle());
+			controlCompressor();
 		}
 
 		if ((m_telePeriodicLoops % 10) == 0) { // 5 Hz
@@ -274,7 +290,9 @@
 		
 		if (getRightStick()->GetTrigger())
 		{
+			printf("Right Stick Trigger\n");
 			m_teleMacros->Set(mcSHOOT);
+			m_kicker->onTest(KICK);			// TODO: KICK PROPERLY
 		}			
 		else if (getRightStick()->GetRawButton(CAPTURE_BUTTON))
 		{
@@ -289,41 +307,39 @@
 			m_teleMacros->Set(mcDRIVE);
 		}
 		
-#ifdef TEST_KICKER
-		if (getRightStick()->GetRawButton(11))
+		if (getLeftStick()->GetRawButton(OPERATOR_KICKER_CONTROL_BUTTON))
 		{
-			if (getRightStick()->GetRawButton(6))
+			printf("Operator Control of Kicker:  ");
+			if (getLeftStick()->GetRawButton(OPERATOR_GET_CROSSBOW_BUTTON))
 			{
+				printf("Get crossbow");
 				m_kicker->onTest(GET_CROSSBOW);
 			}
-			else if (getRightStick()->GetRawButton(7))
+			else if (getLeftStick()->GetRawButton(OPERATOR_TENSION_CROSSBOW__BUTTON))
 			{
+				printf("Tension crossbow");
 				m_kicker->onTest(TENSION_CROSSBOW);
 			}
-			else if (getRightStick()->GetRawButton(8))
+			else if (getLeftStick()->GetRawButton(OPERATOR_EM_ON_BUTTON))
 			{
+				printf("Turn on magnet");
 				m_kicker->onTest(TEST_EM);
 			}
-			else if (getRightStick()->GetRawButton(9))
+			else if (getLeftStick()->GetRawButton(9))
 			{
+				printf("Turn off magnet");
 				m_kicker->onTest(KICK);
 			}
-		}
-		else if (getRightStick()->GetRawButton(1))
-		{
-			m_kicker->onTest(KICK);
+			printf("\n");
 		}
 		else
 		{
 			m_kicker->onClock();
 		}	
-#else
-		m_kicker->onClock();
-#endif
 		
 		// if t >= 100 s in teleop allow arm/winch operation
 		// TODO:  remove test stuff
-		if (true) //m_telePeriodicLoops >= 10000)
+		if (false) //m_telePeriodicLoops >= 10000)
 		{
 //			if (getLeftStick()->GetTrigger())
 			if (getRightStick()->GetRawButton(4))

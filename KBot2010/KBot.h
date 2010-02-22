@@ -105,6 +105,8 @@ private:
 	Relay	*m_compressorRelay;
 	DigitalInput *m_pressureSwitch;
 	
+	void controlCompressor();
+	
 	Kicker *m_kicker;
 	
 	// High level controllers

@@ -37,14 +37,10 @@ public:
 private:
 	States		state;
 	int			counter;
-	int			reloadTime;
-	bool		waitingToKick;
+	int			reloadTime;	// TODO: NOT CURRENTLY USED
 	Solenoid	*m_kickerSolenoidOut;
 	Solenoid	*m_kickerSolenoidIn;
 	Relay		*m_electromagnet;
-	
-	int			nFakeHoldCounter;
-	bool		m_bOut;
 	
 };
 #endif
