@@ -7,7 +7,10 @@
 #ifndef KBOTCAMERA_H_
 #define KBOTCAMERA_H_
 
+#include "WPILib.h"
 #include "Target.h"
+
+#define MINIMUM_SCORE 0.01
 
 /**
  * High level hardware class for controlling all camera functions.
@@ -25,6 +28,8 @@ public:
 	vector<Target> findTargets();
 	
 private:
+	
+	Timer m_timer;
 	
 };
 

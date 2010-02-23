@@ -33,6 +33,9 @@ private:
 	
 	// did we last see the ball with the near or the far sensor?
 	bool m_bFarLast;
+	
+	// number of times gate sensor has triggered
+	int m_nGateCounter; 
 };
 
 #endif

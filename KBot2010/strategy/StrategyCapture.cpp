@@ -4,6 +4,8 @@ static const float kfDriveForward = 0.25;	// % voltage to drive forward
 static const float kfFarTurn = 0.25;		// % voltage for turn when far away
 static const int knLostSweep = 25;		// half second sweep
 static const int knNearMax = 25;		// half second to get close after losing near sensor
+static const int knMaxGates = 3;
+
 /*
 Constructor initalizes object
 
@@ -100,5 +102,21 @@ void StrategyCapture::init()
 /* Check IR sensors to see if we have a ball */
 bool StrategyCapture::BallCaptured()
 {
-	return (0 == m_kbot->getGateSensorState());
+	bool bCaptured = false;
+	if (0 == m_kbot->getGateSensorState())
+	{
+		++m_nGateCounter;
+	}
+	else
+	{
+		m_nGateCounter = 0;
+	}
+	
+	if (m_nGateCounter > knMaxGates)	
+	{
+		bCaptured = true;
+		m_nGateCounter = 0;
+	}
+	
+	return bCaptured;
 }

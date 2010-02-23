@@ -78,7 +78,7 @@ eState StrategyAim::apply()
 	m_fAngle += fDeltaT*fTurnSpeed;
 
 	vector<Target> vecTargets = m_kbot->getCamera()->findTargets();
-	if (0 < vecTargets.size())
+	if (vecTargets[0].m_score >= MINIMUM_SCORE)
 	{
 		// do something to reject bad frames: eg:
 		// keep list of last x values & time stamps

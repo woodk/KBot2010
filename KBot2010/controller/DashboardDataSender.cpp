@@ -1,5 +1,5 @@
 #include "DashboardDataSender.h"
-#include "Timer.h"
+#include "WPILib.h"
 
 /**
  * Send data to the dashboard.

@@ -21,6 +21,8 @@ void _GLOBAL__I__ZN14ManagerForwardC2EP4KBot();
 
 void _GLOBAL__I__ZN12RobotManagerC2EP4KBot();
 
+void _GLOBAL__I__ZN10KbotCameraC2Ev();
+
 void _GLOBAL__I__ZN6KickerC2Eiii();
 
 void _GLOBAL__I__ZN18StrategyGoStraightC2EP4KBot();
@@ -81,6 +83,7 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN19DashboardDataSenderC2Ev,
     _GLOBAL__I__ZN14ManagerForwardC2EP4KBot,
     _GLOBAL__I__ZN12RobotManagerC2EP4KBot,
+    _GLOBAL__I__ZN10KbotCameraC2Ev,
     _GLOBAL__I__ZN6KickerC2Eiii,
     _GLOBAL__I__ZN18StrategyGoStraightC2EP4KBot,
     _GLOBAL__I__ZN19StrategyGoAlongEdgeC2EP4KBot,
@@ -122,6 +125,8 @@ void _GLOBAL__D__ZN19DashboardDataSenderC2Ev();
 void _GLOBAL__D__ZN14ManagerForwardC2EP4KBot();
 
 void _GLOBAL__D__ZN12RobotManagerC2EP4KBot();
+
+void _GLOBAL__D__ZN10KbotCameraC2Ev();
 
 void _GLOBAL__D__ZN6KickerC2Eiii();
 
@@ -183,6 +188,7 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN19DashboardDataSenderC2Ev,
     _GLOBAL__D__ZN14ManagerForwardC2EP4KBot,
     _GLOBAL__D__ZN12RobotManagerC2EP4KBot,
+    _GLOBAL__D__ZN10KbotCameraC2Ev,
     _GLOBAL__D__ZN6KickerC2Eiii,
     _GLOBAL__D__ZN18StrategyGoStraightC2EP4KBot,
     _GLOBAL__D__ZN19StrategyGoAlongEdgeC2EP4KBot,

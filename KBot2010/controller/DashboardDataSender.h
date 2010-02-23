@@ -1,9 +1,10 @@
 #ifndef __DashboardDataFormat_h__
 #define __DashboardDataFormat_h__
 
-#include "WPILib.h"
 #include <vector>
 #include "Target.h"
+
+class Timer;
 
 /**
  * This class is just an example of one way you could organize the data that you want

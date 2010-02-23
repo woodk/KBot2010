@@ -16,6 +16,7 @@
  */
 KbotCamera::KbotCamera()
 {
+	m_timer.Start();
 }
 
 void KbotCamera::init()
@@ -40,15 +41,30 @@ vector<Target> KbotCamera::findTargets()
 	vector<Target> vecTargets;
 	AxisCamera& camera = AxisCamera::GetInstance();
 	
+	printf("findTargets:\n");
 	if (camera.IsFreshImage()) {
 		// get the camera image
 		HSLImage *pImage = camera.GetImage();
 
 		// find FRC targets in the image
-		vector<Target> vecTargets = Target::FindCircularTargets(pImage);
+		vecTargets = Target::FindCircularTargets(pImage);
 		delete pImage;
+		
+		if ((vecTargets.size() == 0) || (vecTargets[0].m_score < MINIMUM_SCORE))
+		{
+			// no targets found. Make sure the first one in the list is 0,0
+			// since the dashboard program annotates the first target in green
+			// and the others in magenta. With no qualified targets, they'll all
+			// be magenta.
+			Target nullTarget;
+			nullTarget.m_majorRadius = 0.0;
+			nullTarget.m_minorRadius = 0.0;
+			nullTarget.m_score = 0.0;
+			if (vecTargets.size() == 0)
+				vecTargets.push_back(nullTarget);
+			else
+				vecTargets.insert(vecTargets.begin(), nullTarget);
+		}
 	}
 	return vecTargets;
 }
-
-

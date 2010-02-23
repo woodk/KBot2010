@@ -2,8 +2,8 @@
 
 #include "KbotPID.h"
 
-static const float kfAngularSpeed = 0.3f;
-static const float kfForwardSpeed = 0.8f;
+static const float kfAngularSpeed = 0.1f;
+static const float kfForwardSpeed = 0.1f;
 
 /*
 Constructor initalizes object
@@ -67,7 +67,7 @@ eState StrategyProgrammedMove::apply()
     // TODO:  check calibrations, both linear and angular
     float fPositionCalibration = 19.25/1440;  // inches per pulse
     float fAngleCalibration = fPositionCalibration/22.0f; // robot wheels are 22 inches apart
-	float fAveragePosition = fPositionCalibration*(m_kbot->getLeftEncoder()->Get()+
+	float fAveragePosition = 0.5*fPositionCalibration*(m_kbot->getLeftEncoder()->Get()+
 								m_kbot->getRightEncoder()->Get());
 	m_fDistance = fAveragePosition-m_fStartPosition;
 	float fTurnAngle = fAngleCalibration*(m_kbot->getRightEncoder()->GetRate()-
@@ -105,9 +105,8 @@ eState StrategyProgrammedMove::apply()
 	    		m_bTurning = true;
 	    		m_fStartPosition = fPositionCalibration*(m_kbot->getLeftEncoder()->Get()+
 	    									m_kbot->getRightEncoder()->Get());
-	    		m_fDistance = fAveragePosition-m_fStartPosition;
-	    		m_fStartAngle = fAngleCalibration*(m_kbot->getRightEncoder()->GetRate()-
-	    								m_kbot->getLeftEncoder()->GetRate());
+	    		m_fDistance = 0.0f;
+	    		m_fStartAngle = m_fAngle;
 			}
 		}
 	}
@@ -152,6 +151,7 @@ void StrategyProgrammedMove::init()
 	m_fStartAngle = 0.0f;
 	m_fStartPosition = 0.0f;
 	m_bTurning = true;
+	m_fDistance = 0.0f;
 }
 
 /* Check camera to see if we can see any targets */

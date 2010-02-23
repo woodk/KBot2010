@@ -7,7 +7,6 @@
 #include "Relay.h"
 
 static float kfWinchSpeed = 1.0;
-#define MINIMUM_SCORE 0.01
 
 #define PERIODIC_SPEED	200		// Speed in Hz of main periodic routines 
 
@@ -275,37 +274,16 @@ static float kfWinchSpeed = 1.0;
 			//printf("Pressure switch %d     gyro: %f\n",m_pressureSwitch->Get(),m_gyro->GetAngle());
 			controlCompressor();
 		}
-/*
+
 		if ((m_telePeriodicLoops % 40) == 0) { // 5 Hz
 			vector<Target> vecTargets = m_pCamera->findTargets();
 
-			if (vecTargets.size() == 0 || vecTargets[0].m_score < MINIMUM_SCORE)
-			{
-				// no targets found. Make sure the first one in the list is 0,0
-				// since the dashboard program annotates the first target in green
-				// and the others in magenta. With no qualified targets, they'll all
-				// be magenta.
-				Target nullTarget;
-				nullTarget.m_majorRadius = 0.0;
-				nullTarget.m_minorRadius = 0.0;
-				nullTarget.m_score = 0.0;
-				if (vecTargets.size() == 0)
-					vecTargets.push_back(nullTarget);
-				else
-					vecTargets.insert(vecTargets.begin(), nullTarget);
-				m_pDashboardDataSender->sendVisionData(0.0, m_gyro->GetAngle(), 0.0, 0.0, vecTargets);
-				if (vecTargets.size() == 0)
-					printf("No target found\n\n");
-				//else
-					//TODO: put this back in; this is the error printf("No valid targets found, best score: %f ", vecTargets[0].m_score);
-			}
-			else
+			if (vecTargets[0].m_score > MINIMUM_SCORE)
 			{
 				m_pDashboardDataSender->sendVisionData(0.0, m_gyro->GetAngle(), 0.0, vecTargets[0].m_xPos / vecTargets[0].m_xMax, vecTargets);
-				//dds->sendVisionData(0.0, gyro->GetAngle(), 0.0, targets[0].m_xPos / targets[0].m_xMax, targets);
 			}				
 		}
-*/
+
 		if (getRightStick()->GetTrigger())
 		{
 			m_kicker->Kick();
