@@ -100,7 +100,6 @@ void StrategySCurve::init()
 	    printf("SCurve right\n");
 		m_curveDir=-45.0f;
 	}
-	m_kbot->getDriverStation()->SetDigitalOut(DS_START_STATE,true);
 }
 
 /*

@@ -46,7 +46,6 @@ eState StrategyBackUp::apply()
 void StrategyBackUp::init()
 {
     printf("BackUp state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_END_STATE,true);
 }
 
 /*

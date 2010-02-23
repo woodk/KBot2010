@@ -34,5 +34,4 @@ eState StrategyCircle::apply()
 void StrategyCircle::init()
 {
     printf("Circle state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_END_STATE,true);
 }

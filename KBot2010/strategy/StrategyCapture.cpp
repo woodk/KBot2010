@@ -93,7 +93,6 @@ eState StrategyCapture::apply()
 void StrategyCapture::init()
 {
     printf("Capture state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
 	m_nLostCounter = 0;
 }
 

@@ -74,7 +74,6 @@ void StrategyTurn45::init()
 		m_gyroDriveCtrl->setDesiredValue(-45.0f);
 	    printf("Turn45 Right state\n");
 	}
-	m_kbot->getDriverStation()->SetDigitalOut(DS_START_STATE,true);
 }
 
 /*

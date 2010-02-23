@@ -99,8 +99,6 @@ eState StrategyAim::apply()
 void StrategyAim::init()
 {
     printf("Aim state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_SPIN_STATE,true);
-	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
 	m_fForwardSpeed = 0.1f;
 	m_fAngularSpeed = 0.0f;
 }

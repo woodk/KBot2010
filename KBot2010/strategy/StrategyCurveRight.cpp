@@ -64,7 +64,6 @@ eState StrategyCurveRight::apply()
 void StrategyCurveRight::init()
 {
     printf("CurveRight state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_START_STATE,true);
 }
 
 /*

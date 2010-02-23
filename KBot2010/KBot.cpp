@@ -6,6 +6,8 @@
 
 #include "Relay.h"
 
+static float kfWinchSpeed = 0.9f;
+
 /**
  * This is the K-Bot 2010 main code.
  * 
@@ -149,7 +151,6 @@
 		}
 		
 		m_pCamera->init();
-//		m_compressor->Start();
 		m_compressorRelay->SetDirection(Relay::kForwardOnly);
 		
 	}
@@ -162,12 +163,6 @@
 	void KBot::AutonomousInit(void) {
 		m_autoPeriodicLoops = 0;				// Reset the loop counter for autonomous mode
 		m_autoManager->setState(knInitial);
-
-		m_driverStation->SetDigitalOut(4,false);
-		m_driverStation->SetDigitalOut(5,false);
-		m_driverStation->SetDigitalOut(6,false);
-		m_driverStation->SetDigitalOut(7,false);
-		m_driverStation->SetDigitalOut(8,false);
 		
 		// set gyro initial direction
 		m_gyro->Reset();
@@ -185,12 +180,6 @@
 		m_compressorRelay->SetDirection(Relay::kForwardOnly);
 
 		m_pDashboardDataSender = new DashboardDataSender();
-		
-		m_driverStation->SetDigitalOut(4,false);
-		m_driverStation->SetDigitalOut(5,false);
-		m_driverStation->SetDigitalOut(6,false);
-		m_driverStation->SetDigitalOut(7,false);
-		m_driverStation->SetDigitalOut(8,false);
 
 		printf("Setting encoders\n");
 	}
@@ -231,9 +220,6 @@
 		if ((m_autoPeriodicLoops % 10) == 0) { // 5 Hz
 
 			// TODO:  target acquistion with new camera.  Modify
-			// calls below to reflect actual target situation.
-			m_driverStation->SetDigitalOut(DS_LED_CAMERA_LOCK, false);
-			m_driverStation->SetDigitalOut(DS_LED_IN_RANGE, false);
 		}
 		
 		if ((m_telePeriodicLoops % 50) == 0) { // 1 Hz
@@ -283,18 +269,15 @@
 			{
 				m_pDashboardDataSender->sendVisionData(0.0, 0.0, 0.0, 1.0, vecTargets);
 			}				
-
-			m_driverStation->SetDigitalOut(DS_LED_CAMERA_LOCK, false);
-			m_driverStation->SetDigitalOut(DS_LED_IN_RANGE, false);
 		}
 		
 		if (getRightStick()->GetTrigger())
 		{
 			printf("Right Stick Trigger\n");
-			m_teleMacros->Set(mcSHOOT);
-			m_kicker->onTest(KICK);			// TODO: KICK PROPERLY
+			m_kicker->Kick();
 		}			
-		else if (getRightStick()->GetRawButton(CAPTURE_BUTTON))
+		
+		if (getRightStick()->GetRawButton(CAPTURE_BUTTON))
 		{
 			m_teleMacros->Set(mcCAPTURE);
 		}
@@ -307,30 +290,21 @@
 			m_teleMacros->Set(mcDRIVE);
 		}
 		
-		if (getLeftStick()->GetRawButton(OPERATOR_KICKER_CONTROL_BUTTON))
+		if (getLeftStick()->GetRawButton(OPERATOR_PISTON_OUT_BUTTON))
 		{
-			printf("Operator Control of Kicker:  ");
-			if (getLeftStick()->GetRawButton(OPERATOR_GET_CROSSBOW_BUTTON))
-			{
-				printf("Get crossbow");
-				m_kicker->onTest(GET_CROSSBOW);
-			}
-			else if (getLeftStick()->GetRawButton(OPERATOR_TENSION_CROSSBOW__BUTTON))
-			{
-				printf("Tension crossbow");
-				m_kicker->onTest(TENSION_CROSSBOW);
-			}
-			else if (getLeftStick()->GetRawButton(OPERATOR_EM_ON_BUTTON))
-			{
-				printf("Turn on magnet");
-				m_kicker->onTest(TEST_EM);
-			}
-			else if (getLeftStick()->GetRawButton(9))
-			{
-				printf("Turn off magnet");
-				m_kicker->onTest(KICK);
-			}
-			printf("\n");
+			m_kicker->onAction(GET_CROSSBOW);
+		}
+		else if (getLeftStick()->GetRawButton(OPERATOR_PISTON_IN_BUTTON))
+		{
+			m_kicker->onAction(TENSION_CROSSBOW);
+		}
+		else if (getLeftStick()->GetRawButton(OPERATOR_EM_ON_BUTTON))
+		{
+			m_kicker->onAction(EM_ON);
+		}
+		else if (getLeftStick()->GetRawButton(OPERATOR_EM_ON_BUTTON))
+		{
+			m_kicker->onAction(KICK);
 		}
 		else
 		{
@@ -339,17 +313,27 @@
 		
 		// if t >= 100 s in teleop allow arm/winch operation
 		// TODO:  remove test stuff
-		if (false) //m_telePeriodicLoops >= 10000)
+		if (true) //m_telePeriodicLoops >= 5000)
 		{
-//			if (getLeftStick()->GetTrigger())
-			if (getRightStick()->GetRawButton(4))
+			if (getLeftStick()->GetTrigger())
 			{
-				m_teleMacros->Set(mcDEPLOY_ARM);
+				getArmRelease()->Set(true);
+				getArmRetract()->Set(false);
 			}
-//			else if (getLeftStick()->GetRawButton(WINCH_BUTTON))
-			else if (getRightStick()->GetRawButton(5))
+			else	// pull arm in by default
 			{
-				m_teleMacros->Set(mcWINCH);
+				getArmRelease()->Set(false);
+				getArmRetract()->Set(true);				
+			}
+			
+			// control winch independently of arm
+			if (getLeftStick()->GetRawButton(WINCH_BUTTON))
+			{
+				getWinchMotor()->Set(kfWinchSpeed);		
+			}
+			else
+			{
+				getWinchMotor()->Set(0.0f);
 			}
 		}
 		// this is where the actual robotic driving is done
@@ -361,7 +345,7 @@
 		/*
 		 * NOTE:  Anything placed here will be called on each iteration of the periodic loop.
 		 * Since the default speed of the loop is 200 Hz, code should only really be placed here
-		 * for I/O that can respond at a 200Hz rate.  (e.g. the Jaguar speed controllers
+		 * for I/O that can respond at a 200Hz rate. (e.g. the Jaguar speed controllers
 		 */
 		
 		// put 200Hz Jaguar control here
@@ -370,7 +354,7 @@
 			/* 
 			 * Code placed in here will be called on every alternate iteration of the periodic loop.
 			 * Assuming the default 200 Hz loop speed, code should only really be placed here for 
-			 * I/O that can respond at a 100Hz rate.  (e.g. the Victor speed controllers)
+			 * I/O that can respond at a 100Hz rate. (e.g. the Victor speed controllers)
 			 */
 			
 			// put 100Hz Victor control here
@@ -380,10 +364,10 @@
 			/* 
 			 * Code placed in here will be called on every fourth iteration of the periodic loop.
 			 * Assuming the default 200 Hz loop speed, code should only really be placed here for 
-			 * I/O that can respond at a 50Hz rate.  (e.g. the Hitec HS-322HD servos)
+			 * I/O that can respond at a 50Hz rate. (e.g. the Hitec HS-322HD servos)
 			 */
 			
-			// put 50Hz Victor control here
+			// put 50Hz servo control here
 		}
 		
 		if (m_ds->GetPacketNumber() != m_priorPacketNumber) {

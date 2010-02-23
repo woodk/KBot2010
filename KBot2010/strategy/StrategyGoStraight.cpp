@@ -62,7 +62,6 @@ eState StrategyGoStraight::apply()
 void StrategyGoStraight::init()
 {
     printf("GoStraight state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_START_STATE,true);
 }
 
 /*

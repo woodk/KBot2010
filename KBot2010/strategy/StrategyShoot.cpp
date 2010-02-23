@@ -1,5 +1,7 @@
 #include "StrategyShoot.h"
 
+static const int KICK_TIMES = 10;
+
 /*
 Constructor initalizes object
 
@@ -8,6 +10,7 @@ StrategyShoot::StrategyShoot(KBot* kbot) : Strategy(kbot)
 {
     // Create initial state here
 	m_nKickCounter = 0;
+	m_nTimesKicked = 0;
 }
 
 /*
@@ -26,10 +29,15 @@ eState StrategyShoot::apply()
     eState nNewState = knShoot;    // assume we will keep running
 
    	// FIRE!
-    if (m_kbot->getKicker()->getIsReady())
+    if (m_nTimesKicked < KICK_TIMES)
     {
     	m_kbot->getKicker()->Kick();
-    	if (m_nKickCounter < (int)(m_vecNextState.size()))
+    	++m_nTimesKicked;
+    }
+    else
+    {
+    	m_nTimesKicked = 0;
+	   	if (m_nKickCounter < (int)(m_vecNextState.size()))
     	{
     		nNewState = m_vecNextState[m_nKickCounter];
         	++m_nKickCounter;
@@ -46,7 +54,6 @@ eState StrategyShoot::apply()
 void StrategyShoot::init()
 {
     printf("Shoot state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
-    //m_robotDrive->setTorque(120);
+	m_nTimesKicked = 0;
 }
 

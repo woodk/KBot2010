@@ -94,7 +94,6 @@ void StrategyTrack::init()
 {
 	// TODO: implement with new camera and target code
     printf("Track state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
 	
     m_lossCount=0;
 }

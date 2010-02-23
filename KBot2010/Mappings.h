@@ -33,15 +33,16 @@
  *   - Z		- shooter speed
  *   - trigger	- shoot 
  */
-#define OPERATOR_EM_ON_BUTTON		1
-#define OPERATOR_TENSION_CROSSBOW__BUTTON		2
-#define OPERATOR_GET_CROSSBOW_BUTTON		3
+#define ARM_UP_BUTTON	2
+#define WINCH_BUTTON	3	// hard to hit by accident
 //#define _BUTTON		4
 //#define _BUTTON		5
-#define OPERATOR_KICKER_CONTROL_BUTTON		6
-#define WINCH_BUTTON	8	// hard to hit by accident
+#define OPERATOR_PISTON_OUT_BUTTON		6
+#define OPERATOR_PISTON_IN_BUTTON		7
+//#define _BUTTON		8
 //#define _BUTTON		9
-#define ARM_BUTTON		11
+#define OPERATOR_EM_OFF_BUTTON		10
+#define OPERATOR_EM_ON_BUTTON		11
 
 // Analog Inputs
 #define GYRO_CHANNEL		1
@@ -83,17 +84,5 @@
 #define R_WHEEL2_JAG_ID		5
 #define WINCH_JAG_ID		1
 #define ROLLER_JAG_ID		6
-
-// Driver Station Analog 
-
-// Driver Station Outputs
-#define DS_LED_CAMERA_LOCK	1
-#define DS_LED_IN_RANGE		2
-#define DS_CAMERA_LOST		3
-#define DS_START_STATE		4		// GoStraight, CurveLeft or CurveRight
-#define DS_SPIN_STATE		5
-#define DS_TRACK_STATE		6
-#define DS_ATTACK_STATE		7
-#define DS_END_STATE		8		// BackUp AND Circle
 
 #endif

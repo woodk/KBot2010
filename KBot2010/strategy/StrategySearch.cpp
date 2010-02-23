@@ -41,7 +41,6 @@ eState StrategySearch::apply()
 void StrategySearch::init()
 {
     printf("Search state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_SPIN_STATE,true);
 }
 
 /* Check ultrasound to see if ball is in sight */

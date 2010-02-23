@@ -15,7 +15,7 @@
 
 #define TEST_KICKER 1				// uncomment to activate testing
 
-enum States {TEST_EM, GET_CROSSBOW, TENSION_CROSSBOW, KICK, READY} ;
+enum States {GET_CROSSBOW, TENSION_CROSSBOW, EM_ON, KICK, READY} ;
 
 /**
  * High level hardware class for controlling all kicker functions
@@ -28,16 +28,14 @@ public:
 	void	Kick();
 	void	onClock();
 
-#ifdef TEST_KICKER
-	void	onTest(States state);	
-#endif
+	void	onAction(States state);	
 	
-	bool 	getIsReady() {return READY == state;}
-
 private:
 	States		state;
 	int			counter;
-	int			reloadTime;	// TODO: NOT CURRENTLY USED
+	int			kickCounter;
+	int			reloadTime;
+
 	Solenoid	*m_kickerSolenoidOut;
 	Solenoid	*m_kickerSolenoidIn;
 	Relay		*m_electromagnet;

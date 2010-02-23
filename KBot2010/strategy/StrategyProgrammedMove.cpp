@@ -147,7 +147,6 @@ void StrategyProgrammedMove::init()
 	float fDeltaY = m_vecY[m_nPathIndex+1]-m_vecY[m_nPathIndex];
 	m_fLength = sqrt(fDeltaX*fDeltaX+fDeltaY*fDeltaY);
 	m_fDirection = atan2(fDeltaY, fDeltaX);
-	m_kbot->getDriverStation()->SetDigitalOut(DS_TRACK_STATE,true);
 	m_fForwardSpeed = 0.0f;
 	m_fAngularSpeed = 0.0f;
 	m_fStartAngle = 0.0f;

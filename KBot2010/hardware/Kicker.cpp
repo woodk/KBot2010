@@ -19,7 +19,8 @@ Kicker::Kicker(int kickerOutChannel, int kickerInChannel, int electromagnetChann
 	m_electromagnet = new Relay(electromagnetChannel,Relay::kForwardOnly);
 	counter=0;
 	state=GET_CROSSBOW;
-	reloadTime = 10;
+	reloadTime = 50;
+	kickCounter = 0;
 }
 void	Kicker::Init(int strength)
 {
@@ -57,23 +58,33 @@ void	Kicker::onClock()
 		m_electromagnet->Set(Relay::kForward);
 		m_kickerSolenoidIn->Set(true);
 		m_kickerSolenoidOut->Set(false);
-		
+		if (counter>reloadTime)
+		{
+			counter=0;
+			kickCounter = 0;
+		}		
 	} else if (state==KICK)
 	{
-		printf("Kicker: KICK\n");
-		//release EM
-		m_electromagnet->Set(Relay::kOff);
-		state=GET_CROSSBOW;
-		counter = 0;
+		if (kickCounter < KICK_TIME)
+		{
+			printf("Kicker: KICK\n");
+			//release EM
+			m_electromagnet->Set(Relay::kOff);
+			counter = 0;
+			++kickCounter;
+		}
+		else
+		{
+			state=GET_CROSSBOW;
+		}
 	}
 }
 
-
-#ifdef TEST_KICKER
-void	Kicker::onTest(States state)
+void	Kicker::onAction(States state)
 {
 	if (state==GET_CROSSBOW)
 	{
+		state=GET_CROSSBOW;
 		// turn on electromagnet
 		// turn off kicker in
 		// turn on kicker out
@@ -81,11 +92,12 @@ void	Kicker::onTest(States state)
 		m_kickerSolenoidOut->Set(true);
 	} else if (state==TENSION_CROSSBOW)
 	{
+		state=TENSION_CROSSBOW;
 		// turn on kicker in
 		// turn off kicker out
 		m_kickerSolenoidIn->Set(true);
 		m_kickerSolenoidOut->Set(false);
-	} else if (state==TEST_EM)
+	} else if (state==EM_ON)
 	{
 		m_electromagnet->Set(Relay::kForward);		
 	} else if (state==KICK)
@@ -96,5 +108,5 @@ void	Kicker::onTest(States state)
 		counter = 0;
 	}	
 }
-#endif
+
 

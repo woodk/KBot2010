@@ -50,7 +50,6 @@ eState StrategySpin::apply()
 void StrategySpin::init()
 {
     printf("Spin state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_SPIN_STATE,true);
     //m_robotDrive->setTorque(120);
 }
 

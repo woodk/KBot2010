@@ -32,6 +32,8 @@ private:
 	std::vector<eState> m_vecNextState;
 	
 	int m_nKickCounter;
+	
+	int m_nTimesKicked;
     
 };
 

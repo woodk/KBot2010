@@ -65,7 +65,6 @@ eState StrategyCurveLeft::apply()
 void StrategyCurveLeft::init()
 {
     printf("CurveLeft state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_START_STATE,true);
 }
 
 /*

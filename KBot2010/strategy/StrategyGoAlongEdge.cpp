@@ -59,7 +59,6 @@ eState StrategyGoAlongEdge::apply()
 void StrategyGoAlongEdge::init()
 {
     printf("Go Along Edge state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_START_STATE,true);
 }
 
 /*

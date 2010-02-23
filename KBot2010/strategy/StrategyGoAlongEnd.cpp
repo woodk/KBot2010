@@ -59,7 +59,6 @@ eState StrategyGoAlongEnd::apply()
 void StrategyGoAlongEnd::init()
 {
     printf("Go Along End state\n");
-	m_kbot->getDriverStation()->SetDigitalOut(DS_START_STATE,true);
 }
 
 /*
