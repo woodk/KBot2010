@@ -1,13 +1,6 @@
 #ifndef MAPPINGS_H
 #define MAPPINGS_H
 
-// TODO: remove commented out zeros--for testing only!
-#define KICK_STRENGTH_FORWARD	25
-#define KICK_STRENGTH_MIDFIELD	50
-#define KICK_STRENGTH_DEFENSE	100
-
-
-
 /*  USB 1 - The "right" joystick = Driver control 
  *  USB 2 - The "left" joystick  = Operator control
  */ 

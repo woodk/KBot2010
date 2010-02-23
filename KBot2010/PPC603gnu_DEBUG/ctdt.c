@@ -39,7 +39,7 @@ void _GLOBAL__I__ZN14StrategySearchC2EP4KBot();
 
 void _GLOBAL__I__ZN13StrategyWeaveC2EP4KBot();
 
-void _GLOBAL__I__ZN11StrategyAimC2EP4KBot();
+void _GLOBAL__I__Z14xSortPredicateR8camPointS0_();
 
 void _GLOBAL__I__ZN15StrategyCaptureC2EP4KBot();
 
@@ -69,8 +69,6 @@ void _GLOBAL__I__ZN9RobotBase10m_instanceE();
 
 void _GLOBAL__I__ZN10Ultrasonic6m_taskE();
 
-void _GLOBAL__I__ZN10AxisCamera10m_instanceE();
-
 void _GLOBAL__I_AxisCamera_debugFlag();
 
 extern void (*_ctors[])();
@@ -92,7 +90,7 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN13StrategyShootC2EP4KBot,
     _GLOBAL__I__ZN14StrategySearchC2EP4KBot,
     _GLOBAL__I__ZN13StrategyWeaveC2EP4KBot,
-    _GLOBAL__I__ZN11StrategyAimC2EP4KBot,
+    _GLOBAL__I__Z14xSortPredicateR8camPointS0_,
     _GLOBAL__I__ZN15StrategyCaptureC2EP4KBot,
     _GLOBAL__I__ZN18StrategyCurveRightC2EP4KBot,
     _GLOBAL__I__ZN14StrategyCircleC2EP4KBot,
@@ -107,7 +105,6 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__I__ZN9RobotBase10m_instanceE,
     _GLOBAL__I__ZN10Ultrasonic6m_taskE,
-    _GLOBAL__I__ZN10AxisCamera10m_instanceE,
     _GLOBAL__I_AxisCamera_debugFlag,
     0
     };
@@ -144,7 +141,7 @@ void _GLOBAL__D__ZN14StrategySearchC2EP4KBot();
 
 void _GLOBAL__D__ZN13StrategyWeaveC2EP4KBot();
 
-void _GLOBAL__D__ZN11StrategyAimC2EP4KBot();
+void _GLOBAL__D__Z14xSortPredicateR8camPointS0_();
 
 void _GLOBAL__D__ZN15StrategyCaptureC2EP4KBot();
 
@@ -195,7 +192,7 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN13StrategyShootC2EP4KBot,
     _GLOBAL__D__ZN14StrategySearchC2EP4KBot,
     _GLOBAL__D__ZN13StrategyWeaveC2EP4KBot,
-    _GLOBAL__D__ZN11StrategyAimC2EP4KBot,
+    _GLOBAL__D__Z14xSortPredicateR8camPointS0_,
     _GLOBAL__D__ZN15StrategyCaptureC2EP4KBot,
     _GLOBAL__D__ZN18StrategyCurveRightC2EP4KBot,
     _GLOBAL__D__ZN14StrategyCircleC2EP4KBot,

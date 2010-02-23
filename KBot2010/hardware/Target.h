@@ -2,7 +2,7 @@
 #define _TARGET_H
 
 #include <vector>
-#include "Vision/ColorImage.h"
+#include "Vision/HSLImage.h"
 
 class Target
 {
@@ -17,7 +17,7 @@ public:
     double m_xMax;
     bool m_bothFound;
 
-    static vector<Target> FindCircularTargets(ColorImage *image);
+    static vector<Target> FindCircularTargets(HSLImage *image);
     double GetHorizontalAngle();
     void Print();
 };

@@ -2,6 +2,18 @@
 #define STRATEGY_AIM_H
 
 #include "Strategy.h"
+#include <queue>
+
+// Camera point including x-coordinate and timestamp
+struct camPoint {
+	float m_x;
+	float m_t;
+	camPoint(float x, float t)
+	{
+		m_x=x;
+		m_t=t;
+	}
+};
 
 /*
 The strategy used to aim.
@@ -62,6 +74,11 @@ private:
 	
 	// current angular speed
 	float m_fAngularSpeed;
+	
+	// list of camera points
+	vector<camPoint> m_vecPoints;
+	// count number of points added to list
+	int m_pointCounter;
 	
 };
 

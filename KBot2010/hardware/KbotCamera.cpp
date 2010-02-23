@@ -6,7 +6,7 @@
 
 #include "KbotCamera.h"
 
-#include "Vision/AxisCamera2010.h"
+#include "Vision/AxisCamera.h"
 #include "Vision/HSLImage.h"
 #include "Target.h"
 
@@ -22,9 +22,12 @@ void KbotCamera::init()
 {
 	try
 	{
-		AxisCamera& camera = AxisCamera::getInstance();
-		camera.writeResolution(k320x240);
-		camera.writeBrightness(50);	
+		printf("Getting camera instance\n");
+		AxisCamera &camera = AxisCamera::GetInstance();
+		printf("Setting camera parameters\n");
+		camera.WriteResolution(AxisCamera::kResolution_320x240);
+		camera.WriteCompression(20);
+		camera.WriteBrightness(50);  // was zero in WPI code was 50 in out old code
 	}
 	catch(...)
 	{
@@ -35,22 +38,15 @@ void KbotCamera::init()
 vector<Target> KbotCamera::findTargets()
 {
 	vector<Target> vecTargets;
-	try
-	{
-		AxisCamera& camera = AxisCamera::getInstance();
-			
-		if (camera.freshImage()) {
-			// get the camera image
-			ColorImage *pImage = camera.GetImage();
-		
-			vecTargets = Target::FindCircularTargets(pImage);
-			delete pImage;
-			
-		}
-	}
-	catch(...)
-	{
-		// do nothing
+	AxisCamera& camera = AxisCamera::GetInstance();
+	
+	if (camera.IsFreshImage()) {
+		// get the camera image
+		HSLImage *pImage = camera.GetImage();
+
+		// find FRC targets in the image
+		vector<Target> vecTargets = Target::FindCircularTargets(pImage);
+		delete pImage;
 	}
 	return vecTargets;
 }

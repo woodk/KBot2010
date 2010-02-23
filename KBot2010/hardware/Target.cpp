@@ -1,5 +1,4 @@
-#include "niVision.h"
-#include "Vision/ColorImage.h"
+#include "nivision.h"
 #include "Vision/MonoImage.h"
 #include "Target.h"
 #include <algorithm>
@@ -29,7 +28,7 @@ static ShapeDetectionOptions shapeOptions = {
 										IMAQ_GEOMETRIC_MATCH_SHIFT_INVARIANT,	// mode
 										NULL,			// angle ranges
 										0,				// num angle ranges
-										0,				// scale range
+										{75, 125},		// scale range
 										500				// minMatchScore
 };
 
@@ -63,17 +62,17 @@ int compareTargets(Target t1, Target t2)
  * @param image The image to examine.
  * @returns A target object with the parameters filled in.
  */
-vector<Target> Target::FindCircularTargets(ColorImage *image)
+vector<Target> Target::FindCircularTargets(HSLImage *image)
 {
 	wpi_assert(image != NULL);
-	int width = image->getWidth();
-	int height = image->getHeight();
+	int width = image->GetWidth();
+	int height = image->GetHeight();
 
 	vector<Target> sortedTargets;
-	
+
 	// get the luminance plane only for the image to make the code
 	// insensitive to lighting conditions.
-	MonoImage  *luminancePlane = image->getLuminancePlane();
+	MonoImage  *luminancePlane = image->GetLuminancePlane();
 	vector<EllipseMatch> *results = luminancePlane->DetectEllipses(&ellipseDescriptor, 
 																	&curveOptions,
 																	&shapeOptions,
@@ -90,7 +89,7 @@ vector<Target> Target::FindCircularTargets(ColorImage *image)
 	{
 		Target target;
 		EllipseMatch e = results->at(i);
-        target.m_rawScore = e.score;
+		target.m_rawScore = e.score;
 		target.m_score = (e.majorRadius * e.minorRadius)
 							/ (1001 - e.score)
 							/ (height * width) * 100;
@@ -98,11 +97,11 @@ vector<Target> Target::FindCircularTargets(ColorImage *image)
 		target.m_minorRadius = e.minorRadius / height;
 		//always divide by height so that x and y are same units
 		target.m_xPos = (2.0 * e.position.x - width) / height;
-        target.m_yPos = (2.0 * e.position.y - height) / height;
-        target.m_rotation = e.rotation;
-        target.m_xMax = (double)width / height;
-        target.m_bothFound = false;
-        sortedTargets.push_back(target);
+		target.m_yPos = (2.0 * e.position.y - height) / height;
+		target.m_rotation = e.rotation;
+		target.m_xMax = (double)width / height;
+		target.m_bothFound = false;
+		sortedTargets.push_back(target);
 	}
 	delete results;
 	
@@ -122,24 +121,25 @@ vector<Target> Target::FindCircularTargets(ColorImage *image)
 			Target t2 = *iter;
 			
 			// check if the two are concentric
-            if ((fabs(t1.m_xPos - t2.m_xPos) < min(t1.m_minorRadius, t2.m_minorRadius)) &&
-                    (fabs(t1.m_yPos - t2.m_yPos) < min(t1.m_majorRadius, t2.m_majorRadius)))
-            {
-            	// create the information for the combined target
-            	// (the 2 concentric ellipses)
-                t1.m_xPos = (t1.m_xPos + t2.m_xPos) / 2;
-                t1.m_yPos = (t1.m_yPos + t2.m_yPos) / 2;
-                t1.m_rawScore += t2.m_rawScore;
-                t1.m_score += t2.m_score;
-                t1.m_majorRadius = max(t1.m_majorRadius, t2.m_majorRadius);
-                t1.m_minorRadius = max(t1.m_minorRadius, t2.m_minorRadius);
-                t1.m_bothFound = true;
-                sortedTargets.erase(iter); // loop needs to be an interator
-                break;
-            }
+			if ((fabs(t1.m_xPos - t2.m_xPos) < min(t1.m_minorRadius, t2.m_minorRadius)) &&
+					(fabs(t1.m_yPos - t2.m_yPos) < min(t1.m_majorRadius, t2.m_majorRadius)))
+			{
+				// create the information for the combined target
+				// (the 2 concentric ellipses)
+				t1.m_xPos = (t1.m_xPos + t2.m_xPos) / 2;
+				t1.m_yPos = (t1.m_yPos + t2.m_yPos) / 2;
+				t1.m_rawScore += t2.m_rawScore;
+				t1.m_score = (t1.m_score + t2.m_score) * 2.0;  // add a 2x bonus for concentric
+				t1.m_majorRadius = max(t1.m_majorRadius, t2.m_majorRadius);
+				t1.m_minorRadius = max(t1.m_minorRadius, t2.m_minorRadius);
+				t1.m_bothFound = true;
+				sortedTargets.erase(iter); // loop needs to be an interator
+				break;
+			}
 		}
 		sortedTargets.erase(sortedTargets.begin());
-		combinedTargets.push_back(t1);
+//		if (t1.m_bothFound)
+			combinedTargets.push_back(t1);
 	}
 
 	// sort the combined targets so the highest scoring one is first

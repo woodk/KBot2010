@@ -11,7 +11,8 @@
 #include "Relay.h"
 
 #define PISTON_FORWARD_TIME	25		// 0.5 secs
-#define KICK_TIME			10		// 0.2 secs
+#define RELOAD_TIME			25		// 0.5 sec
+#define KICK_TIME			5		// 0.1 secs
 
 #define TEST_KICKER 1				// uncomment to activate testing
 
@@ -24,7 +25,7 @@ class Kicker
 {
 public:
 	Kicker(int kickerOutChannel, int kickerInChannel, int electromagnetChannel);
-	void	Init(int strength);
+	void	Init();
 	void	Kick();
 	void	onClock();
 
@@ -34,7 +35,6 @@ private:
 	States		state;
 	int			counter;
 	int			kickCounter;
-	int			reloadTime;
 
 	Solenoid	*m_kickerSolenoidOut;
 	Solenoid	*m_kickerSolenoidIn;

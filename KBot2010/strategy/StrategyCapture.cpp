@@ -99,5 +99,5 @@ void StrategyCapture::init()
 /* Check IR sensors to see if we have a ball */
 bool StrategyCapture::BallCaptured()
 {
-	return (m_kbot->getGateSensorState());
+	return (0 == m_kbot->getGateSensorState());
 }

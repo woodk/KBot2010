@@ -66,7 +66,7 @@ void RobotMacros::DriverControl()
 	}
 	yval = m_rightStick->GetY();
 	//printf("x=%f  y=%f\n",xval,yval);
-	m_robotDrive->ArcadeDrive(-yval, -xval, m_rightStick->GetTrigger());			// drive with arcade style (use right stick
+	m_robotDrive->ArcadeDrive(-yval, -xval, true);			// drive with arcade style (use right stick
 }
 
 // Allow complete operator control.

@@ -19,14 +19,13 @@ Kicker::Kicker(int kickerOutChannel, int kickerInChannel, int electromagnetChann
 	m_electromagnet = new Relay(electromagnetChannel,Relay::kForwardOnly);
 	counter=0;
 	state=GET_CROSSBOW;
-	reloadTime = 50;
 	kickCounter = 0;
 }
-void	Kicker::Init(int strength)
+void	Kicker::Init()
 {
 	counter=0;
 	state=GET_CROSSBOW;
-	reloadTime = strength;
+	printf(">>>>>> state=GET_CROSSBOW\n");
 	m_electromagnet->Set(Relay::kForward);
 }
 void	Kicker::Kick()
@@ -36,6 +35,7 @@ void	Kicker::Kick()
 
 void	Kicker::onClock()
 {
+	counter++;
 	if (state==GET_CROSSBOW)
 	{
 		// turn on electromagnet
@@ -45,11 +45,11 @@ void	Kicker::onClock()
 		m_kickerSolenoidIn->Set(false);
 		m_kickerSolenoidOut->Set(true);
 		// wait for certain time (to move piston forward)
-		counter++;
 		if (counter>PISTON_FORWARD_TIME)
 		{
 			state=TENSION_CROSSBOW;
 			counter=0;
+			printf(">>>>>> Switch to TENSION_CROSSBOW\n");
 		}
 	} else if (state==TENSION_CROSSBOW)
 	{
@@ -58,10 +58,11 @@ void	Kicker::onClock()
 		m_electromagnet->Set(Relay::kForward);
 		m_kickerSolenoidIn->Set(true);
 		m_kickerSolenoidOut->Set(false);
-		if (counter>reloadTime)
+		if (counter>RELOAD_TIME)
 		{
 			counter=0;
 			kickCounter = 0;
+			printf(">>>>>> Reloaded; ready to shoot\n");
 		}		
 	} else if (state==KICK)
 	{
@@ -75,6 +76,7 @@ void	Kicker::onClock()
 		}
 		else
 		{
+			printf(">>>>>> Kicked -- reloading\n");
 			state=GET_CROSSBOW;
 		}
 	}

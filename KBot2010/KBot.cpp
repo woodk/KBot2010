@@ -6,7 +6,8 @@
 
 #include "Relay.h"
 
-static float kfWinchSpeed = 0.9f;
+static float kfWinchSpeed = 1.0;
+#define MINIMUM_SCORE 0.01
 
 /**
  * This is the K-Bot 2010 main code.
@@ -132,22 +133,22 @@ static float kfWinchSpeed = 0.9f;
 		if (m_DefenseSwitch->Get())
 		{
 			m_autoManager = new ManagerDefense(this);
-			m_kicker->Init(KICK_STRENGTH_DEFENSE);
+			m_kicker->Init();
 		}
 		else if (m_MidFieldSwitch->Get())
 		{
 			m_autoManager = new ManagerMidField(this);
-			m_kicker->Init(KICK_STRENGTH_MIDFIELD);
+			m_kicker->Init();
 		}
 		else if (m_ForwardSwitch->Get())
 		{
 			m_autoManager = new ManagerForward(this);
-			m_kicker->Init(KICK_STRENGTH_FORWARD);
+			m_kicker->Init();
 		}
 		else	// should do something more clever here
 		{
 			m_autoManager = new ManagerMidField(this);
-			m_kicker->Init(KICK_STRENGTH_MIDFIELD);
+			m_kicker->Init();
 		}
 		
 		m_pCamera->init();
@@ -199,10 +200,10 @@ static float kfWinchSpeed = 0.9f;
 		}
 		if ((m_disabledPeriodicLoops % 50) == 0) { // 1 Hz
 			printf("Gate: %d\n",getGateSensorState());
-			printf("Ultrasound Near/Far: %d/%d\n",getNearUltrasoundState(),getFarUltrasoundState());
-			printf("Pressure switch %d\n",m_pressureSwitch->Get());
+			//printf("Ultrasound Near/Far: %d/%d\n",getNearUltrasoundState(),getFarUltrasoundState());
+			//printf("Pressure switch %d\n",m_pressureSwitch->Get());
 			
-			printf("Encoders: left = %d    right = %d\n",m_leftEncoder->Get(), m_rightEncoder->Get());
+			//printf("Encoders: left = %d    right = %d\n",m_leftEncoder->Get(), m_rightEncoder->Get());
 		}
 	}
 	
@@ -241,7 +242,7 @@ static float kfWinchSpeed = 0.9f;
 	void KBot::controlCompressor(void)
 	{
 		// control the compressor based on pressure switch reading
-		if (1 == m_pressureSwitch->Get())
+		if (0 == m_pressureSwitch->Get())
 		{
 			m_compressorRelay->SetDirection(Relay::kForwardOnly);
 			m_compressorRelay->Set(Relay::kForward);
@@ -265,15 +266,39 @@ static float kfWinchSpeed = 0.9f;
 
 		if ((m_telePeriodicLoops % 10) == 0) { // 5 Hz
 			vector<Target> vecTargets = m_pCamera->findTargets();
-			if (0 != vecTargets.size())
+
+			if (vecTargets.size() == 0 || vecTargets[0].m_score < MINIMUM_SCORE)
 			{
-				m_pDashboardDataSender->sendVisionData(0.0, 0.0, 0.0, 1.0, vecTargets);
+				// no targets found. Make sure the first one in the list is 0,0
+				// since the dashboard program annotates the first target in green
+				// and the others in magenta. With no qualified targets, they'll all
+				// be magenta.
+				Target nullTarget;
+				nullTarget.m_majorRadius = 0.0;
+				nullTarget.m_minorRadius = 0.0;
+				nullTarget.m_score = 0.0;
+				if (vecTargets.size() == 0)
+					vecTargets.push_back(nullTarget);
+				else
+					vecTargets.insert(vecTargets.begin(), nullTarget);
+				m_pDashboardDataSender->sendVisionData(0.0, m_gyro->GetAngle(), 0.0, 0.0, vecTargets);
+				if (vecTargets.size() == 0)
+					printf("No target found\n\n");
+				else
+					printf("No valid targets found, best score: %f ", vecTargets[0].m_score);
+			}
+			else
+			{
+				m_pDashboardDataSender->sendVisionData(0.0, m_gyro->GetAngle(), 0.0, vecTargets[0].m_xPos / vecTargets[0].m_xMax, vecTargets);
+				//dds->sendVisionData(0.0, gyro->GetAngle(), 0.0, targets[0].m_xPos / targets[0].m_xMax, targets);
 			}				
 		}
 		
 		if (getRightStick()->GetTrigger())
 		{
-			printf("Right Stick Trigger\n");
+			if ((m_telePeriodicLoops % 100) == 0) { // 2 Hz
+				printf("Right Stick Trigger\n");
+			}
 			m_kicker->Kick();
 		}			
 		
@@ -292,18 +317,22 @@ static float kfWinchSpeed = 0.9f;
 		
 		if (getLeftStick()->GetRawButton(OPERATOR_PISTON_OUT_BUTTON))
 		{
+			printf("Get crossbow\n");
 			m_kicker->onAction(GET_CROSSBOW);
 		}
 		else if (getLeftStick()->GetRawButton(OPERATOR_PISTON_IN_BUTTON))
 		{
+			printf("Tension crossbow\n");
 			m_kicker->onAction(TENSION_CROSSBOW);
 		}
 		else if (getLeftStick()->GetRawButton(OPERATOR_EM_ON_BUTTON))
 		{
+			printf("EM On\n");
 			m_kicker->onAction(EM_ON);
 		}
-		else if (getLeftStick()->GetRawButton(OPERATOR_EM_ON_BUTTON))
+		else if (getLeftStick()->GetRawButton(OPERATOR_EM_OFF_BUTTON))
 		{
+			printf("KICK!\n");
 			m_kicker->onAction(KICK);
 		}
 		else
