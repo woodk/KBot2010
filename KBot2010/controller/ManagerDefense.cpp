@@ -34,6 +34,7 @@ ManagerDefense::ManagerDefense(KBot *kbot) : RobotManager(kbot)
 	switch(kbot->getAutoPattern())
 	{
 	case 0:	// Kick balls in positions 9, 5 then 1
+		printf("***************************************Defense pattern 0\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0,6.0*12-ROBOT_LENGTH);
 	
@@ -46,6 +47,7 @@ ManagerDefense::ManagerDefense(KBot *kbot) : RobotManager(kbot)
 		pMove3->addPointToPath(9.83,6.88);	// angle towards goal
 		break;
 	case 1:	// Kick balls in positions 7, 5 then 3
+		printf("***************************************Defense pattern 1\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0,6.0*12-ROBOT_LENGTH);
 	
@@ -58,8 +60,9 @@ ManagerDefense::ManagerDefense(KBot *kbot) : RobotManager(kbot)
 		pMove3->addPointToPath(-11.02,4.75);	// angle towards goal
 		break;
 	case 2:	// Kick balls in positions 9, 6 then 3
+		printf("***************************************Defense pattern 2\n");
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(6.0*12-ROBOT_LENGTH,0);
+		pMove1->addPointToPath(0, 6.0*12-ROBOT_LENGTH);
 	
 		pMove2->addPointToPath(0,0);
 		pMove2->addPointToPath(5.07,35.64);
@@ -69,6 +72,7 @@ ManagerDefense::ManagerDefense(KBot *kbot) : RobotManager(kbot)
 		break;
 	case 3:	// Kick balls in positions 7, 4 then 1
 	default:
+		printf("***************************************Defense pattern 3\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0,6.0*12-ROBOT_LENGTH);
 	

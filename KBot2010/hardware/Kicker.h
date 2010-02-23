@@ -10,9 +10,9 @@
 #include "Solenoid.h"
 #include "Relay.h"
 
-#define PISTON_FORWARD_TIME	25		// 0.5 secs
-#define RELOAD_TIME			25		// 0.5 sec
-#define KICK_TIME			5		// 0.1 secs
+#define PISTON_FORWARD_TIME	200		// 1.0 secs
+#define RELOAD_TIME			200		// 1.0 sec
+#define KICK_TIME			50		// 0.25 secs
 
 #define TEST_KICKER 1				// uncomment to activate testing
 

@@ -9,6 +9,8 @@
 static float kfWinchSpeed = 1.0;
 #define MINIMUM_SCORE 0.01
 
+#define PERIODIC_SPEED	200		// Speed in Hz of main periodic routines 
+
 /**
  * This is the K-Bot 2010 main code.
  * 
@@ -25,6 +27,8 @@ static float kfWinchSpeed = 1.0;
  */
 	KBot::KBot(void) {
 		printf("KBot Constructor Started\n");
+		
+		IterativeRobot::SetPeriod(1.0/PERIODIC_SPEED);
 
 		/************************************/
 		// Create and initialize input devices
@@ -170,6 +174,8 @@ static float kfWinchSpeed = 1.0;
 
 		m_autoManager->reset();
 		m_autoManager->init();
+		
+		m_kicker->Kick();		// This forces it to try to get the crossbow at the beginning of auto (usually there won't be enough pressure for this to work)
 	}
 	
 	void KBot::TeleopInit(void) {
@@ -182,24 +188,24 @@ static float kfWinchSpeed = 1.0;
 
 		m_pDashboardDataSender = new DashboardDataSender();
 
-		printf("Setting encoders\n");
+		//printf("Setting encoders\n");
 	}
 	
 	/********************************** Periodic Routines *************************************/
 	
 	void KBot::DisabledPeriodic(void)  {
-		// Runs at 50 Hz
+		// Runs at 200 Hz
 		// feed the user watchdog at every period when disabled
 		GetWatchdog().Feed();
 		
 		// increment the number of disabled periodic loops completed
 		m_disabledPeriodicLoops++;
 		
-		if ((m_disabledPeriodicLoops % 10) == 0) { // 5 Hz
+		if ((m_disabledPeriodicLoops % 40) == 0) { // 5 Hz
 			// TODO:  any disabled mode periodic bookkeeping
 		}
-		if ((m_disabledPeriodicLoops % 50) == 0) { // 1 Hz
-			printf("Gate: %d\n",getGateSensorState());
+		if ((m_disabledPeriodicLoops % 200) == 0) { // 1 Hz
+			//printf("Gate: %d\n",getGateSensorState());
 			//printf("Ultrasound Near/Far: %d/%d\n",getNearUltrasoundState(),getFarUltrasoundState());
 			//printf("Pressure switch %d\n",m_pressureSwitch->Get());
 			
@@ -211,19 +217,24 @@ static float kfWinchSpeed = 1.0;
 	 * TODO: document
 	*/
 	void KBot::AutonomousPeriodic(void) {
-		// Runs at 50 Hz
+		// Runs at 200 Hz
 		// feed the user watchdog at every period when in autonomous
 		GetWatchdog().Feed();
-		if ((m_autoPeriodicLoops % 50) == 0) { // 1 Hz
-			printf("Auto count=%d\n",m_autoPeriodicLoops);
+		
+		if (m_autoPeriodicLoops == 1000) { // after 5 seconds
+			m_kicker->Kick(); // compressor should be up to pressure; so get crossbow (out of way of rollers)
 		}
 		
-		if ((m_autoPeriodicLoops % 10) == 0) { // 5 Hz
+		if ((m_autoPeriodicLoops % 200) == 0) { // 1 Hz
+			//printf("Auto count=%d\n",m_autoPeriodicLoops);
+		}
+		
+		if ((m_autoPeriodicLoops % 40) == 0) { // 5 Hz
 
 			// TODO:  target acquistion with new camera.  Modify
 		}
 		
-		if ((m_telePeriodicLoops % 50) == 0) { // 1 Hz
+		if ((m_telePeriodicLoops % 200) == 0) { // 1 Hz
 			controlCompressor();
 		}
 		
@@ -255,16 +266,17 @@ static float kfWinchSpeed = 1.0;
 	}
 	
 	void KBot::TeleopPeriodic(void) {
-		// Runs at 50 Hz
+		// Runs at 200 Hz
 		// feed the user watchdog at every period when in teleop
 		GetWatchdog().Feed();
-		if ((m_telePeriodicLoops % 50) == 0) { // 1 Hz
+
+		if ((m_telePeriodicLoops % 200) == 0) { // 1 Hz
 			//printf("Tele count=%d\n",m_telePeriodicLoops);
-			printf("Pressure switch %d     gyro: %f\n",m_pressureSwitch->Get(),m_gyro->GetAngle());
+			//printf("Pressure switch %d     gyro: %f\n",m_pressureSwitch->Get(),m_gyro->GetAngle());
 			controlCompressor();
 		}
-
-		if ((m_telePeriodicLoops % 10) == 0) { // 5 Hz
+/*
+		if ((m_telePeriodicLoops % 40) == 0) { // 5 Hz
 			vector<Target> vecTargets = m_pCamera->findTargets();
 
 			if (vecTargets.size() == 0 || vecTargets[0].m_score < MINIMUM_SCORE)
@@ -284,8 +296,8 @@ static float kfWinchSpeed = 1.0;
 				m_pDashboardDataSender->sendVisionData(0.0, m_gyro->GetAngle(), 0.0, 0.0, vecTargets);
 				if (vecTargets.size() == 0)
 					printf("No target found\n\n");
-				else
-					printf("No valid targets found, best score: %f ", vecTargets[0].m_score);
+				//else
+					//TODO: put this back in; this is the error printf("No valid targets found, best score: %f ", vecTargets[0].m_score);
 			}
 			else
 			{
@@ -293,12 +305,9 @@ static float kfWinchSpeed = 1.0;
 				//dds->sendVisionData(0.0, gyro->GetAngle(), 0.0, targets[0].m_xPos / targets[0].m_xMax, targets);
 			}				
 		}
-		
+*/
 		if (getRightStick()->GetTrigger())
 		{
-			if ((m_telePeriodicLoops % 100) == 0) { // 2 Hz
-				printf("Right Stick Trigger\n");
-			}
 			m_kicker->Kick();
 		}			
 		
@@ -317,57 +326,29 @@ static float kfWinchSpeed = 1.0;
 		
 		if (getLeftStick()->GetRawButton(OPERATOR_PISTON_OUT_BUTTON))
 		{
-			printf("Get crossbow\n");
+			//printf("Get crossbow\n");
 			m_kicker->onAction(GET_CROSSBOW);
 		}
 		else if (getLeftStick()->GetRawButton(OPERATOR_PISTON_IN_BUTTON))
 		{
-			printf("Tension crossbow\n");
+			//printf("Tension crossbow\n");
 			m_kicker->onAction(TENSION_CROSSBOW);
 		}
 		else if (getLeftStick()->GetRawButton(OPERATOR_EM_ON_BUTTON))
 		{
-			printf("EM On\n");
+			//printf("EM On\n");
 			m_kicker->onAction(EM_ON);
 		}
 		else if (getLeftStick()->GetRawButton(OPERATOR_EM_OFF_BUTTON))
 		{
-			printf("KICK!\n");
+			//printf("KICK!\n");
 			m_kicker->onAction(KICK);
 		}
 		else
 		{
 			m_kicker->onClock();
-		}	
-		
-		// if t >= 100 s in teleop allow arm/winch operation
-		// TODO:  remove test stuff
-		if (true) //m_telePeriodicLoops >= 5000)
-		{
-			if (getLeftStick()->GetTrigger())
-			{
-				getArmRelease()->Set(true);
-				getArmRetract()->Set(false);
-			}
-			else	// pull arm in by default
-			{
-				getArmRelease()->Set(false);
-				getArmRetract()->Set(true);				
-			}
-			
-			// control winch independently of arm
-			if (getLeftStick()->GetRawButton(WINCH_BUTTON))
-			{
-				getWinchMotor()->Set(kfWinchSpeed);		
-			}
-			else
-			{
-				getWinchMotor()->Set(0.0f);
-			}
 		}
-		// this is where the actual robotic driving is done
-		m_teleMacros->OnClock();
-		
+
 		// increment the number of teleop periodic loops completed
 		m_telePeriodicLoops++;
 
@@ -376,8 +357,6 @@ static float kfWinchSpeed = 1.0;
 		 * Since the default speed of the loop is 200 Hz, code should only really be placed here
 		 * for I/O that can respond at a 200Hz rate. (e.g. the Jaguar speed controllers
 		 */
-		
-		// put 200Hz Jaguar control here
 		
 		if ((m_telePeriodicLoops % 2) == 0) {
 			/* 
@@ -395,8 +374,37 @@ static float kfWinchSpeed = 1.0;
 			 * Assuming the default 200 Hz loop speed, code should only really be placed here for 
 			 * I/O that can respond at a 50Hz rate. (e.g. the Hitec HS-322HD servos)
 			 */
+
+			//TODO: this is here so it doesn't saturate the serial bus.  It might be able to move to 200Hz via 2can adapter.  Check if it works at this speed.
 			
 			// put 50Hz servo control here
+			// if t >= 100 s in teleop allow arm/winch operation
+			// TODO:  remove test stuff
+			if (true) //m_telePeriodicLoops >= 20000)
+			{
+				if (getLeftStick()->GetTrigger())
+				{
+					getArmRelease()->Set(true);
+					getArmRetract()->Set(false);
+				}
+				else	// pull arm in by default
+				{
+					getArmRelease()->Set(false);
+					getArmRetract()->Set(true);				
+				}
+				
+				// control winch independently of arm
+				if (getLeftStick()->GetRawButton(WINCH_BUTTON))
+				{
+					getWinchMotor()->Set(kfWinchSpeed);	
+				}
+				else
+				{
+					getWinchMotor()->Set(0.0f);
+				}
+			}
+			// this is where the actual robotic driving is done
+			m_teleMacros->OnClock();
 		}
 		
 		if (m_ds->GetPacketNumber() != m_priorPacketNumber) {
@@ -413,14 +421,14 @@ static float kfWinchSpeed = 1.0;
 			
 		}  // if (m_ds->GetPacketNumber()...
 		
-		if ((m_telePeriodicLoops % (int)GetLoopsPerSec()) == 0) {
+		if (m_telePeriodicLoops % 200 == 0) {
 			/* 
 			 * Code placed in here will be called once a second
 			 * 
 			 * For this example code, print out the number of seconds spent in current teleop mode,
 			 * as well as the number of DS packets received in the prior second.
 			 */
-			printf("Teleop seconds: %d\n", (m_telePeriodicLoops / (int)GetLoopsPerSec()));
+			//printf("Teleop seconds: %d\n", (int)(m_telePeriodicLoops / 200));
 			//printf("  DS Packets: %u\n", m_dsPacketsPerSecond);
 			
 			// reset the count of DS packets received in the current second

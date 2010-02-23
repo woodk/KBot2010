@@ -36,6 +36,7 @@ ManagerForward::ManagerForward(KBot *kbot) : RobotManager(kbot)
 	switch(kbot->getAutoPattern())
 	{
 	case 0:	// Kick ball in position 9
+		printf("***************************************Forward pattern 0\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0.0, 72.0-10.42-ROBOT_LENGTH-HALF_RAMP_WIDTH);
 		pMove1->addPointToPath(-5.95, 10.42);
@@ -47,6 +48,7 @@ ManagerForward::ManagerForward(KBot *kbot) : RobotManager(kbot)
 		((StrategyShoot*)(m_lstStrategy[knShoot]))->getNextStates().pop_back();
 		break;
 	case 1:	// Kick ball in position 6
+		printf("***************************************Forward pattern 1\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0.0,9.0*12-9.56-ROBOT_LENGTH-HALF_RAMP_WIDTH);
 		pMove1->addPointToPath(-7.26,9.56);
@@ -58,6 +60,7 @@ ManagerForward::ManagerForward(KBot *kbot) : RobotManager(kbot)
 		((StrategyShoot*)(m_lstStrategy[knShoot]))->getNextStates().pop_back();
 		break;
 	case 2:	// Kick ball in position 3
+		printf("***************************************Forward pattern 2\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0.0,12.0*12-7.92-ROBOT_LENGTH-HALF_RAMP_WIDTH);
 		pMove1->addPointToPath(-9.02,7.92);
@@ -68,6 +71,7 @@ ManagerForward::ManagerForward(KBot *kbot) : RobotManager(kbot)
 		break;
 	case 3:	// Kick ball in position 2
 	default:
+		printf("***************************************Forward pattern 3\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0.0,12.0*12-10.42-ROBOT_LENGTH-HALF_RAMP_WIDTH);
 		pMove1->addPointToPath(-5.95,10.42);

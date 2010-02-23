@@ -18,7 +18,7 @@ RobotManager::RobotManager(KBot *kbot)
 	m_kbot = kbot;
 	m_driverStation = m_kbot->getDriverStation();
 	
-	m_nStartState = knInitial;
+	m_nStartState = knProgrammedMove1; //TODO: check if this is right.  was knInitial;
 
     for (int nIndex = 0; nIndex < knInitial; nIndex++)
     {

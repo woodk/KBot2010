@@ -35,6 +35,7 @@ eState StrategyCapture::apply()
     // Keep turning until we find a target
     if (BallCaptured())
     {
+    	printf("Got the ball!!!!  Going to aim state!\n");
         // start tracking the target
         nNewState = knAim;
         m_robotDrive->ArcadeDrive(0.0, 0.0, false);        
@@ -43,14 +44,14 @@ eState StrategyCapture::apply()
     {
     	if (m_kbot->getNearUltrasoundState())
     	{
-    		m_robotDrive->ArcadeDrive(-kfDriveForward, 0.0, false);
+    		m_robotDrive->ArcadeDrive(kfDriveForward, 0.0, false);
     		m_nLostCounter = 0;
     		m_nNearCounter = 0;
     		m_bFarLast = false;
     	}
     	else if (m_kbot->getFarUltrasoundState())
     	{
-    		m_robotDrive->ArcadeDrive(-kfDriveForward, 0.0, false);
+    		m_robotDrive->ArcadeDrive(kfDriveForward, 0.0, false);
     		m_nLostCounter = 0;
     		m_nNearCounter = 0;
     		m_bFarLast = true;
@@ -75,7 +76,7 @@ eState StrategyCapture::apply()
     	}
     	else if (m_nNearCounter < knNearMax)	// we got too close for the ultrasound to see, keep going foward
     	{
-    		m_robotDrive->ArcadeDrive(-kfDriveForward, 0.0, false);
+    		m_robotDrive->ArcadeDrive(kfDriveForward, 0.0, false);
     		m_nLostCounter = 0;
     		++m_nNearCounter;
     		m_bFarLast = false;

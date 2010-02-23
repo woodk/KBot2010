@@ -34,7 +34,7 @@ void RobotMacros::OnClock()
 	
 	if (m_macroState != mcWINCH) 
 	{
-		m_kbot->getWinchMotor()->Set(0.0f);
+		//TODO: why is this here? m_kbot->getWinchMotor()->Set(0.0f);
 	}
 	
 	if (m_macroState == mcCAPTURE) {
@@ -57,7 +57,7 @@ void RobotMacros::DriverControl()
 	float xval=0, yval=0;
 	m_gyroDriveCtrl->setDesiredValue(0.0);
 	xval = m_rightStick->GetX();
-	if (abs(xval) > 0.05)
+	if (abs(xval) > 0.05 || abs(yval)<0.05)
 	{
 		m_gyro->Reset();
 	} else {

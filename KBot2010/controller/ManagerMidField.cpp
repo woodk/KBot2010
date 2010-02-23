@@ -36,6 +36,7 @@ ManagerMidField::ManagerMidField(KBot *kbot) : RobotManager(kbot)
 	switch(kbot->getAutoPattern())
 	{
 	case 0:	// Kick balls in positions 6 then 3
+		printf("***************************************Midfield pattern 0\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0,96.37-ROBOT_LENGTH-HALF_RAMP_WIDTH);
 		pMove1->addPointToPath(-2.94,11.63);	// Angle towards target
@@ -48,6 +49,7 @@ ManagerMidField::ManagerMidField(KBot *kbot) : RobotManager(kbot)
 		((StrategyShoot*)(m_lstStrategy[knShoot]))->getNextStates().pop_back();
 		break;
 	case 1:	// Kick balls in positions 4 then 1
+		printf("***************************************Midfield pattern 1\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0.0, 9.0*12-ROBOT_LENGTH-HALF_RAMP_WIDTH);
 	
@@ -58,6 +60,7 @@ ManagerMidField::ManagerMidField(KBot *kbot) : RobotManager(kbot)
 		pMove3->addPointToPath(72.0,0.0);	// get out of the way
 		break;
 	case 2:	// Kick balls in positions 9 then 1
+		printf("***************************************Midfield pattern 2\n");
 		pMove1->addPointToPath(0,0);
 		pMove1->addPointToPath(0.0,60.3-ROBOT_LENGTH-HALF_RAMP_WIDTH);
 		pMove1->addPointToPath(-2.66,11.7);	// Angle towards target
@@ -71,8 +74,9 @@ ManagerMidField::ManagerMidField(KBot *kbot) : RobotManager(kbot)
 		break;
 	case 3:	// Kick balls in positions 7 then 3
 	default:
+		printf("***************************************Midfield pattern 3\n");
 		pMove1->addPointToPath(0,0);
-		pMove1->addPointToPath(6.0*12-ROBOT_LENGTH-HALF_RAMP_WIDTH,0);
+		pMove1->addPointToPath(0,6.0*12-ROBOT_LENGTH-HALF_RAMP_WIDTH);
 	
 		pMove2->addPointToPath(0,0);
 		pMove2->addPointToPath(76.91,58.38);
