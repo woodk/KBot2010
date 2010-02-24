@@ -9,9 +9,11 @@
 
 #include "Solenoid.h"
 #include "Relay.h"
+class KBot;
 
 #define PISTON_FORWARD_TIME	200		// 1.0 secs
 #define RELOAD_TIME			200		// 1.0 sec
+#define STOP_ROLLER_TIME	20		// 0.1 sec
 #define KICK_TIME			50		// 0.25 secs
 
 #define TEST_KICKER 1				// uncomment to activate testing
@@ -24,7 +26,7 @@ enum States {GET_CROSSBOW, TENSION_CROSSBOW, EM_ON, KICK, READY} ;
 class Kicker
 {
 public:
-	Kicker(int kickerOutChannel, int kickerInChannel, int electromagnetChannel);
+	Kicker(KBot *kbot, int kickerOutChannel, int kickerInChannel, int electromagnetChannel);
 	void	Init();
 	void	Kick();
 	void	onClock();
@@ -32,6 +34,7 @@ public:
 	void	onAction(States state);	
 	
 private:
+	KBot		*m_kbot;
 	States		state;
 	int			counter;
 	int			kickCounter;

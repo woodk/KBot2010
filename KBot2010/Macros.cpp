@@ -57,6 +57,14 @@ void RobotMacros::DriverControl()
 	float xval=0, yval=0;
 	m_gyroDriveCtrl->setDesiredValue(0.0);
 	xval = m_rightStick->GetX();
+	if (xval < 0)
+	{
+		xval *= -xval;	// preserve sign
+	}
+	else
+	{
+		xval *= xval;	// square for better control
+	}
 	if (abs(xval) > 0.05 || abs(yval)<0.05)
 	{
 		m_gyro->Reset();
@@ -72,7 +80,10 @@ void RobotMacros::DriverControl()
 // Allow complete operator control.
 void RobotMacros::OperatorControl()
 {
-	float zval = m_rightStick->GetZ();
-	m_rollerMotor->Set(zval);
+	if (true) //m_rightStick->GetTrigger()==0)
+	{
+		float zval = m_rightStick->GetZ();
+		m_rollerMotor->Set(zval);
+	}
 }
 

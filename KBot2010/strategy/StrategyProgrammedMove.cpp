@@ -2,8 +2,8 @@
 
 #include "KbotPID.h"
 
-static const float kfAngularSpeed = 0.1f;
-static const float kfForwardSpeed = 0.1f;
+static const float kfAngularSpeed = 0.2f;
+static const float kfForwardSpeed = 0.2f;
 
 /*
 Constructor initalizes object
@@ -74,8 +74,6 @@ eState StrategyProgrammedMove::apply()
 							m_kbot->getLeftEncoder()->GetRate());
 	m_fAngle = fTurnAngle-m_fStartAngle;
 	
-//	printf("%d %f %f %f %f %f %f\n",m_nPathIndex, m_fLength, fAverageSpeed, m_fDistance, m_fDirection, m_fAngle, fTurnSpeed);
-
 	if ((fabs(m_fDirection-m_fAngle) < m_fAngleTolerance))
 	{
 		m_bTurning = false; // if we were turning we are no longer
@@ -134,6 +132,9 @@ eState StrategyProgrammedMove::apply()
 			m_fAngularSpeed = 1.0f;
 		}
 	}
+	
+//	printf("trn:%d pos:%f Dist:%f dir:%f ang:%f\n",m_bTurning,fAveragePosition, m_fDistance, m_fDirection, m_fAngle);
+
 	m_robotDrive->ArcadeDrive(m_fForwardSpeed, m_fAngularSpeed, false);
 
     return nNewState;

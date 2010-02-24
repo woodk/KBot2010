@@ -104,7 +104,7 @@ static float kfWinchSpeed = 1.0;
 		m_compressorRelay = new Relay(COMPRESSOR_RELAY_CHANNEL,Relay::kForwardOnly);
 		m_pressureSwitch = new DigitalInput(PRESSURE_SWITCH_CHANNEL);
 		
-		m_kicker = new Kicker(PISTON_ACTUATOR, PISTON_RELEASE, ELECTROMAGNET_CHANNEL);
+		m_kicker = new Kicker(this, PISTON_ACTUATOR, PISTON_RELEASE, ELECTROMAGNET_CHANNEL);
 		// Create high level controllers
 		// **** MUST BE AFTER ALL OTHER OBJECTS ARE CREATED, as the constructors
 		// create links to the other objects. ****
@@ -208,7 +208,7 @@ static float kfWinchSpeed = 1.0;
 			//printf("Ultrasound Near/Far: %d/%d\n",getNearUltrasoundState(),getFarUltrasoundState());
 			//printf("Pressure switch %d\n",m_pressureSwitch->Get());
 			
-			//printf("Encoders: left = %d    right = %d\n",m_leftEncoder->Get(), m_rightEncoder->Get());
+			printf("Encoders: left = %d    right = %d\n",m_leftEncoder->Get(), m_rightEncoder->Get());
 		}
 	}
 	
@@ -233,7 +233,7 @@ static float kfWinchSpeed = 1.0;
 			// TODO:  target acquistion with new camera.  Modify
 		}
 		
-		if ((m_telePeriodicLoops % 200) == 0) { // 1 Hz
+		if ((m_autoPeriodicLoops % 200) == 0) { // 1 Hz
 			controlCompressor();
 		}
 		

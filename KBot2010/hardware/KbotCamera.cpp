@@ -41,7 +41,6 @@ vector<Target> KbotCamera::findTargets()
 	vector<Target> vecTargets;
 	AxisCamera& camera = AxisCamera::GetInstance();
 	
-	printf("findTargets:\n");
 	if (camera.IsFreshImage()) {
 		// get the camera image
 		HSLImage *pImage = camera.GetImage();

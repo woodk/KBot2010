@@ -12,8 +12,9 @@
  * Kicker constructor--set up lower-level hardware
  * 
  */
-Kicker::Kicker(int kickerOutChannel, int kickerInChannel, int electromagnetChannel)
+Kicker::Kicker(KBot *kbot, int kickerOutChannel, int kickerInChannel, int electromagnetChannel)
 {
+	m_kbot = kbot;
 	m_kickerSolenoidOut = new Solenoid(kickerOutChannel);
 	m_kickerSolenoidIn = new Solenoid(kickerInChannel);
 	m_electromagnet = new Relay(electromagnetChannel,Relay::kForwardOnly);
@@ -66,7 +67,11 @@ void	Kicker::onClock()
 		}		
 	} else if (state==KICK)
 	{
-		if (kickCounter < KICK_TIME)
+		/*if (kickCounter < STOP_ROLLER_TIME)
+		{
+			m_kbot->getRollerMotor()->Set(0.0);
+		}
+		else*/ if (kickCounter < /*STOP_ROLLER_TIME +*/ KICK_TIME)
 		{
 			printf("Kicker: KICK\n");
 			//release EM

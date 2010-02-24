@@ -33,6 +33,8 @@ StrategyAim::StrategyAim(KBot* kbot) : Strategy(kbot)
 	m_pidAngle = 0;
 	m_pidDistance = 0;
 	
+	m_fForwardSpeed =0.0f;
+	
 	for (int i=0; i<20; i++)
 	{
 		m_vecPoints[i]=camPoint(0.0,0.0);
@@ -73,7 +75,7 @@ eState StrategyAim::apply()
 	float fAverageSpeed = fAverageSpeedFactor*0.5f*(m_kbot->getLeftEncoder()->GetRate()+
 								m_kbot->getRightEncoder()->GetRate());
 	m_fDistance += fDeltaT*fAverageSpeed;
-	float fTurnSpeed = fAngularSpeedFactor*(m_kbot->getRightEncoder()->GetRate()-
+	float fTurnSpeed = -fAngularSpeedFactor*(m_kbot->getRightEncoder()->GetRate()-
 							m_kbot->getLeftEncoder()->GetRate());
 	m_fAngle += fDeltaT*fTurnSpeed;
 
@@ -83,10 +85,16 @@ eState StrategyAim::apply()
 		// do something to reject bad frames: eg:
 		// keep list of last x values & time stamps
 		
-		/*m_pointCounter++;
+		m_pointCounter++;
 		m_vecPoints[m_pointCounter%20]=camPoint(vecTargets[0].m_xPos, m_pointCounter);
 		if (m_pointCounter>=20)
 		{
+			if (m_pointCounter==20) {
+				m_vecPoints[19].m_x += 0.5;
+				for (int i=1; i<=20; i++)
+					printf("%2.1f  ",m_vecPoints[i%20].m_x);
+				printf("\n");
+			}
 			// find most common within certain range
 			//	 - make new list, copy of original
 			vector<camPoint> tempPoints = m_vecPoints;
@@ -94,19 +102,25 @@ eState StrategyAim::apply()
 			std::sort(tempPoints.begin(), tempPoints.end(), xSortPredicate);
 			//   - find median
 			float median = tempPoints[(m_pointCounter+10)%20].m_x;
-			// remake this list from original, rejecting outliers (ie too far from median) 
-			for (int i=0; i<20; i++)
+			// remake this list from original, rejecting outliers (ie too far from median)
+			float x1= m_vecPoints[m_pointCounter%20].m_x;
+			float x2= m_vecPoints[(m_pointCounter-1+20)%20].m_x;
+			float result;
+			if (abs(x1 - median)>abs(x2 - median))
 			{
-				if (abs(m_vecPoints[i].m_x - median)>50)
-				{
-					// replace outlier with median; not ideal but I don't know how to remove from the circular buffer without messing up m_PointCounter, which is also the timestamp 
-					m_vecPoints[i].m_x = median;
-				}
+				result = x2;
+			} else {
+				result = x1;
 			}
-			// pick lastest value in new list
+			if (m_pointCounter==20) {
+				printf("x1=%2.1f  x2=%2.1f  median=%2.1f  result=%2.1f\n",x1,x2,median,result);
+			}
+			// pick best of last 2 values
+			m_fAngularSpeed = fAngleFactor*result;
 		}
-		//m_fDirection = fAngleFactor*m_vecPoints[m_pointCounter%20].m_x;*/
-		m_fDirection = fAngleFactor*vecTargets[0].m_xPos;
+		else
+			m_fAngularSpeed = fAngleFactor*vecTargets[0].m_xPos;
+		
 	}
 
 	printf("%f %f %f\n",m_fDirection, m_fAngle, fTurnSpeed);
@@ -114,6 +128,7 @@ eState StrategyAim::apply()
 	if ((fabs(m_fDirection-m_fAngle) < m_fAngleTolerance))
 	{
 		nNewState = m_nNextState;  
+		m_pointCounter = 0;	// so ring buffer refills next time
 	}
 	else
 	{
@@ -136,7 +151,7 @@ eState StrategyAim::apply()
 void StrategyAim::init()
 {
     printf("Aim state\n");
-	m_fForwardSpeed = 0.1f;
+	m_fForwardSpeed = 0.0f;	// -0.05 TODO:  uncomment this
 	m_fAngularSpeed = 0.0f;
 }
 
