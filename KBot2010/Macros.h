@@ -6,7 +6,7 @@
 #include "KBot.h"
 class KBot; // handle circular includes
 
-#include "RobotDrive.h"
+#include "KBotDrive.h"
 #include "Joystick.h"
 
 enum MacroNames
@@ -35,7 +35,7 @@ private:
 	
 	// TODO:  add new hardware, rename this class
 	// and add more state/strategy-like logic
-	RobotDrive *m_robotDrive;
+	KBotDrive *m_robotDrive;
 	SpeedController *m_winchMotor;
 	SpeedController *m_rollerMotor;
 	Joystick *m_leftStick;

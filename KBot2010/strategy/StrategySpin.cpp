@@ -8,7 +8,7 @@ StrategySpin::StrategySpin(KBot* kbot) : Strategy(kbot)
 {
     // Create initial state here
     m_kbot = kbot;
-    m_robotDrive = m_kbot->getRobotDrive();
+    m_robotDrive = m_kbot->getKBotDrive();
 }
 
 /*

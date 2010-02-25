@@ -11,7 +11,7 @@ StrategyCurveRight::StrategyCurveRight(KBot* kbot) : Strategy(kbot)
     // Create initial state here
     m_nCallCount = 0;
     m_kbot = kbot;
-    m_robotDrive = m_kbot->getRobotDrive();
+    m_robotDrive = m_kbot->getKBotDrive();
 	m_gyro = m_kbot->getGyro();
 	m_gyroDriveCtrl = new KbotPID(0.02,0.0,0.0);
 	m_gyro->Reset();

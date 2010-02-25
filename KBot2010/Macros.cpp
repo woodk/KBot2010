@@ -7,7 +7,7 @@ RobotMacros::RobotMacros(KBot *kbot)
 	m_macroState = mcDRIVE;
 	m_macroCycle = 0;
 	
-	m_robotDrive = m_kbot->getRobotDrive();
+	m_robotDrive = m_kbot->getKBotDrive();
 	m_winchMotor = m_kbot->getWinchMotor();
 	m_rollerMotor = m_kbot->getRollerMotor();
 	m_leftStick = m_kbot->getLeftStick();

@@ -2,7 +2,7 @@
 #define STRATEGY_CURVE_LEFT_H
 
 #include "Strategy.h"
-#include "RobotDrive.h"
+#include "KBotDrive.h"
 
 /*
 The strategy used to curve left, looking for targets

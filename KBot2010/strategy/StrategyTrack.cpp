@@ -11,7 +11,7 @@ StrategyTrack::StrategyTrack(KBot* kbot) : Strategy(kbot)
 	m_cameraTurnCtrl->resetErrorSum();
 	m_cameraTurnCtrl->setDesiredValue(0.0);
     m_kbot = kbot;
-    m_robotDrive = m_kbot->getRobotDrive();
+    m_robotDrive = m_kbot->getKBotDrive();
     m_lossCount=0;
 }
 

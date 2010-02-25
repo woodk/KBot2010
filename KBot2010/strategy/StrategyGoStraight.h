@@ -2,7 +2,7 @@
 #define STRATEGY_GO_STRAIGHT_H
 
 #include "Strategy.h"
-#include "RobotDrive.h"
+#include "KBotDrive.h"
 
 /*
 The strategy used to go straight, looking for targets

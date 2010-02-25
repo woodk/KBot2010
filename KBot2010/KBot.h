@@ -10,7 +10,7 @@
 #include "CANJaguar.h"
 #include "KbotCamera.h"
 #include "KbotPID.h"
-#include "RobotDrive.h"
+#include "KBotDrive.h"
 #include "Kicker.h"
 
 #include "RobotManager.h"
@@ -39,7 +39,7 @@ public:
 	void DisabledContinuous(void);
 	void AutonomousContinuous(void);
 	void TeleopContinuous(void);
-	RobotDrive *getRobotDrive();
+	KBotDrive *getKBotDrive();
 	SpeedController *getWinchMotor();
 	SpeedController *getRollerMotor();
 	Solenoid*	getArmRelease() {return m_armRelease;}
@@ -76,7 +76,7 @@ private:
 	CANJaguar *m_rightJaguar1;
 	CANJaguar *m_rightJaguar2;
 
-	RobotDrive *m_robotDrive;
+	KBotDrive *m_robotDrive;
 	SpeedController *m_winchMotor;
 	SpeedController *m_rollerMotor;
 	

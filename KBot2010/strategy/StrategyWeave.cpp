@@ -9,7 +9,7 @@ StrategyWeave::StrategyWeave(KBot* kbot) : Strategy(kbot)
     m_fRunTimeInSeconds = 0.5f; // five seconds to run to center
     m_nCallCount = 0;
     m_kbot = kbot;
-    m_robotDrive = m_kbot->getRobotDrive();
+    m_robotDrive = m_kbot->getKBotDrive();
     //m_robotDrive->SetModifierConstant(AUTO_WEAVE_PERCENT);
     
 	m_gyro = m_kbot->getGyro();

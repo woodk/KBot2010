@@ -11,7 +11,7 @@
 /** Constructor for the RobotController. 
  * Set up parameters for the RobotController.
  */
-RobotController::RobotController(RobotDrive *robotDrive)
+RobotController::RobotController(KBotDrive *robotDrive)
 {
 	m_robotDrive = robotDrive;
 

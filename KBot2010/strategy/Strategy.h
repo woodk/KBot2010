@@ -34,7 +34,7 @@ protected:
 	
 	// The bot objects (represents the hardware)
 	KBot* m_kbot;
-    RobotDrive *m_robotDrive;
+    KBotDrive *m_robotDrive;
 	Gyro *m_gyro;
 	KbotPID *m_gyroDriveCtrl;
 	

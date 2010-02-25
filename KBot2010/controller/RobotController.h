@@ -12,7 +12,7 @@
 #include "FrcError.h"
 #include <math.h>
 #include "Gyro.h"
-#include "RobotDrive.h"
+#include "KBotDrive.h"
 
 //class SpeedController;
 //class Servo;
@@ -28,7 +28,7 @@ class RobotController
 {
 public:
 
-	RobotController(RobotDrive *robotDrive);
+	RobotController(KBotDrive *robotDrive);
 	~RobotController(void);
 	void TurnLeft(float angle);
 	void TurnRight(float angle);
@@ -39,7 +39,7 @@ public:
 private:
 	KbotPID		*gyroCtrl,*lightXCtrl,*lightYCtrl;
 	Gyro 		*m_gyro;
-	RobotDrive	*m_robotDrive;
+	KBotDrive	*m_robotDrive;
 	
 	float Limit(float num,float min, float max);
 };

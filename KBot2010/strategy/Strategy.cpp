@@ -11,7 +11,7 @@ Strategy::Strategy(KBot* kbot) : m_kbot(kbot)
 	m_nMinimumStateCount = 10;
 	m_nMinimumChangeCount = 10;
 	
-    m_robotDrive = m_kbot->getRobotDrive();	
+    m_robotDrive = m_kbot->getKBotDrive();	
 }
 /*!
  * The logic here is:

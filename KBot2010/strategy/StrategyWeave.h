@@ -2,7 +2,7 @@
 #define STRATEGY_WEAVE_H
 
 #include "Strategy.h"
-#include "RobotDrive.h"
+#include "KBotDrive.h"
 
 #define AUTO_WEAVE_PERCENT 0.5
 
@@ -35,7 +35,7 @@ private:
     // The number of times this strategy has been called
     int m_nCallCount;
     
-    RobotDrive *m_robotDrive;
+    KBotDrive *m_robotDrive;
 	Gyro *m_gyro;
 	KbotPID *m_gyroDriveCtrl;
 

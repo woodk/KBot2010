@@ -90,7 +90,7 @@ static float kfWinchSpeed = 1.0;
 		m_rightJaguar2 = new CANJaguar(R_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
 		m_rightJaguar2->Set(0.0);
 
-		m_robotDrive = new RobotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
+		m_robotDrive = new KBotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
 		m_winchMotor = new CANJaguar(WINCH_JAG_ID, CANJaguar::kPercentVoltage);
 		m_winchMotor->Set(0.0);
 		m_rollerMotor = new CANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
@@ -432,7 +432,7 @@ static float kfWinchSpeed = 1.0;
 
 	/* Accessor methods
 	 */
-	RobotDrive *KBot::getRobotDrive()
+	KBotDrive *KBot::getKBotDrive()
 	{
 		return m_robotDrive;
 	}

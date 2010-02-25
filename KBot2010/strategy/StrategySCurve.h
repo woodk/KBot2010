@@ -2,7 +2,7 @@
 #define STRATEGY_S_CURVE_H
 
 #include "Strategy.h"
-#include "RobotDrive.h"
+#include "KBotDrive.h"
 
 /*
 The strategy used to go straight, looking for targets
