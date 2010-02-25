@@ -6,6 +6,8 @@
 
 #include "Relay.h"
 
+#include "HardwareFactory.h"
+
 static float kfWinchSpeed = 1.0;
 
 #define PERIODIC_SPEED	200		// Speed in Hz of main periodic routines 
