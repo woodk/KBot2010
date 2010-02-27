@@ -3,6 +3,8 @@
 
 #include "Strategy.h"
 
+#include <vector>
+
 class KbotPID;
 
 /*

@@ -1,5 +1,10 @@
 #include "StrategyWeave.h"
 
+#include "Gyro.h"
+#include "KbotDrive.h"
+#include "KbotPID.h"
+
+
 /*!
 Constructor initalizes object
 */
@@ -39,7 +44,7 @@ eState StrategyWeave::apply()
     	//float leftMod = 1.0 - abs(1.0 - (m_nCallCount % 150)/75.0);
     	//float rightMod = 1.0 - abs(1.0 - ((m_nCallCount+75) % 150)/75.0);
     	//m_robotDrive->ArcadeDrive(-1.0, 0.0,-leftMod,-rightMod, false);
-    	m_gyroDriveCtrl->setDesiredValue(30*(abs(1.0 - (m_nCallCount % 150)/75.0)-0.5));
+    	m_gyroDriveCtrl->setDesiredValue(30*(fabs(1.0 - (m_nCallCount % 150)/75.0)-0.5));
    		m_robotDrive->ArcadeDrive(-1.0, m_gyroDriveCtrl->calcPID(m_gyro->GetAngle()), false);
     }
     else

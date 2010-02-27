@@ -1,5 +1,7 @@
 #include "StrategyCircle.h"
 
+#include "KbotDrive.h"
+
 /*
 Constructor initalizes object
 

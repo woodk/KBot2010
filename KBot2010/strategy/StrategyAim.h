@@ -2,7 +2,7 @@
 #define STRATEGY_AIM_H
 
 #include "Strategy.h"
-#include <queue>
+#include <vector>
 
 // Camera point including x-coordinate and timestamp
 struct camPoint {
@@ -76,7 +76,7 @@ private:
 	float m_fAngularSpeed;
 	
 	// list of camera points
-	vector<camPoint> m_vecPoints;
+	std::vector<camPoint> m_vecPoints;
 	// count number of points added to list
 	int m_pointCounter;
 	

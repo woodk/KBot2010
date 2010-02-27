@@ -20,13 +20,15 @@ class KBot;
 
 enum States {GET_CROSSBOW, TENSION_CROSSBOW, EM_ON, KICK, READY} ;
 
+class HardwareFactory;
+
 /**
  * High level hardware class for controlling all kicker functions
  */
 class Kicker
 {
 public:
-	Kicker(KBot *kbot, int kickerOutChannel, int kickerInChannel, int electromagnetChannel);
+	Kicker(KBot *kbot, int kickerOutChannel, int kickerInChannel, int electromagnetChannel, HardwareFactory* pFactory);
 	void	Init();
 	void	Kick();
 	void	onClock();

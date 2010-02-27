@@ -403,6 +403,7 @@ SUB_OBJECTS := controller/$(OBJ_DIR)/ManagerMidField.o \
 	 controller/$(OBJ_DIR)/KbotVPID.o \
 	 hardware/$(OBJ_DIR)/Target.o \
 	 hardware/$(OBJ_DIR)/BallFinder.o \
+	 hardware/$(OBJ_DIR)/RobotFactory.o \
 	 hardware/$(OBJ_DIR)/CurrentSensor.o \
 	 hardware/$(OBJ_DIR)/Arm.o \
 	 hardware/$(OBJ_DIR)/KBotDrive.o \

@@ -246,16 +246,18 @@ OBJ_DIR := SIMSPARCSOLARISgnu
 endif
 endif
 
-DEP_FILES := $(OBJ_DIR)/Target.d $(OBJ_DIR)/BallFinder.d $(OBJ_DIR)/CurrentSensor.d \
-	 $(OBJ_DIR)/Arm.d $(OBJ_DIR)/KBotDrive.d $(OBJ_DIR)/KbotCamera.d \
-	 $(OBJ_DIR)/CANJaguar.d $(OBJ_DIR)/Dribbler.d $(OBJ_DIR)/Kicker.d
+DEP_FILES := $(OBJ_DIR)/Target.d $(OBJ_DIR)/BallFinder.d $(OBJ_DIR)/RobotFactory.d \
+	 $(OBJ_DIR)/CurrentSensor.d $(OBJ_DIR)/Arm.d $(OBJ_DIR)/KBotDrive.d \
+	 $(OBJ_DIR)/KbotCamera.d $(OBJ_DIR)/CANJaguar.d $(OBJ_DIR)/Dribbler.d \
+	 $(OBJ_DIR)/Kicker.d
 -include $(DEP_FILES)
 
 ifeq ($(BUILD_SPEC),PPC32diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -264,9 +266,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC32gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -275,9 +278,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC32sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -286,9 +290,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC32sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -297,9 +302,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC403diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -308,9 +314,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC403gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -319,9 +326,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -330,9 +338,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -341,9 +350,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -352,9 +362,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC405sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -363,9 +374,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -374,9 +386,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -385,9 +398,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -396,9 +410,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC440sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -407,9 +422,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC603diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -418,9 +434,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC603gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -429,9 +446,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC604diab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -440,9 +458,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC604gnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -451,9 +470,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -462,9 +482,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -473,9 +494,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXsfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -484,9 +506,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC85XXsfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -495,9 +518,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC860sfdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -506,9 +530,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC860sfgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -517,9 +542,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMLINUXdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -528,9 +554,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMLINUXgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -539,9 +566,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMNTdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -550,9 +578,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMNTgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -561,9 +590,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMSPARCSOLARISdiab)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 
@@ -572,9 +602,10 @@ SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),SIMSPARCSOLARISgnu)
 SUBDIRS :=
-OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/CurrentSensor.o \
-	 $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o $(OBJ_DIR)/KbotCamera.o \
-	 $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o $(OBJ_DIR)/Kicker.o
+OBJECTS := $(OBJ_DIR)/Target.o $(OBJ_DIR)/BallFinder.o $(OBJ_DIR)/RobotFactory.o \
+	 $(OBJ_DIR)/CurrentSensor.o $(OBJ_DIR)/Arm.o $(OBJ_DIR)/KBotDrive.o \
+	 $(OBJ_DIR)/KbotCamera.o $(OBJ_DIR)/CANJaguar.o $(OBJ_DIR)/Dribbler.o \
+	 $(OBJ_DIR)/Kicker.o
 
 PROJECT_TARGETS := $(OBJECTS)
 

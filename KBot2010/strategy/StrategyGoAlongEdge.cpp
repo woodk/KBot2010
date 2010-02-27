@@ -1,5 +1,8 @@
 #include "StrategyGoAlongEdge.h"
 
+#include "Gyro.h"
+#include "KbotPID.h"
+
 #define GO_ALONG_EDGE_TIME 4.0
 
 /*

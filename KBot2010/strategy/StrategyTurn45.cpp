@@ -1,5 +1,8 @@
 #include "StrategyTurn45.h"
 
+#include "Gyro.h"
+#include "KbotPID.h"
+
 #define TURN_45_ABORT_TIME 1.5
 
 /*

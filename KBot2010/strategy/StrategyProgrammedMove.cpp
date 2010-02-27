@@ -1,6 +1,8 @@
 #include "StrategyProgrammedMove.h"
 
+#include "Encoder.h"
 #include "KbotPID.h"
+#include "KbotDrive.h"
 
 static const float kfAngularSpeed = 0.2f;
 static const float kfForwardSpeed = 0.2f;

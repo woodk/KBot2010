@@ -1,5 +1,7 @@
 #include "StrategyShoot.h"
 
+#include "Kicker.h"
+
 static const int KICK_TIMES = 10;
 
 /*

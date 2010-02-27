@@ -1,6 +1,13 @@
 #include "StrategyAim.h"
 
+#include "Encoder.h"
+#include "KbotCamera.h"
+#include "KbotDrive.h"
+#include "KbotPID.h"
+#include "Target.h"
+
 #include <algorithm>
+#include <vector>
 
 bool xSortPredicate(camPoint& point1, camPoint& point2)
 {
@@ -79,7 +86,7 @@ eState StrategyAim::apply()
 							m_kbot->getLeftEncoder()->GetRate());
 	m_fAngle += fDeltaT*fTurnSpeed;
 
-	vector<Target> vecTargets = m_kbot->getCamera()->findTargets();
+	std::vector<Target> vecTargets = m_kbot->getCamera()->findTargets();
 	if (vecTargets[0].m_score >= MINIMUM_SCORE)
 	{
 		// do something to reject bad frames: eg:

@@ -1,5 +1,7 @@
 #include "StrategyCapture.h"
 
+#include "KBotDrive.h"
+
 static const float kfDriveForward = 0.25;	// % voltage to drive forward
 static const float kfFarTurn = 0.25;		// % voltage for turn when far away
 static const int knLostSweep = 25;		// half second sweep

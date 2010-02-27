@@ -1,5 +1,7 @@
 #include "StrategySearch.h"
 
+#include "KBotDrive.h"
+
 /*
 Constructor initalizes object
 

@@ -4,6 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in $(WIND_BASE)/WPILib.  */
 /*----------------------------------------------------------------------------*/
 
+#include "HardwareFactory.h"
 #include "Kicker.h"
 #include "Mappings.h"
 #include "KBot.h"
@@ -12,12 +13,12 @@
  * Kicker constructor--set up lower-level hardware
  * 
  */
-Kicker::Kicker(KBot *kbot, int kickerOutChannel, int kickerInChannel, int electromagnetChannel)
+Kicker::Kicker(KBot *kbot, int kickerOutChannel, int kickerInChannel, int electromagnetChannel, HardwareFactory *pFactory)
 {
 	m_kbot = kbot;
-	m_kickerSolenoidOut = new Solenoid(kickerOutChannel);
-	m_kickerSolenoidIn = new Solenoid(kickerInChannel);
-	m_electromagnet = new Relay(electromagnetChannel,Relay::kForwardOnly);
+	m_kickerSolenoidOut = pFactory->BuildSolenoid(kickerOutChannel);
+	m_kickerSolenoidIn = pFactory->BuildSolenoid(kickerInChannel);
+	m_electromagnet = pFactory->BuildRelay(electromagnetChannel,Relay::kForwardOnly);
 	counter=0;
 	state=GET_CROSSBOW;
 	kickCounter = 0;

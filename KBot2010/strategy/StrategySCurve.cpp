@@ -1,5 +1,9 @@
 #include "StrategySCurve.h"
 
+#include "Gyro.h"
+#include "KbotPID.h"
+
+
 #define S_CURVE_RUN_TIME  4.5
 #define S_CURVE_NO_TRACK_TIME 4.0
 

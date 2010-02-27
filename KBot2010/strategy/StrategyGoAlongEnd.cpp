@@ -1,5 +1,8 @@
 #include "StrategyGoAlongEnd.h"
 
+#include "Gyro.h"
+#include "KbotPID.h"
+
 #define GO_ALONG_END_TIME 4.0
 
 /*

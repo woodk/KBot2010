@@ -1,6 +1,14 @@
 #include "Macros.h"
 #include "Strategy.h"
 
+#include "Gyro.h"
+#include "Joystick.h"
+#include "KBot.h"
+#include "KBotDrive.h"
+#include "KBotPID.h"
+#include "RobotManager.h"
+#include "SpeedController.h"
+
 RobotMacros::RobotMacros(KBot *kbot)
 {
 	m_kbot = kbot;
@@ -65,7 +73,7 @@ void RobotMacros::DriverControl()
 	{
 		xval *= xval;	// square for better control
 	}
-	if (abs(xval) > 0.05 || abs(yval)<0.05)
+	if (fabs(xval) > 0.05 || fabs(yval)<0.05)
 	{
 		m_gyro->Reset();
 	} else {

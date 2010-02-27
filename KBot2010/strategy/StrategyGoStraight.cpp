@@ -1,5 +1,8 @@
 #include "StrategyGoStraight.h"
 
+#include "Gyro.h"
+#include "KbotPID.h"
+
 #define GO_STRAIGHT_RUN_TIME  5.0
 #define GO_STRAIGHT_NO_TRACK_TIME 3.0
 

@@ -1,5 +1,8 @@
 #include "StrategyCurveRight.h"
 
+#include "Gyro.h"
+#include "KbotPID.h"
+
 #define CURVE_RIGHT_RUN_TIME  4.0
 #define CURVE_RIGHT_NO_TRACK_TIME 3.0
 

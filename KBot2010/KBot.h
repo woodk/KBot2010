@@ -3,23 +3,28 @@
 
 #include <iostream>
 #include <cmath>
-#include "WPILib.h"
-#include <taskLib.h>
 
+#include "IterativeRobot.h"
 #include "Mappings.h"
-#include "CANJaguar.h"
-#include "KbotCamera.h"
-#include "KbotPID.h"
-#include "KBotDrive.h"
-#include "Kicker.h"
-
-#include "RobotManager.h"
 #include "Macros.h"
 
-#include "DashboardDataSender.h"
+class CANJaguar;
+class DashboardDataSender;
+class DigitalInput;
+class Encoder;
+class Gyro;
+class KbotCamera;
+class KbotPID;
+class KBotDrive;
+class Kicker;
+class ManagerDefense;
+class ManagerMidField;
+class ManagerForward;
+class Relay;
+class RobotManager;
+class Solenoid;
 
-#include "Solenoid.h"
-#include "DigitalInput.h"
+#define PERIODIC_SPEED	200		// Speed in Hz of main periodic routines 
 
 class RobotManager;  // circular dependency handling
 class RobotMacros;
@@ -54,9 +59,9 @@ public:
 
 	RobotManager* getManager() {return m_autoManager;}
 	
-	bool getNearUltrasoundState() {return m_ultrasoundNear->Get();}
-	bool getFarUltrasoundState() {return m_ultrasoundFar->Get();}
-	bool getGateSensorState() {return m_gateSensor->Get();}
+	bool getNearUltrasoundState();
+	bool getFarUltrasoundState();
+	bool getGateSensorState();
 	
 	int getAutoPattern();	// Reads pattern from 2 switches; returns 0-3
 	int getAutoDirection();	// ALWAYS RETURNS 1
@@ -101,7 +106,6 @@ private:
 	Solenoid	*m_armRelease;
 	Solenoid	*m_armRetract;
 	
-	Compressor *m_compressor;
 	Relay	*m_compressorRelay;
 	DigitalInput *m_pressureSwitch;
 	

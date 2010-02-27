@@ -3,11 +3,12 @@
 #ifndef MACROS_H_
 #define MACROS_H_
 
-#include "KBot.h"
-class KBot; // handle circular includes
-
-#include "KBotDrive.h"
-#include "Joystick.h"
+class Gyro;
+class Joystick;
+class KBot;
+class KBotDrive;
+class KbotPID;
+class SpeedController;
 
 enum MacroNames
 {

@@ -1,5 +1,10 @@
 #include "StrategyTrack.h"
 
+#include "Gyro.h"
+#include "KbotDrive.h"
+#include "KbotPID.h"
+
+
 /*
 Constructor initalizes object
 

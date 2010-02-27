@@ -1,16 +1,26 @@
 #include "KBot.h"
 
+#include "CANJaguar.h"
+#include "DashboardDataSender.h"
+#include "DigitalInput.h"
+#include "KbotCamera.h"
+#include "KbotPID.h"
+#include "KBotDrive.h"
+#include "Kicker.h"
 #include "ManagerDefense.h"
 #include "ManagerMidField.h"
 #include "ManagerForward.h"
-
 #include "Relay.h"
+#include "RobotManager.h"
+#include "Solenoid.h"
 
-#include "HardwareFactory.h"
+#ifdef EMULATOR
+#include "EmulatorFactory.h"
+#else
+#include "RobotFactory.h"
+#endif
 
 static float kfWinchSpeed = 1.0;
-
-#define PERIODIC_SPEED	200		// Speed in Hz of main periodic routines 
 
 /**
  * This is the K-Bot 2010 main code.
@@ -29,23 +39,29 @@ static float kfWinchSpeed = 1.0;
 	KBot::KBot(void) {
 		printf("KBot Constructor Started\n");
 		
+#ifdef EMULATOR
+		HardwareFactory* pHardwareFactory = new EmulatorFactory();
+#else
+		HardwareFactory* pHardwareFactory = new RobotFactory();
+#endif
+		
 		IterativeRobot::SetPeriod(1.0/PERIODIC_SPEED);
 
 		/************************************/
 		// Create and initialize input devices
 
 		// Joysticks
-		m_rightStick = new Joystick(1);
-		m_leftStick = new Joystick(2);
+		m_rightStick = pHardwareFactory->BuildJoystick(1);
+		m_leftStick = pHardwareFactory->BuildJoystick(2);
 		
 		// gyro for direction keeping (TODO: wrap in direction keeper class)
-		m_gyro = new Gyro(GYRO_CHANNEL);
+		m_gyro = pHardwareFactory->BuildGyro(GYRO_CHANNEL);
 		//m_gyro->SetSensitivity(0.0122); // 0.00540 for LPR530AL 4x output (says 0.333 in datasheet)
 				// LPR530AL 1x output: (says 0.000830 in datasheet)
 				// ADW22307 & ADW22305: 0.0122 or 0.0125 (says 0.007 in datasheet)
 		// wheel encoders
-		m_leftEncoder = new Encoder(L_ENC_A_CHANNEL,L_ENC_B_CHANNEL,false);
-		m_rightEncoder = new Encoder(R_ENC_A_CHANNEL,R_ENC_B_CHANNEL,true);
+		m_leftEncoder = pHardwareFactory->BuildEncoder(L_ENC_A_CHANNEL,L_ENC_B_CHANNEL,false);
+		m_rightEncoder = pHardwareFactory->BuildEncoder(R_ENC_A_CHANNEL,R_ENC_B_CHANNEL,true);
 
 		// 250 counts per rev.; gear ratio x:y; 6" wheel
 		// 1 count = 1/250 * x / y * 2*PI*6 /12 feet
@@ -61,57 +77,56 @@ static float kfWinchSpeed = 1.0;
 		m_rightEncoder->Reset();
 
 		// digital inputs
-		m_DefenseSwitch = new DigitalInput(DEFENSE_SWITCH);		
-		m_MidFieldSwitch = new DigitalInput(MIDFIELD_SWITCH);		
-		m_ForwardSwitch = new DigitalInput(FORWARD_SWITCH);		
+		m_DefenseSwitch = pHardwareFactory->BuildDigitalInput(DEFENSE_SWITCH);		
+		m_MidFieldSwitch = pHardwareFactory->BuildDigitalInput(MIDFIELD_SWITCH);		
+		m_ForwardSwitch = pHardwareFactory->BuildDigitalInput(FORWARD_SWITCH);		
 
-		m_gateSensor = new DigitalInput(GATE_SENSOR);
+		m_gateSensor = pHardwareFactory->BuildDigitalInput(GATE_SENSOR);
 
-		m_ultrasoundNear = new DigitalInput(ULTRA_NEAR);
-		m_ultrasoundFar = new DigitalInput(ULTRA_FAR);
+		m_ultrasoundNear = pHardwareFactory->BuildDigitalInput(ULTRA_NEAR);
+		m_ultrasoundFar = pHardwareFactory->BuildDigitalInput(ULTRA_FAR);
 		
-		m_armRelease = new Solenoid(SOLENOID_SLOT, ARM_RELEASE);
-		m_armRetract = new Solenoid(SOLENOID_SLOT, ARM_RETRACT);
+		m_armRelease = pHardwareFactory->BuildSolenoid(SOLENOID_SLOT, ARM_RELEASE);
+		m_armRetract = pHardwareFactory->BuildSolenoid(SOLENOID_SLOT, ARM_RETRACT);
 		
 		/************************************/
 		// Create and initialize output devices
 		
-		m_leftJaguar1 = new CANJaguar(L_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
+		m_leftJaguar1 = pHardwareFactory->BuildCANJaguar(L_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
 		//m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
 		//m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
 		//m_leftJaguar->SetPID(0.1,0.0,0.0);
 		m_leftJaguar1->Set(0.0);
-		m_leftJaguar2 = new CANJaguar(L_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
+		m_leftJaguar2 = pHardwareFactory->BuildCANJaguar(L_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
 		m_leftJaguar2->Set(0.0);
 
-		m_rightJaguar1 = new CANJaguar(R_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rightJaguar1 = pHardwareFactory->BuildCANJaguar(R_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
 		//m_rightJaguar = new CANJaguar(2, CANJaguar::kSpeed);
 		//m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
 		//m_rightJaguar->SetPID(0.1,0.0,0.0);
 		m_rightJaguar1->Set(0.0);
-		m_rightJaguar2 = new CANJaguar(R_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rightJaguar2 = pHardwareFactory->BuildCANJaguar(R_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
 		m_rightJaguar2->Set(0.0);
 
-		m_robotDrive = new KBotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
-		m_winchMotor = new CANJaguar(WINCH_JAG_ID, CANJaguar::kPercentVoltage);
+		m_robotDrive = pHardwareFactory->BuildKBotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
+		m_winchMotor = pHardwareFactory->BuildCANJaguar(WINCH_JAG_ID, CANJaguar::kPercentVoltage);
 		m_winchMotor->Set(0.0);
-		m_rollerMotor = new CANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rollerMotor = pHardwareFactory->BuildCANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
 		m_rollerMotor->Set(0.0);
 		
-		m_driverStation = DriverStation::GetInstance();
+		m_driverStation = pHardwareFactory->BuildDriverStation();
 		m_priorPacketNumber = 0;
 		m_dsPacketsPerSecond = 0;
 		
-//		m_compressor = new Compressor(PRESSURE_SWITCH_CHANNEL, COMPRESSOR_RELAY_CHANNEL);
-		m_compressorRelay = new Relay(COMPRESSOR_RELAY_CHANNEL,Relay::kForwardOnly);
-		m_pressureSwitch = new DigitalInput(PRESSURE_SWITCH_CHANNEL);
+		m_compressorRelay = pHardwareFactory->BuildRelay(COMPRESSOR_RELAY_CHANNEL,Relay::kForwardOnly);
+		m_pressureSwitch = pHardwareFactory->BuildDigitalInput(PRESSURE_SWITCH_CHANNEL);
 		
-		m_kicker = new Kicker(this, PISTON_ACTUATOR, PISTON_RELEASE, ELECTROMAGNET_CHANNEL);
+		m_kicker = pHardwareFactory->BuildKicker(this, PISTON_ACTUATOR, PISTON_RELEASE, ELECTROMAGNET_CHANNEL);
 		// Create high level controllers
 		// **** MUST BE AFTER ALL OTHER OBJECTS ARE CREATED, as the constructors
 		// create links to the other objects. ****
 
-		m_pCamera = new KbotCamera();
+		m_pCamera = pHardwareFactory->BuildKbotCamera();
 		
 		m_teleMacros = new RobotMacros(this);
 				
@@ -416,6 +431,21 @@ static float kfWinchSpeed = 1.0;
 		}
 	} // TeleopPeriodic(void)
 
+bool KBot::getNearUltrasoundState() 
+{
+	return m_ultrasoundNear->Get();
+}
+
+bool KBot::getFarUltrasoundState() 
+{
+	return m_ultrasoundFar->Get();
+}
+
+bool KBot::getGateSensorState() 
+{
+	return m_gateSensor->Get();
+}
+	
 
 /********************************** Continuous Routines *************************************/
 
