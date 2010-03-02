@@ -44,9 +44,8 @@ StrategyAim::StrategyAim(KBot* kbot) : Strategy(kbot)
 	
 	for (int i=0; i<20; i++)
 	{
-		m_vecPoints[i]=camPoint(0.0,0.0);
+		m_vecPoints.push_back(camPoint(0.0,0.0));
 	}
-	//m_vecPoints.resize(20);
 	m_pointCounter = 0;
 }
 
