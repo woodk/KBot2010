@@ -126,33 +126,14 @@
 				rotateValue = -(rotateValue * rotateValue);
 			}
 		}
-
-		if (moveValue > 0.0)
-		{
-			if (rotateValue > 0.0)
-			{
-				leftMotorSpeed = moveValue - rotateValue;
-				rightMotorSpeed = max(moveValue, rotateValue);
-			}
-			else
-			{
-				leftMotorSpeed = max(moveValue, -rotateValue);
-				rightMotorSpeed = moveValue + rotateValue;
-			}
+		
+		leftMotorSpeed = moveValue - rotateValue;
+		rightMotorSpeed = moveValue + rotateValue;
+		if (moveValue>0) {		// Joystick backwards
+			leftMotorSpeed += 2*moveValue*rotateValue;
+			rightMotorSpeed -= 2*moveValue*rotateValue;
 		}
-		else
-		{
-			if (rotateValue > 0.0)
-			{
-				leftMotorSpeed = - max(-moveValue, rotateValue);
-				rightMotorSpeed = moveValue + rotateValue;
-			}
-			else
-			{
-				leftMotorSpeed = moveValue - rotateValue;
-				rightMotorSpeed = - max(-moveValue, -rotateValue);
-			}
-		}
+		
 		SetLeftRightMotorSpeeds(leftMotorSpeed, rightMotorSpeed);
 
 	}
