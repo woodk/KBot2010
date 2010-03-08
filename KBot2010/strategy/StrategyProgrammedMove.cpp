@@ -84,7 +84,7 @@ eState StrategyProgrammedMove::apply()
     // update position along path
     // TODO:  check calibrations, both linear and angular
     float fPositionCalibration = 19.25/1440;  // inches per pulse
-    float fAngleCalibration = fPositionCalibration/(M_PI*22.0f); // robot wheels are 22 inches apart
+    float fAngleCalibration = fPositionCalibration/(3.141592*22.0f); // robot wheels are 22 inches apart
     int nLeftWheel = m_kbot->getLeftEncoder()->Get();
     int nRightWheel = m_kbot->getRightEncoder()->Get();
 	float fAveragePosition = 0.5*fPositionCalibration*(nLeftWheel+nRightWheel);

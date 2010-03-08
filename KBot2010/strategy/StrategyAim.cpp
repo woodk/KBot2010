@@ -76,7 +76,7 @@ eState StrategyAim::apply()
     
     float fAverageSpeedFactor = 1.0;
     float fAngularSpeedFactor = 0.1;
-    float fAngleFactor = 2.0;
+    float fAngleFactor = 0.3; //TODO: tune this so that we can turn the fastest without losing the ball
     
 	float fAverageSpeed = fAverageSpeedFactor*0.5f*(m_kbot->getLeftEncoder()->GetRate()+
 								m_kbot->getRightEncoder()->GetRate());
@@ -91,26 +91,26 @@ eState StrategyAim::apply()
 		// do something to reject bad frames: eg:
 		// keep list of last x values & time stamps
 		
-		m_pointCounter++;
 		m_vecPoints[m_pointCounter%20]=camPoint(vecTargets[0].m_xPos, m_pointCounter);
+		m_pointCounter++;
 		if (m_pointCounter>=20)
 		{
-			if (m_pointCounter==20) {
+			/*diagnostics if (m_pointCounter==20) {
 				m_vecPoints[19].m_x += 0.5;
-				for (int i=1; i<=20; i++)
-					printf("%2.1f  ",m_vecPoints[i%20].m_x);
+				for (int i=0; i<20; i++)
+					printf("%2.1f  ",m_vecPoints[i].m_x);
 				printf("\n");
-			}
+			}*/
 			// find most common within certain range
 			//	 - make new list, copy of original
 			vector<camPoint> tempPoints = m_vecPoints;
 			//   - sort list by x
 			std::sort(tempPoints.begin(), tempPoints.end(), xSortPredicate);
 			//   - find median
-			float median = tempPoints[(m_pointCounter+10)%20].m_x;
-			// remake this list from original, rejecting outliers (ie too far from median)
-			float x1= m_vecPoints[m_pointCounter%20].m_x;
-			float x2= m_vecPoints[(m_pointCounter-1+20)%20].m_x;
+			float median = tempPoints[(m_pointCounter+9)%20].m_x;
+			// pick one of the last two points that is closest to the median
+			float x1= m_vecPoints[(m_pointCounter-1+20)%20].m_x;
+			float x2= m_vecPoints[(m_pointCounter-2+20)%20].m_x;
 			float result;
 			if (abs(x1 - median)>abs(x2 - median))
 			{
@@ -118,9 +118,16 @@ eState StrategyAim::apply()
 			} else {
 				result = x1;
 			}
-			if (m_pointCounter==20) {
+			/*diagnostics if (m_pointCounter==20) {
+				for (int i=0; i<20; i++)
+				{
+					if (i==9)
+						printf(">");
+					printf("%2.1f  ",tempPoints[i].m_x);
+				}
+				printf("\n");
 				printf("x1=%2.1f  x2=%2.1f  median=%2.1f  result=%2.1f\n",x1,x2,median,result);
-			}
+			}*/
 			// pick best of last 2 values
 			m_fAngularSpeed = fAngleFactor*result;
 		}
@@ -128,16 +135,19 @@ eState StrategyAim::apply()
 			m_fAngularSpeed = fAngleFactor*vecTargets[0].m_xPos;
 		
 	}
-
-	printf("%f %f %f\n",m_fDirection, m_fAngle, fTurnSpeed);
+	//printf("aim: %f %f %f\n",m_fDirection, m_fAngle, fTurnSpeed);
 
 	if ((fabs(m_fDirection-m_fAngle) < m_fAngleTolerance))
 	{
 		nNewState = m_nNextState;  
-		m_pointCounter = 0;	// so ring buffer refills next time
+		if (false)  //TODO: only if in autonomous mode:
+		{
+			m_pointCounter = 0;	// so ring buffer refills next time
+		}
 	}
 	else
 	{
+#ifdef OLD_WAY
 		// turning logic--may want PID here
 		if (m_fDirection < m_fAngle)
 		{
@@ -147,6 +157,7 @@ eState StrategyAim::apply()
 		{
 			m_fAngularSpeed = -0.1f;
 		}    		
+#endif
 	}
 
 	m_robotDrive->ArcadeDrive(m_fForwardSpeed, m_fAngularSpeed, false);

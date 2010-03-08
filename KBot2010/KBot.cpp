@@ -225,7 +225,7 @@ static float kfWinchSpeed = 1.0;
 			//printf("Ultrasound Near/Far: %d/%d\n",getNearUltrasoundState(),getFarUltrasoundState());
 			//printf("Pressure switch %d\n",m_pressureSwitch->Get());
 			
-			printf("Encoders: left = %d    right = %d\n",m_leftEncoder->Get(), m_rightEncoder->Get());
+			//printf("Encoders: left = %d    right = %d\n",m_leftEncoder->Get(), m_rightEncoder->Get());
 		}
 	}
 	
