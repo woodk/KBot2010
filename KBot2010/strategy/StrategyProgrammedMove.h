@@ -96,6 +96,10 @@ private:
 	
 	// flag to tell if people are turning
 	bool m_bTurning;
+
+	// flag to tell if this is first call to programmed move
+	bool m_bFirstCall;
+
 };
 
 #endif

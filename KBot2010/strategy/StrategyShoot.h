@@ -23,7 +23,7 @@ public:
     
     void init();
     
-    std::vector<eState> getNextStates() {return m_vecNextState;}
+    std::vector<eState>& getNextStates() {return m_vecNextState;}
 
 private:
     
