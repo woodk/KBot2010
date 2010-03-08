@@ -32,9 +32,6 @@ StrategyProgrammedMove::StrategyProgrammedMove(KBot* kbot) : Strategy(kbot)
 	m_pidAngle = 0;
 	m_pidDistance = 0;
 	
-	m_fStartAngle = 0.0f;
-	m_fStartPosition = 0.0f;
-
 	m_bFirstCall = true;
 }
 
@@ -88,7 +85,7 @@ eState StrategyProgrammedMove::apply()
     int nLeftWheel = m_kbot->getLeftEncoder()->Get();
     int nRightWheel = m_kbot->getRightEncoder()->Get();
 	float fAveragePosition = 0.5*fPositionCalibration*(nLeftWheel+nRightWheel);
-	m_fDistance = fAveragePosition-m_fStartPosition;
+	m_fDistance = fAveragePosition;
 	m_fAngle = fAngleCalibration*(nRightWheel-nLeftWheel);
 	
 	if ((fabs(m_fDirection-m_fAngle) < m_fAngleTolerance))
@@ -118,10 +115,8 @@ eState StrategyProgrammedMove::apply()
 				m_fLength = sqrt(fDeltaX*fDeltaX+fDeltaY*fDeltaY);
 	    		m_fDirection = atan2(fDeltaX, fDeltaY);
 	    		m_bTurning = true;
-	    		m_fStartPosition = 0.0f;
 	    		m_fDistance = 0.0f;
 	    		m_fAngle = 0.0f;
-	    		m_fStartAngle = 0.0f;
 	    		m_bFirstCall = true;	// force encoder reset
 	    	}
 		}
@@ -160,8 +155,6 @@ void StrategyProgrammedMove::init()
 	m_fDirection = atan2(fDeltaX, fDeltaY);
 	m_fForwardSpeed = 0.0f;
 	m_fAngularSpeed = 0.0f;
-	m_fStartAngle = 0.0f;
-	m_fStartPosition = 0.0f;
 	m_bTurning = true;
 	m_fDistance = 0.0f;
 }
