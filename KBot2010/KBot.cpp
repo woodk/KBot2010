@@ -1,5 +1,7 @@
 #include "KBot.h"
 
+#define KBOT_DEBUG
+
 #include "CANJaguar.h"
 #include "DashboardDataSender.h"
 #include "DigitalInput.h"
@@ -137,6 +139,17 @@ static float kfWinchSpeed = 1.0;
 		
 		m_nStartTime = 0;
 		
+		k_modes = (char**)calloc(sizeof(char**),7);
+		if (k_modes != NULL) {
+			k_modes[0] = "(mid)";
+			k_modes[1] = " def ";
+			k_modes[2] = " for ";
+			k_modes[3] = " mid ";
+			k_modes[4] = "(mid)";
+			k_modes[5] = "(mid)";
+			k_modes[6] = "(mid)";
+		  }
+
 		printf("KBot Constructor Completed\n");
 	}
 
@@ -213,19 +226,25 @@ static float kfWinchSpeed = 1.0;
 		// Runs at 200 Hz
 		// feed the user watchdog at every period when disabled
 		GetWatchdog().Feed();
+
+#ifdef KBOT_DEBUG
+		if ((m_disabledPeriodicLoops % 200) == 0) { // 1 Hz
+			if ((m_disabledPeriodicLoops%4000) == 0) // print headings once per screen
+			{
+				printf("Gate USNear USFar PressSw L_Enc R_Enc  Mode Pattern\n");
+			}
+			printf("  %1d    %1d      %1d      %1d    %5d %5d  %s  %1d\n",getGateSensorState(),
+					getNearUltrasoundState(),getFarUltrasoundState(), m_pressureSwitch->Get(),
+					m_leftEncoder->Get(), m_rightEncoder->Get(),k_modes[m_DefenseSwitch->Get()+2*m_ForwardSwitch->Get()+3*m_MidFieldSwitch->Get()],getAutoPattern());
+		}
 		
+#endif
+
 		// increment the number of disabled periodic loops completed
 		m_disabledPeriodicLoops++;
 		
 		if ((m_disabledPeriodicLoops % 40) == 0) { // 5 Hz
 			// TODO:  any disabled mode periodic bookkeeping
-		}
-		if ((m_disabledPeriodicLoops % 200) == 0) { // 1 Hz
-			//printf("Gate: %d\n",getGateSensorState());
-			//printf("Ultrasound Near/Far: %d/%d\n",getNearUltrasoundState(),getFarUltrasoundState());
-			//printf("Pressure switch %d\n",m_pressureSwitch->Get());
-			
-			//printf("Encoders: left = %d    right = %d\n",m_leftEncoder->Get(), m_rightEncoder->Get());
 		}
 	}
 	

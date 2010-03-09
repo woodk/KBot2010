@@ -18,7 +18,7 @@ RobotManager::RobotManager(KBot *kbot)
 	m_kbot = kbot;
 	m_driverStation = m_kbot->getDriverStation();
 	
-	m_nStartState = knProgrammedMove1; //TODO: check if this is right.  was knInitial;
+	m_nStartState = knInitial; // Initial state is set in the manager state (ManagerForward, ManagerMidfield, ManagerDefense)
 
     for (int nIndex = 0; nIndex < knInitial; nIndex++)
     {

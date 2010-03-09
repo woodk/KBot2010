@@ -143,6 +143,8 @@ private:
 	// Target position from camera
 	float m_targetX; // range 0.0 - 1.0
 	float m_targetY; // range 0.0 - 1.0
+	
+	char **k_modes;
 };
 
 #endif
