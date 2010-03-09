@@ -46,8 +46,6 @@ StrategyAim::StrategyAim(KBot* kbot) : Strategy(kbot)
 	{
 		m_vecPoints.push_back(camPoint(0.0,0.0));
 	}
-	//m_vecPoints.resize(20);
-	printf("############### vector initialized\n");
 	m_pointCounter = 0;
 }
 
