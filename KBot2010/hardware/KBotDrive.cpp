@@ -129,6 +129,7 @@
 		
 		leftMotorSpeed = moveValue - rotateValue;
 		rightMotorSpeed = moveValue + rotateValue;
+		// Modify reverse so that back-left goes back-left and back-right goes back-right
 		if (moveValue<0) {		// Joystick backwards (NOTE: < not > for new robot)
 			leftMotorSpeed += 2*moveValue*rotateValue;
 			rightMotorSpeed -= 2*moveValue*rotateValue;

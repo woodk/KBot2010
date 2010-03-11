@@ -9,6 +9,8 @@
 #include "RobotManager.h"
 #include "SpeedController.h"
 
+#define TURN_BOOST_VALUE 0.15
+
 RobotMacros::RobotMacros(KBot *kbot)
 {
 	m_kbot = kbot;
@@ -81,8 +83,27 @@ void RobotMacros::DriverControl()
 		xval += m_gyroDriveCtrl->calcPID(m_gyro->GetAngle());
 	}
 	yval = m_rightStick->GetY();
+	if (m_rightStick->GetRawButton(LEFT_BOOST_BUTTON))
+	{
+		xval += TURN_BOOST_VALUE;
+		printf("left boost before=%f after=%f\n",xval-TURN_BOOST_VALUE,xval);
+	}
+	if (m_rightStick->GetRawButton(RIGHT_BOOST_BUTTON))
+	{
+		xval -= TURN_BOOST_VALUE;
+		printf("right boost before=%f after=%f\n",xval+TURN_BOOST_VALUE,xval);
+	}
+	if (m_rightStick->GetRawButton(TURN_BOOST_BUTTON))
+	{
+		printf("left boost before=%f",xval);
+		if (xval>0)
+			xval += TURN_BOOST_VALUE;
+		else
+			xval -= TURN_BOOST_VALUE;
+		printf(" after=%f\n",xval);		
+	}
 	//printf("x=%f  y=%f\n",xval,yval);
-	m_robotDrive->ArcadeDrive(-yval, -xval, true);			// drive with arcade style (use right stick
+	m_robotDrive->ArcadeDrive(-yval, -xval, false);			// drive with arcade style (use right stick) no squared inputs because we already squared x
 }
 
 // Allow complete operator control.

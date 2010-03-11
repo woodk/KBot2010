@@ -13,10 +13,10 @@
 #define KICK_BUTTON		1
 #define CAPTURE_BUTTON	2
 #define AIM_BUTTON		3
-//#define _BUTTON		4
-//#define _BUTTON		5
+#define LEFT_BOOST_BUTTON		4
+#define RIGHT_BOOST_BUTTON		5
 //#define _BUTTON		6
-//#define _BUTTON		7
+#define TURN_BOOST_BUTTON		7
 //#define _BUTTON		8
 //#define _BUTTON		9
 
