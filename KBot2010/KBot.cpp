@@ -81,7 +81,9 @@ static float kfWinchSpeed = 1.0;
 		// digital inputs
 		m_DefenseSwitch = pHardwareFactory->BuildDigitalInput(DEFENSE_SWITCH);		
 		m_MidFieldSwitch = pHardwareFactory->BuildDigitalInput(MIDFIELD_SWITCH);		
-		m_ForwardSwitch = pHardwareFactory->BuildDigitalInput(FORWARD_SWITCH);		
+		m_ForwardSwitch = pHardwareFactory->BuildDigitalInput(FORWARD_SWITCH);
+		m_Pattern1 =  pHardwareFactory->BuildDigitalInput(PATTERN_1_SWITCH);
+		m_Pattern2 =  pHardwareFactory->BuildDigitalInput(PATTERN_2_SWITCH);
 
 		m_gateSensor = pHardwareFactory->BuildDigitalInput(GATE_SENSOR);
 
@@ -514,7 +516,8 @@ bool KBot::getGateSensorState()
 	int KBot::getAutoPattern()
 	{
 		// Read switches and return pattern to use (0-3)
-		return 1;
+		
+		return m_Pattern1->Get()*2+m_Pattern2->Get();
 	}
 	int KBot::getAutoDirection()
 	{

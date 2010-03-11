@@ -56,8 +56,8 @@
 #define DEFENSE_SWITCH		10	//	0 = off		1 = Defensive player
 #define MIDFIELD_SWITCH		11	//	0 = off		1 = Midfielder
 #define FORWARD_SWITCH		12	//	0 = off		1 = Forward
-#define PATTERN_A			13	// Binary code for 4 different patterns for each zone
-#define PATTERN_B			14
+#define PATTERN_1_SWITCH	13	// Binary code for 4 different patterns for each zone
+#define PATTERN_2_SWITCH	14
 
 // Relay outputs
 #define COMPRESSOR_RELAY_CHANNEL 1 	// Compressor spike channel

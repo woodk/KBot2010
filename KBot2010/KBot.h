@@ -97,6 +97,8 @@ private:
 	DigitalInput *m_DefenseSwitch;
 	DigitalInput *m_MidFieldSwitch;
 	DigitalInput *m_ForwardSwitch;
+	DigitalInput *m_Pattern1;
+	DigitalInput *m_Pattern2;
 
 	DigitalInput *m_gateSensor;
 	

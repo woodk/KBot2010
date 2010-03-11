@@ -129,7 +129,7 @@
 		
 		leftMotorSpeed = moveValue - rotateValue;
 		rightMotorSpeed = moveValue + rotateValue;
-		if (moveValue>0) {		// Joystick backwards
+		if (moveValue<0) {		// Joystick backwards (NOTE: < not > for new robot)
 			leftMotorSpeed += 2*moveValue*rotateValue;
 			rightMotorSpeed -= 2*moveValue*rotateValue;
 		}

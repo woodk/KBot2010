@@ -93,7 +93,7 @@ eState StrategyProgrammedMove::apply()
 		m_bTurning = false; // if we were turning we are no longer
 		
 		// we are headed in the right direction
-		m_fForwardSpeed = -kfForwardSpeed;
+		m_fForwardSpeed = kfForwardSpeed;
 		m_fAngularSpeed = 0.0f;
    		
 		if (m_fDistance > m_fLength)
