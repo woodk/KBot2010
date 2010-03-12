@@ -70,7 +70,10 @@ public:
 	// used by strategies
 	Encoder* getLeftEncoder() {return m_leftEncoder;}
 	Encoder* getRightEncoder() {return m_rightEncoder;}
+	
+#ifdef USE_CAMERA
 	KbotCamera* getCamera() {return m_pCamera;}
+#endif
 	
 	UINT32 getAutoClocks() {return m_autoPeriodicLoops;}
 	
@@ -119,8 +122,10 @@ private:
 	RobotManager *m_autoManager;
 	RobotMacros *m_teleMacros;
 	
+#ifdef USE_CAMERA
 	// camera wrapper class
 	KbotCamera* m_pCamera;
+#endif
 	
 	// start time
 	time_t m_nStartTime;

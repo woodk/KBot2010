@@ -32,6 +32,20 @@ public:
 	void ArcadeDrive(GenericHID &moveStick, UINT32 moveChannel, GenericHID &rotateStick, UINT32 rotateChannel, bool squaredInputs = true);
 	void ArcadeDrive(float moveValue, float rotateValue, bool squaredInputs = true);
 
+	float getLeftSpeed() {return m_fLeftSpeed;}
+	float getRightSpeed() {return m_fRightSpeed;}
+	
+	void initSpeeds()
+	{
+		m_fLeftSpeed = 0;
+		m_fRightSpeed = 0;
+	}
+	
+protected:
+	
+	float m_fLeftSpeed;
+	float m_fRightSpeed;
+	
 private:
 	DISALLOW_COPY_AND_ASSIGN(KBotDrive);
 };

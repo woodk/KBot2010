@@ -22,7 +22,7 @@
 #include "RobotFactory.h"
 #endif
 
-static float kfWinchSpeed = 1.0;
+//static float kfWinchSpeed = 1.0;
 
 /**
  * This is the K-Bot 2010 main code.
@@ -116,7 +116,7 @@ static float kfWinchSpeed = 1.0;
 		m_winchMotor = pHardwareFactory->BuildCANJaguar(WINCH_JAG_ID, CANJaguar::kPercentVoltage);
 		m_winchMotor->Set(0.0);
 		m_rollerMotor = pHardwareFactory->BuildCANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
-		m_rollerMotor->Set(0.0);
+		m_rollerMotor->Set(1.0);
 		
 		m_driverStation = pHardwareFactory->BuildDriverStation();
 		m_priorPacketNumber = 0;
@@ -130,7 +130,9 @@ static float kfWinchSpeed = 1.0;
 		// **** MUST BE AFTER ALL OTHER OBJECTS ARE CREATED, as the constructors
 		// create links to the other objects. ****
 
+#ifdef USE_CAMERA
 		m_pCamera = pHardwareFactory->BuildKbotCamera();
+#endif
 		
 		m_teleMacros = new RobotMacros(this);
 				
@@ -165,17 +167,17 @@ static float kfWinchSpeed = 1.0;
 	void KBot::RobotInit(void) {
 		// Actions which would be performed once (and only once) upon initialization of the
 		// robot would be put here.
-		if (m_DefenseSwitch->Get())
+		if (!m_DefenseSwitch->Get())
 		{
 			m_autoManager = new ManagerDefense(this);
 			m_kicker->Init();
 		}
-		else if (m_MidFieldSwitch->Get())
+		else if (!m_MidFieldSwitch->Get())
 		{
 			m_autoManager = new ManagerMidField(this);
 			m_kicker->Init();
 		}
-		else if (m_ForwardSwitch->Get())
+		else if (!m_ForwardSwitch->Get())
 		{
 			m_autoManager = new ManagerForward(this);
 			m_kicker->Init();
@@ -185,8 +187,10 @@ static float kfWinchSpeed = 1.0;
 			m_autoManager = new ManagerMidField(this);
 			m_kicker->Init();
 		}
-		
+
+#ifdef USE_CAMERA
 		m_pCamera->init();
+#endif
 		m_compressorRelay->SetDirection(Relay::kForwardOnly);
 		
 	}
@@ -237,7 +241,7 @@ static float kfWinchSpeed = 1.0;
 			}
 			printf("  %1d    %1d      %1d      %1d    %5d %5d  %s  %1d\n",getGateSensorState(),
 					getNearUltrasoundState(),getFarUltrasoundState(), m_pressureSwitch->Get(),
-					m_leftEncoder->Get(), m_rightEncoder->Get(),k_modes[m_DefenseSwitch->Get()+2*m_ForwardSwitch->Get()+3*m_MidFieldSwitch->Get()],getAutoPattern());
+					m_leftEncoder->Get(), m_rightEncoder->Get(),k_modes[!m_DefenseSwitch->Get()+2*!m_ForwardSwitch->Get()+3*!m_MidFieldSwitch->Get()],getAutoPattern());
 		}
 		
 #endif
@@ -258,7 +262,8 @@ static float kfWinchSpeed = 1.0;
 		// feed the user watchdog at every period when in autonomous
 		GetWatchdog().Feed();
 		
-		if (m_autoPeriodicLoops == 1000) { // after 5 seconds
+		if (m_autoPeriodicLoops == 50) { // after 0.25 seconds
+			printf("Initial kick to get crossbow.");
 			m_kicker->Kick(); // compressor should be up to pressure; so get crossbow (out of way of rollers)
 		}
 		
@@ -267,7 +272,7 @@ static float kfWinchSpeed = 1.0;
 		}
 		
 		if ((m_autoPeriodicLoops % 40) == 0) { // 5 Hz
-
+			m_rollerMotor->Set(0.5);
 			// TODO:  target acquistion with new camera.  Modify
 		}
 		
@@ -313,6 +318,7 @@ static float kfWinchSpeed = 1.0;
 			controlCompressor();
 		}
 
+#ifdef USE_CAMERA
 		if ((m_telePeriodicLoops % 40) == 0) { // 5 Hz
 			vector<Target> vecTargets = m_pCamera->findTargets();
 
@@ -321,8 +327,9 @@ static float kfWinchSpeed = 1.0;
 				m_pDashboardDataSender->sendVisionData(0.0, m_gyro->GetAngle(), 0.0, vecTargets[0].m_xPos / vecTargets[0].m_xMax, vecTargets);
 			}				
 		}
-
-		if (getRightStick()->GetTrigger())
+#endif
+		
+		if (getRightStick()->GetTrigger() || getLeftStick()->GetTrigger())
 		{
 			m_kicker->Kick();
 		}			
@@ -398,12 +405,12 @@ static float kfWinchSpeed = 1.0;
 			// TODO:  remove test stuff
 			if (true) //m_telePeriodicLoops >= 20000)
 			{
-				if (getLeftStick()->GetTrigger())
+				/*if (getLeftStick()->GetRawButton(ARM_UP_BUTTON))
 				{
 					getArmRelease()->Set(true);
 					getArmRetract()->Set(false);
 				}
-				else	// pull arm in by default
+				else if (getLeftStick()->GetRawButton(ARM_DOWN_BUTTON))
 				{
 					getArmRelease()->Set(false);
 					getArmRetract()->Set(true);				
@@ -417,7 +424,7 @@ static float kfWinchSpeed = 1.0;
 				else
 				{
 					getWinchMotor()->Set(0.0f);
-				}
+				}*/
 			}
 			// this is where the actual robotic driving is done
 			m_teleMacros->OnClock();
@@ -517,7 +524,7 @@ bool KBot::getGateSensorState()
 	{
 		// Read switches and return pattern to use (0-3)
 		
-		return m_Pattern1->Get()*2+m_Pattern2->Get();
+		return (3-(m_Pattern1->Get()*2+m_Pattern2->Get()));
 	}
 	int KBot::getAutoDirection()
 	{

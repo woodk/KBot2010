@@ -4,8 +4,18 @@
 #include "KbotPID.h"
 #include "KbotDrive.h"
 
-static const float kfAngularSpeed = 0.2f;
-static const float kfForwardSpeed = 0.2f;
+static const float kfAngularSpeed = 0.25f;
+static const float kfForwardSpeed = 0.3f;
+
+#define DEAD_LEFT_ENCODER 1
+
+// if one encoder always returns zero, do not average
+#ifdef DEAD_LEFT_ENCODER
+static int knSpeedAngleCalibration = 25;
+static const float kfAverageFactor = 1.0f;
+#else
+static const float kfAverageFactor = 0.5f;
+#endif
 
 /*
 Constructor initalizes object
@@ -33,6 +43,11 @@ StrategyProgrammedMove::StrategyProgrammedMove(KBot* kbot) : Strategy(kbot)
 	m_pidDistance = 0;
 	
 	m_bFirstCall = true;
+
+	m_nLeftWheel = 0;
+	m_nRightWheel = 0;
+	m_fLeftWheel = 0;
+	m_fRightWheel = 0;
 }
 
 /*
@@ -69,6 +84,8 @@ eState StrategyProgrammedMove::apply()
     	m_bFirstCall = false;
     	m_kbot->getLeftEncoder()->Reset();
     	m_kbot->getRightEncoder()->Reset();
+    	m_nLeftWheel = 0;
+    	m_nRightWheel = 0;
     	delete m_pidAngle;
     	m_pidAngle = new KbotPID();
     	m_pidAngle->setConstants(0.1, 0.001, 0.01);
@@ -80,11 +97,17 @@ eState StrategyProgrammedMove::apply()
 
     // update position along path
     // TODO:  check calibrations, both linear and angular
-    float fPositionCalibration = 19.25/1440;  // inches per pulse
+    float fPositionCalibration = (19.25/1440)*1.15;  // inches per pulse * compensation factor 1.15
     float fAngleCalibration = fPositionCalibration/(3.141592*22.0f); // robot wheels are 22 inches apart
     int nLeftWheel = m_kbot->getLeftEncoder()->Get();
     int nRightWheel = m_kbot->getRightEncoder()->Get();
-	float fAveragePosition = 0.5*fPositionCalibration*(nLeftWheel+nRightWheel);
+#ifdef DEAD_LEFT_ENCODER
+	m_nLeftWheel -= (int)(knSpeedAngleCalibration*m_kbot->getKBotDrive()->getLeftSpeed());
+	m_nRightWheel -= (int)(knSpeedAngleCalibration*m_kbot->getKBotDrive()->getRightSpeed());
+	nLeftWheel = m_nLeftWheel;
+	nRightWheel = m_nRightWheel;
+#endif
+	float fAveragePosition = kfAverageFactor*fPositionCalibration*(nLeftWheel+nRightWheel);
 	m_fDistance = fAveragePosition;
 	m_fAngle = fAngleCalibration*(nRightWheel-nLeftWheel);
 	
@@ -124,7 +147,7 @@ eState StrategyProgrammedMove::apply()
 	else
 	{
 		// turning logic
-		m_fAngularSpeed =  m_pidAngle->calcPID(m_fDirection - m_fAngle);
+		m_fAngularSpeed =  m_pidAngle->calcPID(m_fAngle - m_fDirection);
 	}
 
 	// absolutely no forward motion allowed while turning
@@ -133,16 +156,24 @@ eState StrategyProgrammedMove::apply()
 	{
 		m_fForwardSpeed = 0.0f;
 		m_fAngularSpeed *= 2.0f;
-		if (m_fAngularSpeed > 1.0f)
+		if (m_fAngularSpeed > 0.4f)
 		{
-			m_fAngularSpeed = 1.0f;
+			m_fAngularSpeed = 0.4f;
+		}
+		if (m_fAngularSpeed < -0.4) 
+		{
+			m_fAngularSpeed = -0.4f;
 		}
 	}
 	
-	printf("trn:%d pos:%f Dist:%f dir:%f ang:%f\n",(int)(m_bTurning), m_fLength, m_fDistance, m_fDirection, m_fAngle);
+	//printf("trn:%d pos:%f Dist:%f dir:%f ang:%f\n",(int)(m_bTurning), m_fLength, m_fDistance, m_fDirection, m_fAngle);
 
-	m_robotDrive->ArcadeDrive(m_fForwardSpeed, m_fAngularSpeed, false);
+	m_robotDrive->ArcadeDrive(m_fForwardSpeed, -m_fAngularSpeed, false);
 
+	if (m_kbot->getNearUltrasoundState() || m_kbot->getFarUltrasoundState())
+	{
+		nNewState = m_nNextState;
+	}
     return nNewState;
 }
 

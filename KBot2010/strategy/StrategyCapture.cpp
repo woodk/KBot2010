@@ -43,6 +43,8 @@ eState StrategyCapture::apply()
         // start tracking the target
         nNewState = knAim;
         m_robotDrive->ArcadeDrive(0.0, 0.0, false);        
+		m_nLostCounter = 0;
+		m_nNearCounter = 0;
     }
     else	// move toward the ball and steer to capture
     {
@@ -105,20 +107,6 @@ void StrategyCapture::init()
 bool StrategyCapture::BallCaptured()
 {
 	bool bCaptured = false;
-	if (0 == m_kbot->getGateSensorState())
-	{
-		++m_nGateCounter;
-	}
-	else
-	{
-		m_nGateCounter = 0;
-	}
-	
-	if (m_nGateCounter > knMaxGates)	
-	{
-		bCaptured = true;
-		m_nGateCounter = 0;
-	}
 	
 	// if the gate sensor fails, assume we lost near ultrasound to capture
 	// TODO: remove this if gate sensor gets fixed

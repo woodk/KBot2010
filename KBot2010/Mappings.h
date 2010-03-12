@@ -26,8 +26,10 @@
  *   - Z		- shooter speed
  *   - trigger	- shoot 
  */
-#define ARM_UP_BUTTON	2
-#define WINCH_BUTTON	3	// hard to hit by accident
+#define WINCH_BUTTON	1	// hard to hit by accident
+//#define ARM_DOWN_BUTTON	2
+//#define ARM_UP_BUTTON	3	// hard to hit by accident
+#define ROLLER_STOP_BUTTON 3
 //#define _BUTTON		4
 //#define _BUTTON		5
 #define OPERATOR_PISTON_OUT_BUTTON		6

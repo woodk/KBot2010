@@ -18,7 +18,7 @@ Kicker::Kicker(KBot *kbot, int kickerOutChannel, int kickerInChannel, int electr
 	m_kbot = kbot;
 	m_kickerSolenoidOut = pFactory->BuildSolenoid(kickerOutChannel);
 	m_kickerSolenoidIn = pFactory->BuildSolenoid(kickerInChannel);
-	m_electromagnet = pFactory->BuildRelay(electromagnetChannel,Relay::kForwardOnly);
+	m_electromagnet = pFactory->BuildRelay(electromagnetChannel,Relay::kBothDirections);
 	counter=0;
 	state=GET_CROSSBOW;
 	kickCounter = 0;
@@ -27,7 +27,7 @@ void	Kicker::Init()
 {
 	counter=0;
 	state=GET_CROSSBOW;
-	printf(">>>>>> state=GET_CROSSBOW\n");
+	printf(">>>>>> init state=GET_CROSSBOW (EM on)\n");
 	m_electromagnet->Set(Relay::kForward);
 }
 void	Kicker::Kick()
@@ -43,7 +43,16 @@ void	Kicker::onClock()
 		// turn on electromagnet
 		// turn off kicker in
 		// turn on kicker out
-		m_electromagnet->Set(Relay::kForward);
+		if (counter<PISTON_FORWARD_TIME/2) // leave EM off for first half of reload
+		{
+			//printf("Get crossbow EM off\n");
+			m_electromagnet->Set(Relay::kOff);
+		}
+		else
+		{
+			//printf("Get crossbow EM ON\n");
+			m_electromagnet->Set(Relay::kForward);
+		}
 		m_kickerSolenoidIn->Set(false);
 		m_kickerSolenoidOut->Set(true);
 		// wait for certain time (to move piston forward)
@@ -51,12 +60,13 @@ void	Kicker::onClock()
 		{
 			state=TENSION_CROSSBOW;
 			counter=0;
-			printf(">>>>>> Switch to TENSION_CROSSBOW\n");
+			//printf(">>>>>> Switch to TENSION_CROSSBOW\n");
 		}
 	} else if (state==TENSION_CROSSBOW)
 	{
 		// turn on kicker in
 		// turn off kicker out
+		//printf("Tension crossbow EM ON\n");
 		m_electromagnet->Set(Relay::kForward);
 		m_kickerSolenoidIn->Set(true);
 		m_kickerSolenoidOut->Set(false);
@@ -64,7 +74,7 @@ void	Kicker::onClock()
 		{
 			counter=0;
 			kickCounter = 0;
-			printf(">>>>>> Reloaded; ready to shoot\n");
+			//printf(">>>>>> Reloaded; ready to shoot\n");
 		}		
 	} else if (state==KICK)
 	{
@@ -74,15 +84,15 @@ void	Kicker::onClock()
 		}
 		else*/ if (kickCounter < /*STOP_ROLLER_TIME +*/ KICK_TIME)
 		{
-			//printf("Kicker: KICK\n");
+			printf("Kicker: KICK  %d \n",kickCounter);
 			//release EM
-			m_electromagnet->Set(Relay::kOff);
+			m_electromagnet->Set(Relay::kReverse);
 			counter = 0;
 			++kickCounter;
 		}
 		else
 		{
-			printf(">>>>>> Kicked -- reloading\n");
+			//printf(">>>>>> Kicked -- reloading\n");
 			state=GET_CROSSBOW;
 		}
 	}
@@ -107,14 +117,13 @@ void	Kicker::onAction(States state)
 		m_kickerSolenoidOut->Set(false);
 	} else if (state==EM_ON)
 	{
+//		printf("Button override EM on\n");
 		m_electromagnet->Set(Relay::kForward);		
 	} else if (state==KICK)
 	{
 		//release EM
-		m_electromagnet->Set(Relay::kOff);
+		m_electromagnet->Set(Relay::kReverse);
 		state = GET_CROSSBOW;	
 		counter = 0;
 	}	
 }
-
-

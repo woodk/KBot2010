@@ -14,7 +14,7 @@ class KBot;
 #define PISTON_FORWARD_TIME	200		// 1.0 secs
 #define RELOAD_TIME			200		// 1.0 sec
 #define STOP_ROLLER_TIME	20		// 0.1 sec
-#define KICK_TIME			50		// 0.25 secs
+#define KICK_TIME			75		// 0.375 secs
 
 #define TEST_KICKER 1				// uncomment to activate testing
 

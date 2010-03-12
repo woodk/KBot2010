@@ -94,6 +94,13 @@ private:
 	// flag to tell if this is first call to programmed move
 	bool m_bFirstCall;
 
+	// wheel encoder fake counters to deal with dead encoders
+	int m_nLeftWheel;
+	int m_nRightWheel;
+
+	// last speed settings for use with broken encoder
+	float m_fLeftWheel;
+	float m_fRightWheel;
 };
 
 #endif

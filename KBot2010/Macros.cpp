@@ -42,10 +42,10 @@ void RobotMacros::OnClock()
 {
 	m_macroCycle ++;
 	
-	if (m_macroState != mcWINCH) 
+	/*if (m_macroState != mcWINCH) 
 	{
-		//TODO: why is this here? m_kbot->getWinchMotor()->Set(0.0f);
-	}
+		m_kbot->getWinchMotor()->Set(0.0f);
+	}*/
 	
 	if (m_macroState == mcCAPTURE) {
 		printf("Macros: CAPTURE\n");
@@ -85,12 +85,12 @@ void RobotMacros::DriverControl()
 	yval = m_rightStick->GetY();
 	if (m_rightStick->GetRawButton(LEFT_BOOST_BUTTON))
 	{
-		xval += TURN_BOOST_VALUE;
+		xval -= TURN_BOOST_VALUE;
 		printf("left boost before=%f after=%f\n",xval-TURN_BOOST_VALUE,xval);
 	}
 	if (m_rightStick->GetRawButton(RIGHT_BOOST_BUTTON))
 	{
-		xval -= TURN_BOOST_VALUE;
+		xval += TURN_BOOST_VALUE;
 		printf("right boost before=%f after=%f\n",xval+TURN_BOOST_VALUE,xval);
 	}
 	if (m_rightStick->GetRawButton(TURN_BOOST_BUTTON))
@@ -105,14 +105,20 @@ void RobotMacros::DriverControl()
 	//printf("x=%f  y=%f\n",xval,yval);
 	m_robotDrive->ArcadeDrive(-yval, -xval, false);			// drive with arcade style (use right stick) no squared inputs because we already squared x
 }
+int counter=0;
 
 // Allow complete operator control.
 void RobotMacros::OperatorControl()
 {
-	if (true) //m_rightStick->GetTrigger()==0)
+	if ((++counter % 10) == 0) //m_rightStick->GetTrigger()==0)
 	{
-		float zval = m_rightStick->GetZ();
+		float zval;
+		if (m_kbot->getLeftStick()->GetRawButton(ROLLER_STOP_BUTTON))
+			zval=0;
+		else
+			zval = m_rightStick->GetZ();
 		m_rollerMotor->Set(zval);
+		m_kbot->getWinchMotor()->Set(0.0f);
 	}
 }
 

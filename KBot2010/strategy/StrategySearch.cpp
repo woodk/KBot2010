@@ -34,7 +34,7 @@ eState StrategySearch::apply()
     }
     else	// just spin to search (safe: will not cross line)
     {
-  		m_robotDrive->ArcadeDrive(0.0, -0.5, false);
+  		m_robotDrive->ArcadeDrive(0.0, -0.15, false);
     }
 
     return nNewState;

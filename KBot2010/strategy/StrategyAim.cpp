@@ -65,7 +65,7 @@ Spin on the spot
 eState StrategyAim::apply()
 {
     eState nNewState = knAim;    // assume we will keep running
-
+#ifdef USE_CAMERA
     // update times
     float fDeltaT = 0.020f;
 
@@ -160,8 +160,13 @@ eState StrategyAim::apply()
 #endif
 	}
 
+#else
+	m_fForwardSpeed = 0.1f;
+	m_fAngularSpeed = 0.0f;
+	nNewState = knShoot;
+#endif
 	m_robotDrive->ArcadeDrive(m_fForwardSpeed, m_fAngularSpeed, false);
-
+	
     return nNewState;
 }
 

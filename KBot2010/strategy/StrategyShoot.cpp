@@ -2,7 +2,7 @@
 
 #include "Kicker.h"
 
-static const int KICK_TIMES = 10;
+static const int knKICK_TIMES = 75; // 'Hold' the trigger down
 
 /*
 Constructor initalizes object
@@ -31,7 +31,7 @@ eState StrategyShoot::apply()
     eState nNewState = knShoot;    // assume we will keep running
 
    	// FIRE!
-    if (m_nTimesKicked < KICK_TIMES)
+    if (m_nTimesKicked < knKICK_TIMES)
     {
     	m_kbot->getKicker()->Kick();
     	++m_nTimesKicked;

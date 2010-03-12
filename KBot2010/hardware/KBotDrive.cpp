@@ -137,4 +137,6 @@
 		
 		SetLeftRightMotorSpeeds(leftMotorSpeed, rightMotorSpeed);
 
+		m_fLeftSpeed = leftMotorSpeed;
+		m_fRightSpeed = rightMotorSpeed;
 	}
