@@ -283,7 +283,7 @@
 		// call the manager to figure out what to to now
 		m_autoManager->onClock(true);
 		m_kicker->onClock();
-		
+
 		m_autoPeriodicLoops++;
 
 		if ((m_autoPeriodicLoops % (int)GetLoopsPerSec()) == 0)

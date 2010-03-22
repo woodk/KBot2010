@@ -134,7 +134,14 @@
 			leftMotorSpeed += 2*moveValue*rotateValue;
 			rightMotorSpeed -= 2*moveValue*rotateValue;
 		}
-		
+		if (leftMotorSpeed>0.95)
+			leftMotorSpeed=1.0;
+		if (leftMotorSpeed<-0.95)
+			leftMotorSpeed=-1.0;
+		if (rightMotorSpeed>0.95)
+			rightMotorSpeed=1.0;
+		if (rightMotorSpeed<-0.95)
+			rightMotorSpeed=-1.0;
 		SetLeftRightMotorSpeeds(leftMotorSpeed, rightMotorSpeed);
 
 		m_fLeftSpeed = leftMotorSpeed;

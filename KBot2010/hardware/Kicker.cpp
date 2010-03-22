@@ -84,9 +84,12 @@ void	Kicker::onClock()
 		}
 		else*/ if (kickCounter < /*STOP_ROLLER_TIME +*/ KICK_TIME)
 		{
-			printf("Kicker: KICK  %d \n",kickCounter);
-			//release EM
-			m_electromagnet->Set(Relay::kReverse);
+			if (true) //kickCounter%2 == 0)
+			{
+				printf("Kicker: KICK  %d \n",kickCounter);
+				//release EM
+				m_electromagnet->Set(Relay::kReverse);
+			}
 			counter = 0;
 			++kickCounter;
 		}
