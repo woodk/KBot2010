@@ -26,7 +26,7 @@
  *   - Z		- shooter speed
  *   - trigger	- shoot 
  */
-#define WINCH_BUTTON	1	// hard to hit by accident
+//#define WINCH_BUTTON	1	// hard to hit by accident
 //#define ARM_DOWN_BUTTON	2
 //#define ARM_UP_BUTTON	3	// hard to hit by accident
 #define ROLLER_STOP_BUTTON 3
@@ -67,17 +67,16 @@
 
 // Solonoid Outputs
 #define SOLENOID_SLOT			8 // solenoid controller slot
-#define ARM_RELEASE				1 // arm release (out) channel
-#define ARM_RETRACT				2 // retract arm (in) channel
 #define PISTON_ACTUATOR			3 // piston IN channel
 #define PISTON_RELEASE			4 // piston OUT channel
 
 // CAN Devices
+#define L_GRABBER_JAG_ID	1	// side-pusher motor
 #define L_WHEEL1_JAG_ID		3 
 #define L_WHEEL2_JAG_ID		2 
 #define R_WHEEL1_JAG_ID		4
 #define R_WHEEL2_JAG_ID		5
-#define WINCH_JAG_ID		1
 #define ROLLER_JAG_ID		6
+#define R_GRABBER_JAG_ID	7	// side-pusher motor
 
 #endif

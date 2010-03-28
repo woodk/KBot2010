@@ -5,7 +5,10 @@
 #include "CANJaguar.h"
 #include "DashboardDataSender.h"
 #include "DigitalInput.h"
-#include "KbotCamera.h"
+#include "DriverStation.h"
+#include "Encoder.h"
+#include "Gyro.h"
+#include "Joystick.h"
 #include "KbotPID.h"
 #include "KBotDrive.h"
 #include "Kicker.h"
@@ -90,31 +93,27 @@
 		m_ultrasoundNear = pHardwareFactory->BuildDigitalInput(ULTRA_NEAR);
 		m_ultrasoundFar = pHardwareFactory->BuildDigitalInput(ULTRA_FAR);
 		
-		m_armRelease = pHardwareFactory->BuildSolenoid(SOLENOID_SLOT, ARM_RELEASE);
-		m_armRetract = pHardwareFactory->BuildSolenoid(SOLENOID_SLOT, ARM_RETRACT);
-		
 		/************************************/
 		// Create and initialize output devices
 		
 		m_leftJaguar1 = pHardwareFactory->BuildCANJaguar(L_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
-		//m_leftJaguar = new CANJaguar(1, CANJaguar::kSpeed);
-		//m_leftJaguar->ConfigEncoderCodesPerRev((UINT16)3600);
-		//m_leftJaguar->SetPID(0.1,0.0,0.0);
 		m_leftJaguar1->Set(0.0);
 		m_leftJaguar2 = pHardwareFactory->BuildCANJaguar(L_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
 		m_leftJaguar2->Set(0.0);
 
 		m_rightJaguar1 = pHardwareFactory->BuildCANJaguar(R_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
-		//m_rightJaguar = new CANJaguar(2, CANJaguar::kSpeed);
-		//m_rightJaguar->ConfigEncoderCodesPerRev((UINT16)360);
-		//m_rightJaguar->SetPID(0.1,0.0,0.0);
 		m_rightJaguar1->Set(0.0);
 		m_rightJaguar2 = pHardwareFactory->BuildCANJaguar(R_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
 		m_rightJaguar2->Set(0.0);
 
 		m_robotDrive = pHardwareFactory->BuildKBotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
-		m_winchMotor = pHardwareFactory->BuildCANJaguar(WINCH_JAG_ID, CANJaguar::kPercentVoltage);
-		m_winchMotor->Set(0.0);
+		
+		m_rightGrabberMotor = pHardwareFactory->BuildCANJaguar(R_GRABBER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rightGrabberMotor->Set(0.0);
+
+		m_leftGrabberMotor = pHardwareFactory->BuildCANJaguar(R_GRABBER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_leftGrabberMotor->Set(0.0);
+		
 		m_rollerMotor = pHardwareFactory->BuildCANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
 		m_rollerMotor->Set(1.0);
 		
@@ -130,10 +129,6 @@
 		// **** MUST BE AFTER ALL OTHER OBJECTS ARE CREATED, as the constructors
 		// create links to the other objects. ****
 
-#ifdef USE_CAMERA
-		m_pCamera = pHardwareFactory->BuildKbotCamera();
-#endif
-		
 		m_teleMacros = new RobotMacros(this);
 				
 		// Initialize counters to record the number of loops completed in autonomous and teleop modes
@@ -188,9 +183,6 @@
 			m_kicker->Init();
 		}
 
-#ifdef USE_CAMERA
-		m_pCamera->init();
-#endif
 		m_compressorRelay->SetDirection(Relay::kForwardOnly);
 		
 	}
@@ -318,17 +310,6 @@
 			controlCompressor();
 		}
 
-#ifdef USE_CAMERA
-		if ((m_telePeriodicLoops % 40) == 0) { // 5 Hz
-			vector<Target> vecTargets = m_pCamera->findTargets();
-
-			if (vecTargets[0].m_score > MINIMUM_SCORE)
-			{
-				m_pDashboardDataSender->sendVisionData(0.0, m_gyro->GetAngle(), 0.0, vecTargets[0].m_xPos / vecTargets[0].m_xMax, vecTargets);
-			}				
-		}
-#endif
-		
 		if (getRightStick()->GetTrigger() || getLeftStick()->GetTrigger())
 		{
 			m_kicker->Kick();
@@ -398,34 +379,6 @@
 			 * I/O that can respond at a 50Hz rate. (e.g. the Hitec HS-322HD servos)
 			 */
 
-			//TODO: this is here so it doesn't saturate the serial bus.  It might be able to move to 200Hz via 2can adapter.  Check if it works at this speed.
-			
-			// put 50Hz servo control here
-			// if t >= 100 s in teleop allow arm/winch operation
-			// TODO:  remove test stuff
-			if (true) //m_telePeriodicLoops >= 20000)
-			{
-				/*if (getLeftStick()->GetRawButton(ARM_UP_BUTTON))
-				{
-					getArmRelease()->Set(true);
-					getArmRetract()->Set(false);
-				}
-				else if (getLeftStick()->GetRawButton(ARM_DOWN_BUTTON))
-				{
-					getArmRelease()->Set(false);
-					getArmRetract()->Set(true);				
-				}
-				
-				// control winch independently of arm
-				if (getLeftStick()->GetRawButton(WINCH_BUTTON))
-				{
-					getWinchMotor()->Set(kfWinchSpeed);	
-				}
-				else
-				{
-					getWinchMotor()->Set(0.0f);
-				}*/
-			}
 			// this is where the actual robotic driving is done
 			m_teleMacros->OnClock();
 		}
@@ -459,6 +412,13 @@
 		}
 	} // TeleopPeriodic(void)
 
+void KBot::setGrabberSpeed(float fSpeed)
+{
+	// TODO:  check the signs
+	m_rightGrabberMotor->Set(fSpeed);
+	m_leftGrabberMotor->Set(-fSpeed);
+}
+	
 bool KBot::getNearUltrasoundState() 
 {
 	return m_ultrasoundNear->Get();
@@ -496,10 +456,7 @@ bool KBot::getGateSensorState()
 	{
 		return m_robotDrive;
 	}
-	SpeedController *KBot::getWinchMotor()
-	{
-		return m_winchMotor;
-	}
+	
 	SpeedController *KBot::getRollerMotor()
 	{
 		return m_rollerMotor;
