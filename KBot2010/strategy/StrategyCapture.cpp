@@ -109,8 +109,11 @@ bool StrategyCapture::BallCaptured()
 	bool bCaptured = false;
 	
 	// if the gate sensor fails, assume we lost near ultrasound to capture
-	// TODO: remove this if gate sensor gets fixed
-	if (m_nNearCounter > knNearMax/2)
+	if (m_nNearCounter >= knNearMax-2)
+	{
+		bCaptured = true;
+	}
+	else if (m_kbot->getGateSensorState())
 	{
 		bCaptured = true;
 	}

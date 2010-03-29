@@ -44,11 +44,9 @@ public:
 	void DisabledContinuous(void);
 	void AutonomousContinuous(void);
 	void TeleopContinuous(void);
+
 	KBotDrive *getKBotDrive();
-	SpeedController *getWinchMotor();
 	SpeedController *getRollerMotor();
-	Solenoid*	getArmRelease() {return m_armRelease;}
-	Solenoid*	getArmRetract() {return m_armRetract;}
 
 	Joystick *getLeftStick();
 	Joystick *getRightStick();
@@ -71,9 +69,7 @@ public:
 	Encoder* getLeftEncoder() {return m_leftEncoder;}
 	Encoder* getRightEncoder() {return m_rightEncoder;}
 	
-#ifdef USE_CAMERA
-	KbotCamera* getCamera() {return m_pCamera;}
-#endif
+	void setGrabberSpeed(float fSpeed);
 	
 	UINT32 getAutoClocks() {return m_autoPeriodicLoops;}
 	
@@ -85,9 +81,11 @@ private:
 	CANJaguar *m_rightJaguar2;
 
 	KBotDrive *m_robotDrive;
-	SpeedController *m_winchMotor;
 	SpeedController *m_rollerMotor;
-	
+
+	SpeedController *m_rightGrabberMotor;
+	SpeedController *m_leftGrabberMotor;
+
 	// Input devices
 	Joystick *m_rightStick;			// joystick 1 (arcade stick 
 	Joystick *m_leftStick;			// joystick 2 (operator stick)
@@ -122,11 +120,6 @@ private:
 	RobotManager *m_autoManager;
 	RobotMacros *m_teleMacros;
 	
-#ifdef USE_CAMERA
-	// camera wrapper class
-	KbotCamera* m_pCamera;
-#endif
-	
 	// start time
 	time_t m_nStartTime;
 	
@@ -146,10 +139,6 @@ private:
 	UINT32 m_autoPeriodicLoops;
 	UINT32 m_disabledPeriodicLoops;
 	UINT32 m_telePeriodicLoops;
-	
-	// Target position from camera
-	float m_targetX; // range 0.0 - 1.0
-	float m_targetY; // range 0.0 - 1.0
 	
 	char **k_modes;
 };

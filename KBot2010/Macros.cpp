@@ -18,7 +18,6 @@ RobotMacros::RobotMacros(KBot *kbot)
 	m_macroCycle = 0;
 	
 	m_robotDrive = m_kbot->getKBotDrive();
-	m_winchMotor = m_kbot->getWinchMotor();
 	m_rollerMotor = m_kbot->getRollerMotor();
 	m_leftStick = m_kbot->getLeftStick();
 	m_rightStick = m_kbot->getRightStick();
@@ -41,11 +40,6 @@ void RobotMacros::Set(MacroNames mac)
 void RobotMacros::OnClock()
 {
 	m_macroCycle ++;
-	
-	/*if (m_macroState != mcWINCH) 
-	{
-		m_kbot->getWinchMotor()->Set(0.0f);
-	}*/
 	
 	if (m_macroState == mcCAPTURE) {
 		printf("Macros: CAPTURE\n");
@@ -110,7 +104,7 @@ int counter=0;
 // Allow complete operator control.
 void RobotMacros::OperatorControl()
 {
-	if ((++counter % 10) == 0) //m_rightStick->GetTrigger()==0)
+	if ((++counter % 10) == 0)
 	{
 		float zval;
 		if (m_kbot->getLeftStick()->GetRawButton(ROLLER_STOP_BUTTON))
@@ -118,7 +112,16 @@ void RobotMacros::OperatorControl()
 		else
 			zval = m_rightStick->GetZ();
 		m_rollerMotor->Set(zval);
-		m_kbot->getWinchMotor()->Set(0.0f);
+	}
+	
+	if (counter < 100)
+	{
+		float fGrabberSpeed = counter/100.0f;
+		m_kbot->setGrabberSpeed(fGrabberSpeed);
+	}
+	else
+	{
+		m_kbot->setGrabberSpeed(1.0f);
 	}
 }
 
