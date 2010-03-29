@@ -1,6 +1,6 @@
 #include "KBot.h"
 
-#define KBOT_DEBUG
+//#define KBOT_DEBUG
 
 #include "CANJaguar.h"
 #include "DashboardDataSender.h"
@@ -306,7 +306,7 @@
 			m_compressorRelay->Set(Relay::kOff);				
 		}
 	}
-	
+INT32 lastRightEnc,lastLeftEnc;	
 	void KBot::TeleopPeriodic(void) {
 		// Runs at 200 Hz
 		// feed the user watchdog at every period when in teleop
@@ -318,6 +318,17 @@
 			controlCompressor();
 		}
 
+		if ((m_telePeriodicLoops % 200) == 0) { // 1 Hz
+			if ((m_telePeriodicLoops%4000) == 0) // print headings once per screen
+			{
+				printf("L_Enc L_Spd in/s\n");
+			}
+			printf("%5d %5d %5.3f\n",m_leftEncoder->Get(), m_leftEncoder->Get()-lastLeftEnc,(m_leftEncoder->Get()-lastLeftEnc)/30.0);
+			lastLeftEnc=m_leftEncoder->Get();
+			lastRightEnc=m_rightEncoder->Get();
+		}
+
+		
 #ifdef USE_CAMERA
 		if ((m_telePeriodicLoops % 40) == 0) { // 5 Hz
 			vector<Target> vecTargets = m_pCamera->findTargets();

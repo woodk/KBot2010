@@ -8,8 +8,8 @@ Strategy::Strategy(KBot* kbot) : m_kbot(kbot)
 	m_nPreviousState = knInitial;
 
 	// TODO: These are just guesses--try some different values
-	m_nMinimumStateCount = 10;
-	m_nMinimumChangeCount = 10;
+	m_nMinimumStateCount = 0;
+	m_nMinimumChangeCount = 0;
 	
     m_robotDrive = m_kbot->getKBotDrive();	
 }
@@ -42,7 +42,7 @@ eState Strategy::execute()
 	else	// apply hysteresis logic
 	{
 		++m_nCurrentStateCounter;	// count times we have been in this state
-		if (m_nCurrentState > m_nMinimumStateCount)
+		if (m_nCurrentStateCounter > m_nMinimumStateCount)
 		{
 			// we have been in the current state for long enough
 			// so start taking new state requests seriously
