@@ -69,7 +69,8 @@ public:
 	Encoder* getLeftEncoder() {return m_leftEncoder;}
 	Encoder* getRightEncoder() {return m_rightEncoder;}
 	
-	void setGrabberSpeed(float fSpeed);
+	void setLeftSideRollerSpeed(float fSpeed);
+	void setRightSideRollerSpeed(float fSpeed);
 	
 	UINT32 getAutoClocks() {return m_autoPeriodicLoops;}
 	
@@ -83,8 +84,8 @@ private:
 	KBotDrive *m_robotDrive;
 	SpeedController *m_rollerMotor;
 
-	SpeedController *m_rightGrabberMotor;
-	SpeedController *m_leftGrabberMotor;
+	SpeedController *m_rightSideRollerMotor;
+	SpeedController *m_leftSideRollerMotor;
 
 	// Input devices
 	Joystick *m_rightStick;			// joystick 1 (arcade stick 

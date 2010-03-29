@@ -114,14 +114,22 @@ void RobotMacros::OperatorControl()
 		m_rollerMotor->Set(zval);
 	}
 	
-	if (counter < 100)
+	if (m_kbot->getLeftStick()->GetRawButton(OPERATOR_LEFT_SIDE_ROLLER_BUTTON))
 	{
-		float fGrabberSpeed = counter/100.0f;
-		m_kbot->setGrabberSpeed(fGrabberSpeed);
+		m_kbot->setLeftSideRollerSpeed(m_kbot->getLeftStick()->GetY());
 	}
 	else
 	{
-		m_kbot->setGrabberSpeed(1.0f);
+		m_kbot->setLeftSideRollerSpeed(0.0f);
+	}
+	
+	if (m_kbot->getLeftStick()->GetRawButton(OPERATOR_RIGHT_SIDE_ROLLER_BUTTON))
+	{
+		m_kbot->setRightSideRollerSpeed(m_kbot->getLeftStick()->GetY());
+	}
+	else
+	{
+		m_kbot->setRightSideRollerSpeed(0.0f);
 	}
 }
 

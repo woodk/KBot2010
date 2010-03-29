@@ -108,11 +108,11 @@
 
 		m_robotDrive = pHardwareFactory->BuildKBotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
 		
-		m_rightGrabberMotor = pHardwareFactory->BuildCANJaguar(R_GRABBER_JAG_ID, CANJaguar::kPercentVoltage);
-		m_rightGrabberMotor->Set(0.0);
+		m_rightSideRollerMotor = pHardwareFactory->BuildCANJaguar(R_SIDE_ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rightSideRollerMotor->Set(0.0);
 
-		m_leftGrabberMotor = pHardwareFactory->BuildCANJaguar(R_GRABBER_JAG_ID, CANJaguar::kPercentVoltage);
-		m_leftGrabberMotor->Set(0.0);
+		m_leftSideRollerMotor = pHardwareFactory->BuildCANJaguar(R_SIDE_ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_leftSideRollerMotor->Set(0.0);
 		
 		m_rollerMotor = pHardwareFactory->BuildCANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
 		m_rollerMotor->Set(1.0);
@@ -298,7 +298,7 @@
 			m_compressorRelay->Set(Relay::kOff);				
 		}
 	}
-INT32 lastRightEnc,lastLeftEnc;	
+	
 	void KBot::TeleopPeriodic(void) {
 		// Runs at 200 Hz
 		// feed the user watchdog at every period when in teleop
@@ -310,31 +310,10 @@ INT32 lastRightEnc,lastLeftEnc;
 			controlCompressor();
 		}
 
-<<<<<<< HEAD
 		if ((m_telePeriodicLoops % 200) == 0) { // 1 Hz
-			if ((m_telePeriodicLoops%4000) == 0) // print headings once per screen
-			{
-				printf("L_Enc L_Spd in/s\n");
-			}
-			printf("%5d %5d %5.3f\n",m_leftEncoder->Get(), m_leftEncoder->Get()-lastLeftEnc,(m_leftEncoder->Get()-lastLeftEnc)/30.0);
-			lastLeftEnc=m_leftEncoder->Get();
-			lastRightEnc=m_rightEncoder->Get();
+			// anything that needs to happen once a second
 		}
 
-		
-#ifdef USE_CAMERA
-		if ((m_telePeriodicLoops % 40) == 0) { // 5 Hz
-			vector<Target> vecTargets = m_pCamera->findTargets();
-
-			if (vecTargets[0].m_score > MINIMUM_SCORE)
-			{
-				m_pDashboardDataSender->sendVisionData(0.0, m_gyro->GetAngle(), 0.0, vecTargets[0].m_xPos / vecTargets[0].m_xMax, vecTargets);
-			}				
-		}
-#endif
-		
-=======
->>>>>>> f5037d871826923525f8f475ec3862ccad880758
 		if (getRightStick()->GetTrigger() || getLeftStick()->GetTrigger())
 		{
 			m_kicker->Kick();
@@ -406,6 +385,9 @@ INT32 lastRightEnc,lastLeftEnc;
 
 			// this is where the actual robotic driving is done
 			m_teleMacros->OnClock();
+			
+			// this should send data back to driver statino
+			m_pDashboardDataSender->sendIOPortData();
 		}
 		
 		if (m_ds->GetPacketNumber() != m_priorPacketNumber) {
@@ -437,11 +419,16 @@ INT32 lastRightEnc,lastLeftEnc;
 		}
 	} // TeleopPeriodic(void)
 
-void KBot::setGrabberSpeed(float fSpeed)
+void KBot::setLeftSideRollerSpeed(float fSpeed)
 {
 	// TODO:  check the signs
-	m_rightGrabberMotor->Set(fSpeed);
-	m_leftGrabberMotor->Set(-fSpeed);
+	m_leftSideRollerMotor->Set(fSpeed);
+}
+	
+void KBot::setRightSideRollerSpeed(float fSpeed)
+{
+	// TODO:  check the signs
+	m_rightSideRollerMotor->Set(fSpeed);
 }
 	
 bool KBot::getNearUltrasoundState() 

@@ -30,8 +30,8 @@
 //#define ARM_DOWN_BUTTON	2
 //#define ARM_UP_BUTTON	3	// hard to hit by accident
 #define ROLLER_STOP_BUTTON 3
-//#define _BUTTON		4
-//#define _BUTTON		5
+#define OPERATOR_LEFT_SIDE_ROLLER_BUTTON	4
+#define OPERATOR_RIGHT_SIDE_ROLLER_BUTTON	5
 #define OPERATOR_PISTON_OUT_BUTTON		6
 #define OPERATOR_PISTON_IN_BUTTON		7
 //#define _BUTTON		8
@@ -71,12 +71,12 @@
 #define PISTON_RELEASE			4 // piston OUT channel
 
 // CAN Devices
-#define L_GRABBER_JAG_ID	1	// side-pusher motor
+#define L_SIDE_ROLLER_JAG_ID	1	// side-pusher motor
 #define L_WHEEL1_JAG_ID		3 
 #define L_WHEEL2_JAG_ID		2 
 #define R_WHEEL1_JAG_ID		4
 #define R_WHEEL2_JAG_ID		5
 #define ROLLER_JAG_ID		6
-#define R_GRABBER_JAG_ID	7	// side-pusher motor
+#define R_SIDE_ROLLER_JAG_ID	7	// side-pusher motor
 
 #endif
