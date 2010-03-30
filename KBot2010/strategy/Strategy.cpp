@@ -7,7 +7,11 @@ Strategy::Strategy(KBot* kbot) : m_kbot(kbot)
 	m_nCurrentState = knInitial;
 	m_nPreviousState = knInitial;
 
-	// TODO: These are just guesses--try some different values
+	// The hysteresis logic is currently turned off because the
+	// individual strategies are handling it.  The global logic
+	// may not be useful because individual strategy requirements
+	// vary too much and state has to be carried along to make
+	// a more realistic decision about when to change.
 	m_nMinimumStateCount = 0;
 	m_nMinimumChangeCount = 0;
 	

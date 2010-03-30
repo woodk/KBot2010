@@ -25,6 +25,9 @@
 #include "RobotFactory.h"
 #endif
 
+int nLEDCounter = 0;
+bool bState = false;
+
 //static float kfWinchSpeed = 1.0;
 
 /**
@@ -111,7 +114,7 @@
 		m_rightSideRollerMotor = pHardwareFactory->BuildCANJaguar(R_SIDE_ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
 		m_rightSideRollerMotor->Set(0.0);
 
-		m_leftSideRollerMotor = pHardwareFactory->BuildCANJaguar(R_SIDE_ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_leftSideRollerMotor = pHardwareFactory->BuildCANJaguar(L_SIDE_ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
 		m_leftSideRollerMotor->Set(0.0);
 		
 		m_rollerMotor = pHardwareFactory->BuildCANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
@@ -224,9 +227,20 @@
 		// Runs at 200 Hz
 		// feed the user watchdog at every period when disabled
 		GetWatchdog().Feed();
-
+		
+#define KBOT_DEBUG 1
 #ifdef KBOT_DEBUG
 		if ((m_disabledPeriodicLoops % 200) == 0) { // 1 Hz
+			DriverStationEnhancedIO& dseio = DriverStation::GetInstance()->GetEnhancedIO();
+
+			dseio.GetDigitalConfig(1);
+			if (++nLEDCounter%4==0)
+			{
+				bState = !bState;
+			}
+			dseio.SetLED(nLEDCounter%4+1,bState);
+			printf("DIO D3: %d\n", dseio.GetDigital(3));
+
 			if ((m_disabledPeriodicLoops%4000) == 0) // print headings once per screen
 			{
 				printf("Gate USNear USFar PressSw L_Enc R_Enc  Mode Pattern\n");
@@ -388,6 +402,20 @@
 			
 			// this should send data back to driver statino
 			m_pDashboardDataSender->sendIOPortData();
+
+			DriverStationEnhancedIO& dseio = DriverStation::GetInstance()->GetEnhancedIO();
+			dseio.GetDigitalConfig(1);
+
+			if (this->getGateSensorState())
+			{
+				//dseio.SetLED(1,true);
+				dseio.SetLEDs(255);
+			}
+			else
+			{
+				//dseio.SetLED(1,false);
+				dseio.SetLEDs(0);
+			}
 		}
 		
 		if (m_ds->GetPacketNumber() != m_priorPacketNumber) {

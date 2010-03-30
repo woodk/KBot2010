@@ -7,7 +7,7 @@
 /*       -fdollars-in-identifiers flag.                   */
 
 
-void _GLOBAL__I__ZN4KBotC2Ev();
+void _GLOBAL__I_nLEDCounter();
 
 void _GLOBAL__I__ZN11RobotMacrosC2EP4KBot();
 
@@ -78,7 +78,7 @@ void _GLOBAL__I_AxisCamera_debugFlag();
 extern void (*_ctors[])();
 void (*_ctors[])() =
     {
-    _GLOBAL__I__ZN4KBotC2Ev,
+    _GLOBAL__I_nLEDCounter,
     _GLOBAL__I__ZN11RobotMacrosC2EP4KBot,
     _GLOBAL__I__ZN15ManagerMidFieldC2EP4KBot,
     _GLOBAL__I__ZN14ManagerDefenseC2EP4KBot,
@@ -115,7 +115,7 @@ void (*_ctors[])() =
     0
     };
 
-void _GLOBAL__D__ZN4KBotC2Ev();
+void _GLOBAL__D_nLEDCounter();
 
 void _GLOBAL__D__ZN11RobotMacrosC2EP4KBot();
 
@@ -186,7 +186,7 @@ void _GLOBAL__D_AxisCamera_debugFlag();
 extern void (*_dtors[])();
 void (*_dtors[])() =
     {
-    _GLOBAL__D__ZN4KBotC2Ev,
+    _GLOBAL__D_nLEDCounter,
     _GLOBAL__D__ZN11RobotMacrosC2EP4KBot,
     _GLOBAL__D__ZN15ManagerMidFieldC2EP4KBot,
     _GLOBAL__D__ZN14ManagerDefenseC2EP4KBot,

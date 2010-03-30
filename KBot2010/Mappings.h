@@ -71,12 +71,12 @@
 #define PISTON_RELEASE			4 // piston OUT channel
 
 // CAN Devices
-#define L_SIDE_ROLLER_JAG_ID	1	// side-pusher motor
+#define R_SIDE_ROLLER_JAG_ID	1	// side-pusher motor
 #define L_WHEEL1_JAG_ID		3 
 #define L_WHEEL2_JAG_ID		2 
 #define R_WHEEL1_JAG_ID		4
 #define R_WHEEL2_JAG_ID		5
 #define ROLLER_JAG_ID		6
-#define R_SIDE_ROLLER_JAG_ID	7	// side-pusher motor
+#define L_SIDE_ROLLER_JAG_ID	7	// side-pusher motor
 
 #endif
