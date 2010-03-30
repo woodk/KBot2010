@@ -86,9 +86,9 @@ void	Kicker::onClock()
 		{
 			if (kickCounter%2 == 0)
 			{
-				printf("Kicker: KICK  %d \n",kickCounter);
+				printf("Kicker: EM OFF  %d \n",kickCounter);
 				//release EM
-				m_electromagnet->Set(Relay::kReverse);
+				m_electromagnet->Set(Relay::kOff);
 			}
 			counter = 0;
 			++kickCounter;

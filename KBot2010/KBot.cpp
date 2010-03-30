@@ -228,17 +228,18 @@ bool bState = false;
 		// feed the user watchdog at every period when disabled
 		GetWatchdog().Feed();
 		
-#define KBOT_DEBUG 1
+//#define KBOT_DEBUG
+//#define KBOT_EM_DEBUG
 #ifdef KBOT_DEBUG
 		if ((m_disabledPeriodicLoops % 200) == 0) { // 1 Hz
 			DriverStationEnhancedIO& dseio = DriverStation::GetInstance()->GetEnhancedIO();
 
 			dseio.GetDigitalConfig(1);
-			if (++nLEDCounter%4==0)
+			if (++nLEDCounter%7==0)
 			{
 				bState = !bState;
 			}
-			dseio.SetLED(nLEDCounter%4+1,bState);
+			dseio.SetLED(nLEDCounter%7+1,bState);
 			printf("DIO D3: %d\n", dseio.GetDigital(3));
 
 			if ((m_disabledPeriodicLoops%4000) == 0) // print headings once per screen
@@ -294,7 +295,14 @@ bool bState = false;
 
 		if ((m_autoPeriodicLoops % (int)GetLoopsPerSec()) == 0)
 		{
-			printf("Auto seconds: %d %d\n", (m_autoPeriodicLoops / (int)GetLoopsPerSec()),(int)GetLoopsPerSec());
+			int nAutoSeconds = (m_autoPeriodicLoops / (int)GetLoopsPerSec());
+			printf("Auto seconds: %d %d\n", nAutoSeconds, (int)GetLoopsPerSec());
+#ifdef KBOT_EM_DEBUG
+			if (!(nAutoSeconds%5))
+			{
+				m_kicker->Kick();
+			}
+#endif
 		}
 	}
 
