@@ -471,7 +471,10 @@ bool KBot::getFarUltrasoundState()
 
 bool KBot::getGateSensorState() 
 {
-	return m_gateSensor->Get();
+	// we have multiple limit switches that will
+	// pull to ground when closed, so sensor will return
+	// 0 when we have a ball
+	return !m_gateSensor->Get();
 }
 	
 
