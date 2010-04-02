@@ -4,17 +4,17 @@
 #include "KbotPID.h"
 #include "KbotDrive.h"
 
-static const float kfAngularSpeed = 0.25f;
-static const float kfForwardSpeed = 0.3f;
+#define kfAngularSpeed 0.25f
+#define kfForwardSpeed  0.3f
 
 #define DEAD_LEFT_ENCODER 1
 
 // if one encoder always returns zero, do not average
 #ifdef DEAD_LEFT_ENCODER
-static int knSpeedAngleCalibration = 25;
-static const float kfAverageFactor = 1.0f;
+#define knSpeedAngleCalibration  25
+#define kfAverageFactor  1.0f
 #else
-static const float kfAverageFactor = 0.5f;
+#define kfAverageFactor  0.5f
 #endif
 
 /*

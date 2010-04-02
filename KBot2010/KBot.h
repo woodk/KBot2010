@@ -25,6 +25,7 @@ class RobotManager;
 class Solenoid;
 
 #define PERIODIC_SPEED	200		// Speed in Hz of main periodic routines 
+#define NUM_SOLENOIDS 8
 
 class RobotManager;  // circular dependency handling
 class RobotMacros;
@@ -133,7 +134,6 @@ private:
 	DashboardDataSender *m_pDashboardDataSender;
 	
 	// Declare variables for each of the eight solenoid outputs
-	static const int NUM_SOLENOIDS = 8;
 	Solenoid *m_solenoids[(NUM_SOLENOIDS+1)];
 
 	// Local variables to count the number of periodic loops performed

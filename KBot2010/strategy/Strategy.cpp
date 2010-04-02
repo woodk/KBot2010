@@ -12,13 +12,13 @@ Strategy::Strategy(KBot* kbot) : m_kbot(kbot)
 	// may not be useful because individual strategy requirements
 	// vary too much and state has to be carried along to make
 	// a more realistic decision about when to change.
-	m_nMinimumStateCount = 0;
-	m_nMinimumChangeCount = 0;
+	m_nMinimumStateCount = -1;	// turn hysteresis off
+	m_nMinimumChangeCount = -1;
 	
     m_robotDrive = m_kbot->getKBotDrive();	
 }
 /*!
- * The logic here is:
+ * The logic here is:  TURNED OFF.  Simple state change for now.
  * 
  * 1) If in initial state, respond immediately to new state
  * 2) Otherwise, wait at least m_nMinimumStateCount requests
@@ -45,6 +45,7 @@ eState Strategy::execute()
 	}
 	else	// apply hysteresis logic
 	{
+#ifdef NOT_NOW
 		++m_nCurrentStateCounter;	// count times we have been in this state
 		if (m_nCurrentStateCounter > m_nMinimumStateCount)
 		{
@@ -82,6 +83,9 @@ eState Strategy::execute()
 				nNewState = m_nCurrentState;
 			}
 		}
+#endif
+		m_nPreviousState = m_nCurrentState;
+		m_nCurrentState = nNewState;
 	}
 	
 	return nNewState;

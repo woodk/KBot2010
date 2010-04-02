@@ -2,7 +2,7 @@
 
 #include "Kicker.h"
 
-static const int knKICK_TIMES = 75; // 'Hold' the trigger down
+#define knKICK_TIMES  1 // 'Hold' the trigger down
 
 /*
 Constructor initalizes object

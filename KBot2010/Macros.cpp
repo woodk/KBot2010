@@ -116,7 +116,7 @@ void RobotMacros::OperatorControl()
 	
 	if (m_kbot->getLeftStick()->GetRawButton(OPERATOR_LEFT_SIDE_ROLLER_BUTTON))
 	{
-		m_kbot->setLeftSideRollerSpeed(m_kbot->getLeftStick()->GetY());
+		m_kbot->setLeftSideRollerSpeed(-m_kbot->getLeftStick()->GetY());
 	}
 	else
 	{

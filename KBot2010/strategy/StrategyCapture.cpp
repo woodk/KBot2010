@@ -2,12 +2,12 @@
 
 #include "KBotDrive.h"
 
-static const float kfDriveForward = 0.25;	// % voltage to drive forward
-static const float kfFarTurn = 0.25;		// % voltage for turn when far away
-static const int knLostSweep = 25;		// half second sweep
-static const int knNearMax = 25;		// half second to get close after losing near sensor
-static const int knMaxGates = 3;
+#define  kfDriveForward  0.25	// % voltage to drive forward
+#define  kfFarTurn  0.25		// % voltage for turn when far away
+#define  knLostSweep  100		// half second sweep
+#define  knNearMax  200		// one second to get close after losing near sensor
 
+#define CAPTURE_MAX 50
 /*
 Constructor initalizes object
 
@@ -18,6 +18,7 @@ StrategyCapture::StrategyCapture(KBot* kbot) : Strategy(kbot)
 	m_nLostCounter = 0;
 	m_nNearCounter = 0;
 	m_bFarLast = true;
+	m_nGateCounter = 0;
 
 }
 
@@ -39,12 +40,22 @@ eState StrategyCapture::apply()
     // Keep turning until we find a target
     if (BallCaptured())
     {
-    	printf("Got the ball!!!!  Going to aim state!\n");
-        // start tracking the target
-        nNewState = knAim;
-        m_robotDrive->ArcadeDrive(0.0, 0.0, false);        
-		m_nLostCounter = 0;
-		m_nNearCounter = 0;
+    	m_nGateCounter++;
+    	if (m_nGateCounter > CAPTURE_MAX)
+    	{
+	    	printf("Got the ball!!!!  Going to aim state!\n");
+	        // start tracking the target
+	        nNewState = knShoot;
+	        m_robotDrive->ArcadeDrive(0.0, 0.0, false);        
+			m_nLostCounter = 0;
+			m_nNearCounter = 0;
+			m_nGateCounter = 0;
+    	}
+		else 
+		{
+			m_nLostCounter = 0;
+			m_nNearCounter = 0;
+    	}
     }
     else	// move toward the ball and steer to capture
     {
@@ -109,7 +120,7 @@ bool StrategyCapture::BallCaptured()
 	bool bCaptured = false;
 	
 	// if the gate sensor fails, assume we lost near ultrasound to capture
-	if (m_nNearCounter >= knNearMax-2)
+	if (m_nNearCounter >= knNearMax-1)
 	{
 		bCaptured = true;
 	}

@@ -26,6 +26,7 @@ Kicker::Kicker(KBot *kbot, int kickerOutChannel, int kickerInChannel, int electr
 void	Kicker::Init()
 {
 	counter=0;
+	kickCounter = 0;
 	state=GET_CROSSBOW;
 	printf(">>>>>> init state=GET_CROSSBOW (EM on)\n");
 	m_electromagnet->Set(Relay::kForward);
@@ -84,12 +85,9 @@ void	Kicker::onClock()
 		}
 		else*/ if (kickCounter < /*STOP_ROLLER_TIME +*/ KICK_TIME)
 		{
-			if (kickCounter%2 == 0)
-			{
-				printf("Kicker: EM OFF  %d \n",kickCounter);
-				//release EM
-				m_electromagnet->Set(Relay::kOff);
-			}
+			printf("Kicker: EM OFF  %d \n",kickCounter);
+			//release EM
+			m_electromagnet->Set(Relay::kReverse);
 			counter = 0;
 			++kickCounter;
 		}
@@ -97,6 +95,7 @@ void	Kicker::onClock()
 		{
 			//printf(">>>>>> Kicked -- reloading\n");
 			state=GET_CROSSBOW;
+			kickCounter = 0;
 		}
 	}
 }

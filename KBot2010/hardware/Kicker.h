@@ -9,6 +9,7 @@
 
 #include "Solenoid.h"
 #include "Relay.h"
+#include "DigitalModule.h"
 class KBot;
 
 #define PISTON_FORWARD_TIME	200		// 1.0 secs
@@ -34,6 +35,7 @@ public:
 	void	onClock();
 
 	void	onAction(States state);	
+	bool Get(){return m_electromagnet->GetDigitalModule()->GetRelayForward();}
 	
 private:
 	KBot		*m_kbot;

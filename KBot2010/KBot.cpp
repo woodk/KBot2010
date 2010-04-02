@@ -28,7 +28,8 @@
 int nLEDCounter = 0;
 bool bState = false;
 
-//static float kfWinchSpeed = 1.0;
+static const int testvalue = 5;
+static const float testfloat = 0.25;
 
 /**
  * This is the K-Bot 2010 main code.
@@ -168,31 +169,29 @@ bool bState = false;
 		if (!m_DefenseSwitch->Get())
 		{
 			m_autoManager = new ManagerDefense(this);
-			m_kicker->Init();
 		}
 		else if (!m_MidFieldSwitch->Get())
 		{
 			m_autoManager = new ManagerMidField(this);
-			m_kicker->Init();
 		}
 		else if (!m_ForwardSwitch->Get())
 		{
 			m_autoManager = new ManagerForward(this);
-			m_kicker->Init();
 		}
 		else	// should do something more clever here
 		{
 			m_autoManager = new ManagerMidField(this);
-			m_kicker->Init();
 		}
 
+		m_kicker->Init();
 		m_compressorRelay->SetDirection(Relay::kForwardOnly);
 		
 	}
 	
 	void KBot::DisabledInit(void) {
 		m_disabledPeriodicLoops = 0;			// Reset the loop counter for disabled mode
-
+		printf("The test value is %d  (is it zero?)\n",testvalue);
+		printf("The test float is %f  (what is it?)\n",testfloat);
 	}
 	
 	void KBot::AutonomousInit(void) {
@@ -205,7 +204,6 @@ bool bState = false;
 		m_autoManager->reset();
 		m_autoManager->init();
 		
-		m_kicker->Kick();		// This forces it to try to get the crossbow at the beginning of auto (usually there won't be enough pressure for this to work)
 	}
 	
 	void KBot::TeleopInit(void) {
@@ -261,6 +259,7 @@ bool bState = false;
 		}
 	}
 	
+	int kickerlaststate=-2;
 	/*!
 	 * TODO: document
 	*/
@@ -269,7 +268,7 @@ bool bState = false;
 		// feed the user watchdog at every period when in autonomous
 		GetWatchdog().Feed();
 		
-		if (m_autoPeriodicLoops == 50) { // after 0.25 seconds
+		if (m_autoPeriodicLoops == 10) { // after 0.25 seconds
 			printf("Initial kick to get crossbow.");
 			m_kicker->Kick(); // compressor should be up to pressure; so get crossbow (out of way of rollers)
 		}
@@ -279,7 +278,7 @@ bool bState = false;
 		}
 		
 		if ((m_autoPeriodicLoops % 40) == 0) { // 5 Hz
-			m_rollerMotor->Set(0.5);
+			m_rollerMotor->Set(0.75);
 			// TODO:  target acquistion with new camera.  Modify
 		}
 		
@@ -291,6 +290,11 @@ bool bState = false;
 		m_autoManager->onClock(true);
 		m_kicker->onClock();
 
+		if (m_kicker->Get() != kickerlaststate)
+		{
+			printf("kicker now %d\n",(int)m_kicker->Get());
+			kickerlaststate=m_kicker->Get();
+		}
 		m_autoPeriodicLoops++;
 
 		if ((m_autoPeriodicLoops % (int)GetLoopsPerSec()) == 0)

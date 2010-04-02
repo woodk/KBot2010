@@ -36,6 +36,7 @@ private:
 	
 	// number of times gate sensor has triggered
 	int m_nGateCounter; 
+	
 };
 
 #endif
