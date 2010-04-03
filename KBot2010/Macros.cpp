@@ -80,21 +80,21 @@ void RobotMacros::DriverControl()
 	if (m_rightStick->GetRawButton(LEFT_BOOST_BUTTON))
 	{
 		xval -= TURN_BOOST_VALUE;
-		printf("left boost before=%f after=%f\n",xval-TURN_BOOST_VALUE,xval);
+		//printf("left boost before=%f after=%f\n",xval-TURN_BOOST_VALUE,xval);
 	}
 	if (m_rightStick->GetRawButton(RIGHT_BOOST_BUTTON))
 	{
 		xval += TURN_BOOST_VALUE;
-		printf("right boost before=%f after=%f\n",xval+TURN_BOOST_VALUE,xval);
+		//printf("right boost before=%f after=%f\n",xval+TURN_BOOST_VALUE,xval);
 	}
 	if (m_rightStick->GetRawButton(TURN_BOOST_BUTTON))
 	{
-		printf("left boost before=%f",xval);
+		//printf("left boost before=%f",xval);
 		if (xval>0)
 			xval += TURN_BOOST_VALUE;
 		else
 			xval -= TURN_BOOST_VALUE;
-		printf(" after=%f\n",xval);		
+		//printf(" after=%f\n",xval);		
 	}
 	//printf("x=%f  y=%f\n",xval,yval);
 	m_robotDrive->ArcadeDrive(-yval, -xval, false);			// drive with arcade style (use right stick) no squared inputs because we already squared x

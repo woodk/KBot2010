@@ -79,13 +79,17 @@ void	Kicker::onClock()
 		}		
 	} else if (state==KICK)
 	{
+		if (0 == kickCounter)
+		{
+			printf("KICKING\n");
+		}
 		/*if (kickCounter < STOP_ROLLER_TIME)
 		{
 			m_kbot->getRollerMotor()->Set(0.0);
 		}
 		else*/ if (kickCounter < /*STOP_ROLLER_TIME +*/ KICK_TIME)
 		{
-			printf("Kicker: EM OFF  %d \n",kickCounter);
+			//printf("Kicker: EM OFF  %d \n",kickCounter);
 			//release EM
 			m_electromagnet->Set(Relay::kReverse);
 			counter = 0;

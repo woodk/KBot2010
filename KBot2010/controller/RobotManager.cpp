@@ -3,6 +3,7 @@
 #include "Strategy.h"
 #include "StrategyAim.h"
 #include "StrategyCapture.h"
+#include "StrategyCapture2.h"
 #include "StrategyProgrammedMove.h"
 #include "StrategySearch.h"
 #include "StrategyShoot.h"
@@ -30,6 +31,7 @@ RobotManager::RobotManager(KBot *kbot)
     m_lstStrategy[knBackUp] = new StrategyBackUp(m_kbot);   
     m_lstStrategy[knCircle] = new StrategyCircle(m_kbot);
     m_lstStrategy[knCapture] = new StrategyCapture(m_kbot);
+    m_lstStrategy[knCapture2] = new StrategyCapture2(m_kbot);
     m_lstStrategy[knProgrammedMove1] = new StrategyProgrammedMove(m_kbot);
     m_lstStrategy[knProgrammedMove2] = new StrategyProgrammedMove(m_kbot);
     m_lstStrategy[knProgrammedMove3] = new StrategyProgrammedMove(m_kbot);

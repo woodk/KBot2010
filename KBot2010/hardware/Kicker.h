@@ -35,7 +35,6 @@ public:
 	void	onClock();
 
 	void	onAction(States state);	
-	bool Get(){return m_electromagnet->GetDigitalModule()->GetRelayForward();}
 	
 private:
 	KBot		*m_kbot;

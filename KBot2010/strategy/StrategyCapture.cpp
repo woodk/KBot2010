@@ -2,23 +2,32 @@
 
 #include "KBotDrive.h"
 
-#define  kfDriveForward  0.25	// % voltage to drive forward
-#define  kfFarTurn  0.25		// % voltage for turn when far away
-#define  knLostSweep  100		// half second sweep
-#define  knNearMax  200		// one second to get close after losing near sensor
+#include "DriverStationLCD.h"
 
-#define CAPTURE_MAX 50
+
+bool bFirstCall = false;
+
 /*
 Constructor initalizes object
 
 */
 StrategyCapture::StrategyCapture(KBot* kbot) : Strategy(kbot)
 {
+	m_kbot = kbot;
     // Create initial state here
 	m_nLostCounter = 0;
 	m_nNearCounter = 0;
 	m_bFarLast = true;
 	m_nGateCounter = 0;
+	
+	kfDriveForward = 0.15;	// % voltage to drive forward
+	kfFarTurn = 0.2;		// % voltage for turn when far away
+	knLostSweep = 1000;		// half second sweep
+	knNearMax = 200;		// one second to get close after losing near sensor
+
+	CAPTURE_MAX = 1000;
+	
+	m_nTime1 = -1;
 
 }
 
@@ -36,25 +45,43 @@ Spin on the spot
 eState StrategyCapture::apply()
 {
     eState nNewState = knCapture;    // assume we will keep running
-
+    
+    //printf("Gate Counter: %d\n",m_nGateCounter);
+    //printf ("Gate Counter: %d/%d\n",m_nGateCounter, CAPTURE_MAX);
     // Keep turning until we find a target
     if (BallCaptured())
     {
-    	m_nGateCounter++;
-    	if (m_nGateCounter > CAPTURE_MAX)
+    	if (bFirstCall)
     	{
-	    	printf("Got the ball!!!!  Going to aim state!\n");
-	        // start tracking the target
-	        nNewState = knShoot;
-	        m_robotDrive->ArcadeDrive(0.0, 0.0, false);        
-			m_nLostCounter = 0;
-			m_nNearCounter = 0;
-			m_nGateCounter = 0;
+    		printf("Gate: %d\n",m_nGateCounter);
+	    	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line2, 1, "First Call Gate Counter: %d\n",m_nGateCounter);
+	    	DriverStationLCD::GetInstance()->UpdateLCD();
+    		bFirstCall = false;
+    		m_nGateCounter = 0;
+    		m_nTime1 = m_kbot->getKbotTime();
     	}
-		else 
-		{
-			m_nLostCounter = 0;
-			m_nNearCounter = 0;
+    	else
+    	{
+//    		if (m_kbot->getKbotTime() > m_nTime1)
+	    	m_nGateCounter++;
+	    	if (m_nGateCounter > CAPTURE_MAX)
+	    	{
+		    	printf("Got the ball %d times!!!!  Going to shoot state!\n",m_nGateCounter);
+		    	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line1, 1, "Times: %d\n",m_nGateCounter);
+		    	DriverStationLCD::GetInstance()->UpdateLCD();
+		        // start tracking the target
+		        nNewState = knShoot;
+		        m_robotDrive->ArcadeDrive(0.0, 0.0, false);        
+				m_nLostCounter = 0;
+				m_nNearCounter = 0;
+				m_nGateCounter = 0;
+				m_nTime1 = -1;
+	    	}
+			else 
+			{
+				m_nLostCounter = 0;
+				m_nNearCounter = 0;
+	    	}
     	}
     }
     else	// move toward the ball and steer to capture
@@ -112,22 +139,11 @@ void StrategyCapture::init()
 {
     printf("Capture state\n");
 	m_nLostCounter = 0;
+	bFirstCall = true;
 }
 
 /* Check IR sensors to see if we have a ball */
 bool StrategyCapture::BallCaptured()
 {
-	bool bCaptured = false;
-	
-	// if the gate sensor fails, assume we lost near ultrasound to capture
-	if (m_nNearCounter >= knNearMax-1)
-	{
-		bCaptured = true;
-	}
-	else if (m_kbot->getGateSensorState())
-	{
-		bCaptured = true;
-	}
-
-	return bCaptured;
+	return m_kbot->getGateSensorState();
 }

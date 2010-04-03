@@ -37,6 +37,15 @@ private:
 	// number of times gate sensor has triggered
 	int m_nGateCounter; 
 	
+	float  kfDriveForward;	// % voltage to drive forward
+	float  kfFarTurn;		// % voltage for turn when far away
+	int  knLostSweep;		// half second sweep
+	int  knNearMax;		// one second to get close after losing near sensor
+
+	int CAPTURE_MAX;
+	
+	int m_nTime1;
+	
 };
 
 #endif

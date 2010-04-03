@@ -67,8 +67,8 @@
 
 // Solonoid Outputs
 #define SOLENOID_SLOT			8 // solenoid controller slot
-#define PISTON_ACTUATOR			3 // piston IN channel
-#define PISTON_RELEASE			4 // piston OUT channel
+#define PISTON_ACTUATOR			3 // piston IN (back) channel
+#define PISTON_RELEASE			4 // piston OUT (forward) channel
 
 // CAN Devices
 #define R_SIDE_ROLLER_JAG_ID	1	// side-pusher motor

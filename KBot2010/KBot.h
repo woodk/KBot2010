@@ -53,6 +53,8 @@ public:
 	Joystick *getRightStick();
 	Gyro *getGyro();
 
+	int getKbotTime();
+	
 	Kicker *getKicker() {return m_kicker;}
 	DriverStation *getDriverStation();
 

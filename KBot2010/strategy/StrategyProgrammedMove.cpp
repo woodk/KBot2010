@@ -170,7 +170,7 @@ eState StrategyProgrammedMove::apply()
 
 	m_robotDrive->ArcadeDrive(m_fForwardSpeed, -m_fAngularSpeed, false);
 
-	if (m_kbot->getNearUltrasoundState() || m_kbot->getFarUltrasoundState())
+	if (m_kbot->getNearUltrasoundState() || m_kbot->getFarUltrasoundState() || m_kbot->getGateSensorState())
 	{
 		nNewState = m_nNextState;
 	}

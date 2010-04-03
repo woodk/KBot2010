@@ -35,6 +35,8 @@ void _GLOBAL__I__ZN14StrategyTurn45C2EP4KBot();
 
 void _GLOBAL__I__ZN17StrategyCurveLeftC2EP4KBot();
 
+void _GLOBAL__I__ZN16StrategyCapture2C2EP4KBot();
+
 void _GLOBAL__I__ZN13StrategyTrackC2EP4KBot();
 
 void _GLOBAL__I__ZN13StrategyShootC2EP4KBot();
@@ -45,7 +47,7 @@ void _GLOBAL__I__ZN13StrategyWeaveC2EP4KBot();
 
 void _GLOBAL__I__Z14xSortPredicateR8camPointS0_();
 
-void _GLOBAL__I__ZN15StrategyCaptureC2EP4KBot();
+void _GLOBAL__I_bFirstCall();
 
 void _GLOBAL__I__ZN18StrategyCurveRightC2EP4KBot();
 
@@ -63,9 +65,9 @@ void _GLOBAL__I__ZN14StrategyTurn90C2EP4KBot();
 
 void _GLOBAL__I__ZN12StrategySpinC2EP4KBot();
 
-void _GLOBAL__I__ZN8StrategyC2EP4KBot();
-
 void _GLOBAL__I__ZN14StrategySCurveC2EP4KBot();
+
+void _GLOBAL__I__ZN8StrategyC2EP4KBot();
 
 void _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE();
 
@@ -92,12 +94,13 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN19StrategyGoAlongEdgeC2EP4KBot,
     _GLOBAL__I__ZN14StrategyTurn45C2EP4KBot,
     _GLOBAL__I__ZN17StrategyCurveLeftC2EP4KBot,
+    _GLOBAL__I__ZN16StrategyCapture2C2EP4KBot,
     _GLOBAL__I__ZN13StrategyTrackC2EP4KBot,
     _GLOBAL__I__ZN13StrategyShootC2EP4KBot,
     _GLOBAL__I__ZN14StrategySearchC2EP4KBot,
     _GLOBAL__I__ZN13StrategyWeaveC2EP4KBot,
     _GLOBAL__I__Z14xSortPredicateR8camPointS0_,
-    _GLOBAL__I__ZN15StrategyCaptureC2EP4KBot,
+    _GLOBAL__I_bFirstCall,
     _GLOBAL__I__ZN18StrategyCurveRightC2EP4KBot,
     _GLOBAL__I__ZN14StrategyCircleC2EP4KBot,
     _GLOBAL__I__ZN22StrategyProgrammedMoveC2EP4KBot,
@@ -106,8 +109,8 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN16StrategyInactiveC2EP4KBot,
     _GLOBAL__I__ZN14StrategyTurn90C2EP4KBot,
     _GLOBAL__I__ZN12StrategySpinC2EP4KBot,
-    _GLOBAL__I__ZN8StrategyC2EP4KBot,
     _GLOBAL__I__ZN14StrategySCurveC2EP4KBot,
+    _GLOBAL__I__ZN8StrategyC2EP4KBot,
     _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__I__ZN9RobotBase10m_instanceE,
     _GLOBAL__I__ZN10Ultrasonic6m_taskE,
@@ -143,6 +146,8 @@ void _GLOBAL__D__ZN14StrategyTurn45C2EP4KBot();
 
 void _GLOBAL__D__ZN17StrategyCurveLeftC2EP4KBot();
 
+void _GLOBAL__D__ZN16StrategyCapture2C2EP4KBot();
+
 void _GLOBAL__D__ZN13StrategyTrackC2EP4KBot();
 
 void _GLOBAL__D__ZN13StrategyShootC2EP4KBot();
@@ -153,7 +158,7 @@ void _GLOBAL__D__ZN13StrategyWeaveC2EP4KBot();
 
 void _GLOBAL__D__Z14xSortPredicateR8camPointS0_();
 
-void _GLOBAL__D__ZN15StrategyCaptureC2EP4KBot();
+void _GLOBAL__D_bFirstCall();
 
 void _GLOBAL__D__ZN18StrategyCurveRightC2EP4KBot();
 
@@ -171,9 +176,9 @@ void _GLOBAL__D__ZN14StrategyTurn90C2EP4KBot();
 
 void _GLOBAL__D__ZN12StrategySpinC2EP4KBot();
 
-void _GLOBAL__D__ZN8StrategyC2EP4KBot();
-
 void _GLOBAL__D__ZN14StrategySCurveC2EP4KBot();
+
+void _GLOBAL__D__ZN8StrategyC2EP4KBot();
 
 void _GLOBAL__D__ZN9ErrorBase16globalErrorMutexE();
 
@@ -200,12 +205,13 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN19StrategyGoAlongEdgeC2EP4KBot,
     _GLOBAL__D__ZN14StrategyTurn45C2EP4KBot,
     _GLOBAL__D__ZN17StrategyCurveLeftC2EP4KBot,
+    _GLOBAL__D__ZN16StrategyCapture2C2EP4KBot,
     _GLOBAL__D__ZN13StrategyTrackC2EP4KBot,
     _GLOBAL__D__ZN13StrategyShootC2EP4KBot,
     _GLOBAL__D__ZN14StrategySearchC2EP4KBot,
     _GLOBAL__D__ZN13StrategyWeaveC2EP4KBot,
     _GLOBAL__D__Z14xSortPredicateR8camPointS0_,
-    _GLOBAL__D__ZN15StrategyCaptureC2EP4KBot,
+    _GLOBAL__D_bFirstCall,
     _GLOBAL__D__ZN18StrategyCurveRightC2EP4KBot,
     _GLOBAL__D__ZN14StrategyCircleC2EP4KBot,
     _GLOBAL__D__ZN22StrategyProgrammedMoveC2EP4KBot,
@@ -214,8 +220,8 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN16StrategyInactiveC2EP4KBot,
     _GLOBAL__D__ZN14StrategyTurn90C2EP4KBot,
     _GLOBAL__D__ZN12StrategySpinC2EP4KBot,
-    _GLOBAL__D__ZN8StrategyC2EP4KBot,
     _GLOBAL__D__ZN14StrategySCurveC2EP4KBot,
+    _GLOBAL__D__ZN8StrategyC2EP4KBot,
     _GLOBAL__D__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__D__ZN9RobotBase10m_instanceE,
     _GLOBAL__D__ZN10Ultrasonic6m_taskE,

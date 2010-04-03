@@ -28,9 +28,6 @@
 int nLEDCounter = 0;
 bool bState = false;
 
-static const int testvalue = 5;
-static const float testfloat = 0.25;
-
 /**
  * This is the K-Bot 2010 main code.
  * 
@@ -190,8 +187,6 @@ static const float testfloat = 0.25;
 	
 	void KBot::DisabledInit(void) {
 		m_disabledPeriodicLoops = 0;			// Reset the loop counter for disabled mode
-		printf("The test value is %d  (is it zero?)\n",testvalue);
-		printf("The test float is %f  (what is it?)\n",testfloat);
 	}
 	
 	void KBot::AutonomousInit(void) {
@@ -238,7 +233,7 @@ static const float testfloat = 0.25;
 				bState = !bState;
 			}
 			dseio.SetLED(nLEDCounter%7+1,bState);
-			printf("DIO D3: %d\n", dseio.GetDigital(3));
+			//printf("DIO D3: %d\n", dseio.GetDigital(3));
 
 			if ((m_disabledPeriodicLoops%4000) == 0) // print headings once per screen
 			{
@@ -259,7 +254,6 @@ static const float testfloat = 0.25;
 		}
 	}
 	
-	int kickerlaststate=-2;
 	/*!
 	 * TODO: document
 	*/
@@ -290,11 +284,6 @@ static const float testfloat = 0.25;
 		m_autoManager->onClock(true);
 		m_kicker->onClock();
 
-		if (m_kicker->Get() != kickerlaststate)
-		{
-			printf("kicker now %d\n",(int)m_kicker->Get());
-			kickerlaststate=m_kicker->Get();
-		}
 		m_autoPeriodicLoops++;
 
 		if ((m_autoPeriodicLoops % (int)GetLoopsPerSec()) == 0)
@@ -310,6 +299,11 @@ static const float testfloat = 0.25;
 		}
 	}
 
+	int KBot::getKbotTime()
+	{
+		return 	(m_autoPeriodicLoops / (int)GetLoopsPerSec());
+	}
+	
 	void KBot::controlCompressor(void)
 	{
 		// control the compressor based on pressure switch reading

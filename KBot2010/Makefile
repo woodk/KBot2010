@@ -415,6 +415,7 @@ SUB_OBJECTS := controller/$(OBJ_DIR)/ManagerMidField.o \
 	 strategy/$(OBJ_DIR)/StrategyGoAlongEdge.o \
 	 strategy/$(OBJ_DIR)/StrategyTurn45.o \
 	 strategy/$(OBJ_DIR)/StrategyCurveLeft.o \
+	 strategy/$(OBJ_DIR)/StrategyCapture2.o \
 	 strategy/$(OBJ_DIR)/StrategyTrack.o \
 	 strategy/$(OBJ_DIR)/StrategyShoot.o \
 	 strategy/$(OBJ_DIR)/StrategySearch.o \
@@ -429,8 +430,8 @@ SUB_OBJECTS := controller/$(OBJ_DIR)/ManagerMidField.o \
 	 strategy/$(OBJ_DIR)/StrategyInactive.o \
 	 strategy/$(OBJ_DIR)/StrategyTurn90.o \
 	 strategy/$(OBJ_DIR)/StrategySpin.o \
-	 strategy/$(OBJ_DIR)/Strategy.o \
-	 strategy/$(OBJ_DIR)/StrategySCurve.o
+	 strategy/$(OBJ_DIR)/StrategySCurve.o \
+	 strategy/$(OBJ_DIR)/Strategy.o
 SUB_TARGETS :=
 endif
 ifeq ($(BUILD_SPEC),PPC604diab)

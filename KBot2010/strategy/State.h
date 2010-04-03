@@ -6,6 +6,7 @@ enum eState
     knAim,
     knBackUp,
     knCapture,
+    knCapture2,
     knCircle,
     knProgrammedMove1,
     knProgrammedMove2,
