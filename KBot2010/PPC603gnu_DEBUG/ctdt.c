@@ -73,7 +73,7 @@ void _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE();
 
 void _GLOBAL__I__ZN9RobotBase10m_instanceE();
 
-void _GLOBAL__I__ZN10Ultrasonic6m_taskE();
+void _GLOBAL__I__ZN10Ultrasonic9kPingTimeE();
 
 void _GLOBAL__I_AxisCamera_debugFlag();
 
@@ -113,7 +113,7 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN8StrategyC2EP4KBot,
     _GLOBAL__I__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__I__ZN9RobotBase10m_instanceE,
-    _GLOBAL__I__ZN10Ultrasonic6m_taskE,
+    _GLOBAL__I__ZN10Ultrasonic9kPingTimeE,
     _GLOBAL__I_AxisCamera_debugFlag,
     0
     };
@@ -184,7 +184,7 @@ void _GLOBAL__D__ZN9ErrorBase16globalErrorMutexE();
 
 void _GLOBAL__D__ZN9RobotBase10m_instanceE();
 
-void _GLOBAL__D__ZN10Ultrasonic6m_taskE();
+void _GLOBAL__D__ZN10Ultrasonic9kPingTimeE();
 
 void _GLOBAL__D_AxisCamera_debugFlag();
 
@@ -224,7 +224,7 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN8StrategyC2EP4KBot,
     _GLOBAL__D__ZN9ErrorBase16globalErrorMutexE,
     _GLOBAL__D__ZN9RobotBase10m_instanceE,
-    _GLOBAL__D__ZN10Ultrasonic6m_taskE,
+    _GLOBAL__D__ZN10Ultrasonic9kPingTimeE,
     _GLOBAL__D_AxisCamera_debugFlag,
     0
     };
