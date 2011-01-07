@@ -408,7 +408,6 @@ SUB_OBJECTS := controller/$(OBJ_DIR)/ManagerMidField.o \
 	 hardware/$(OBJ_DIR)/Arm.o \
 	 hardware/$(OBJ_DIR)/KBotDrive.o \
 	 hardware/$(OBJ_DIR)/KbotCamera.o \
-	 hardware/$(OBJ_DIR)/CANJaguar.o \
 	 hardware/$(OBJ_DIR)/Dribbler.o \
 	 hardware/$(OBJ_DIR)/Kicker.o \
 	 strategy/$(OBJ_DIR)/StrategyGoStraight.o \

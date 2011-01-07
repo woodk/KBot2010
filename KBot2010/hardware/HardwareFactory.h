@@ -54,7 +54,7 @@ public:
 	virtual Solenoid* BuildSolenoid(UINT32 channel) {return 0;}
 
 	//! Build CANJag object
-	virtual CANJaguar* BuildCANJaguar(UINT8 deviceNumber, CANJaguar::ControlMode controlMode = CANJaguar::kPercentVoltage) {return 0;}
+	virtual CANJaguar* BuildCANJaguar(UINT8 deviceNumber, CANJaguar::ControlMode controlMode = CANJaguar::kPercentVbus) {return 0;}
 
 	//! Build KBot drive object
 	virtual KBotDrive* BuildKBotDrive(SpeedController *frontLeftMotor, SpeedController *rearLeftMotor,

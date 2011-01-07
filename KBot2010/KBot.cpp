@@ -19,6 +19,10 @@
 #include "RobotManager.h"
 #include "Solenoid.h"
 
+//#include "WPILib.h"
+//#include "Target.h"
+//#define MINIMUM_SCORE 0.01
+
 #ifdef EMULATOR
 #include "EmulatorFactory.h"
 #else
@@ -97,25 +101,25 @@ bool bState = false;
 		/************************************/
 		// Create and initialize output devices
 		
-		m_leftJaguar1 = pHardwareFactory->BuildCANJaguar(L_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
+		m_leftJaguar1 = pHardwareFactory->BuildCANJaguar(L_WHEEL1_JAG_ID, CANJaguar::kPercentVbus);
 		m_leftJaguar1->Set(0.0);
-		m_leftJaguar2 = pHardwareFactory->BuildCANJaguar(L_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
+		m_leftJaguar2 = pHardwareFactory->BuildCANJaguar(L_WHEEL2_JAG_ID, CANJaguar::kPercentVbus);
 		m_leftJaguar2->Set(0.0);
 
-		m_rightJaguar1 = pHardwareFactory->BuildCANJaguar(R_WHEEL1_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rightJaguar1 = pHardwareFactory->BuildCANJaguar(R_WHEEL1_JAG_ID, CANJaguar::kPercentVbus);
 		m_rightJaguar1->Set(0.0);
-		m_rightJaguar2 = pHardwareFactory->BuildCANJaguar(R_WHEEL2_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rightJaguar2 = pHardwareFactory->BuildCANJaguar(R_WHEEL2_JAG_ID, CANJaguar::kPercentVbus);
 		m_rightJaguar2->Set(0.0);
 
 		m_robotDrive = pHardwareFactory->BuildKBotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
 		
-		m_rightSideRollerMotor = pHardwareFactory->BuildCANJaguar(R_SIDE_ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rightSideRollerMotor = pHardwareFactory->BuildCANJaguar(R_SIDE_ROLLER_JAG_ID, CANJaguar::kPercentVbus);
 		m_rightSideRollerMotor->Set(0.0);
 
-		m_leftSideRollerMotor = pHardwareFactory->BuildCANJaguar(L_SIDE_ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_leftSideRollerMotor = pHardwareFactory->BuildCANJaguar(L_SIDE_ROLLER_JAG_ID, CANJaguar::kPercentVbus);
 		m_leftSideRollerMotor->Set(0.0);
 		
-		m_rollerMotor = pHardwareFactory->BuildCANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVoltage);
+		m_rollerMotor = pHardwareFactory->BuildCANJaguar(ROLLER_JAG_ID, CANJaguar::kPercentVbus);
 		m_rollerMotor->Set(1.0);
 		
 		m_driverStation = pHardwareFactory->BuildDriverStation();
@@ -150,6 +154,8 @@ bool bState = false;
 			k_modes[6] = "(mid)";
 		  }
 
+		//dds = new DashboardDataSender();
+		
 		printf("KBot Constructor Completed\n");
 	}
 
@@ -183,6 +189,13 @@ bool bState = false;
 		m_kicker->Init();
 		m_compressorRelay->SetDirection(Relay::kForwardOnly);
 		
+		//printf("RobotInit:Getting camera instance\n");
+		//AxisCamera &camera = AxisCamera::GetInstance();
+		//printf("RobotInit:Setting camera parameters\n");
+		//camera.WriteResolution(AxisCamera::kResolution_320x240);
+		//camera.WriteCompression(20);
+		//camera.WriteBrightness(0);
+		
 	}
 	
 	void KBot::DisabledInit(void) {
@@ -209,7 +222,7 @@ bool bState = false;
 
 		m_compressorRelay->SetDirection(Relay::kForwardOnly);
 
-		m_pDashboardDataSender = new DashboardDataSender();
+		//m_pDashboardDataSender = new DashboardDataSender();
 
 		//printf("Setting encoders\n");
 	}
@@ -332,6 +345,40 @@ bool bState = false;
 
 		if ((m_telePeriodicLoops % 200) == 0) { // 1 Hz
 			// anything that needs to happen once a second
+
+			// if there's a fresh and we're at the previous target heading then
+			// get a camera image and process it
+			/*AxisCamera &camera = AxisCamera::GetInstance();
+			if (camera.IsFreshImage())
+			{
+				// get the camera image
+				HSLImage *image = camera.GetImage();
+
+				// find FRC targets in the image
+				vector<Target> targets = Target::FindCircularTargets(image);
+				delete image;
+				if (targets.size() == 0 || targets[0].m_score < MINIMUM_SCORE)
+				{
+					// no targets found. Make sure the first one in the list is 0,0
+					// since the dashboard program annotates the first target in green
+					// and the others in magenta. With no qualified targets, they'll all
+					// be magenta.
+					Target nullTarget;
+					nullTarget.m_majorRadius = 0.0;
+					nullTarget.m_minorRadius = 0.0;
+					nullTarget.m_score = 0.0;
+					if (targets.size() == 0)
+						targets.push_back(nullTarget);
+					else
+						targets.insert(targets.begin(), nullTarget);
+					dds->sendVisionData(0.0, 0.0, 0.0, 0.0, targets);
+					//if (targets.size() == 0)
+					//	printf("No target found\n\n");
+					//else
+					//	printf("No valid targets found, best score: %f ", targets[0].m_score);
+				}
+			}*/
+			
 		}
 
 		if (getRightStick()->GetTrigger() || getLeftStick()->GetTrigger())
@@ -407,7 +454,7 @@ bool bState = false;
 			m_teleMacros->OnClock();
 			
 			// this should send data back to driver statino
-			m_pDashboardDataSender->sendIOPortData();
+			//m_pDashboardDataSender->sendIOPortData();
 
 			DriverStationEnhancedIO& dseio = DriverStation::GetInstance()->GetEnhancedIO();
 			dseio.GetDigitalConfig(1);

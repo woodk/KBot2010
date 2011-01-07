@@ -66,7 +66,7 @@ void RobotController::TurnLeft(float angle)
 	gyroCtrl->setDesiredValue((int)(-90000*angle*ANGLE_ADJUST));
 	float drive=gyroCtrl->calcPID((int)(1000*m_gyro->GetAngle()));
 	//printf("drive = %5.2f    gyro = %5.2f\n",drive,m_gyro->GetAngle());
-	m_robotDrive->SetLeftRightMotorSpeeds(-drive,drive);
+	m_robotDrive->SetLeftRightMotorOutputs(-drive,drive);
 }
 
 /** Turn right. 
@@ -77,7 +77,7 @@ void RobotController::TurnRight(float angle)
 	gyroCtrl->setDesiredValue((int)(90000*angle*ANGLE_ADJUST));
 	float drive=gyroCtrl->calcPID((int)(1000*m_gyro->GetAngle()));
 	printf("drive = %5.2f    gyro = %5.2f\n",drive,m_gyro->GetAngle());
-	m_robotDrive->SetLeftRightMotorSpeeds(-drive,drive);
+	m_robotDrive->SetLeftRightMotorOutputs(-drive,drive);
 }
 
 /** Drive toward light. 
@@ -95,7 +95,7 @@ void RobotController::DriveToLight(int xPos, int yPos)
 	float turn=lightXCtrl->calcPID(xPos);
 	
 	//printf("drive = %5.2f    turn = %5.2f\n",drive,turn);
-	m_robotDrive->SetLeftRightMotorSpeeds(-drive+turn,-drive-turn);
+	m_robotDrive->SetLeftRightMotorOutputs(-drive+turn,-drive-turn);
 }
 
 

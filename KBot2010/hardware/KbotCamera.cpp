@@ -23,12 +23,12 @@ void KbotCamera::init()
 {
 	try
 	{
-		printf("Getting camera instance\n");
+		printf("KbotCamera: Getting camera instance\n");
 		AxisCamera &camera = AxisCamera::GetInstance();
-		printf("Setting camera parameters\n");
+		printf("KbotCamera: Setting camera parameters\n"); 
 		camera.WriteResolution(AxisCamera::kResolution_320x240);
 		camera.WriteCompression(20);
-		camera.WriteBrightness(50);  // was zero in WPI code was 50 in out old code
+		camera.WriteBrightness(50);  // was zero in WPI code was 50 in our old code
 	}
 	catch(...)
 	{

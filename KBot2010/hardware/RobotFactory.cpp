@@ -52,8 +52,7 @@ KBotDrive* RobotFactory::BuildKBotDrive(SpeedController *frontLeftMotor, SpeedCo
 			float sensitivity)
 {
 	KBotDrive* pDrive = new KBotDrive(frontLeftMotor, rearLeftMotor,
-			frontRightMotor, rearRightMotor,
-			sensitivity);
+			frontRightMotor, rearRightMotor);
 	
 	pDrive->initSpeeds();
 	

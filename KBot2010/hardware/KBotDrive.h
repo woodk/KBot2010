@@ -15,17 +15,15 @@
 class KBotDrive : public RobotDrive
 {
 public:
-	KBotDrive(UINT32 leftMotorChannel, UINT32 rightMotorChannel, float sensitivity = 0.5);
+	KBotDrive(UINT32 leftMotorChannel, UINT32 rightMotorChannel);
 	KBotDrive(UINT32 frontLeftMotorChannel, UINT32 rearLeftMotorChannel,
-				UINT32 frontRightMotorChannel, UINT32 rearRightMotorChannel, float sensitivity = 0.5);
-	KBotDrive(SpeedController *leftMotor, SpeedController *rightMotor, float sensitivity = 0.5);
-	KBotDrive(SpeedController &leftMotor, SpeedController &rightMotor, float sensitivity = 0.5);
+				UINT32 frontRightMotorChannel, UINT32 rearRightMotorChannel);
+	KBotDrive(SpeedController *leftMotor, SpeedController *rightMotor);
+	KBotDrive(SpeedController &leftMotor, SpeedController &rightMotor);
 	KBotDrive(SpeedController *frontLeftMotor, SpeedController *rearLeftMotor,
-				SpeedController *frontRightMotor, SpeedController *rearRightMotor,
-				float sensitivity = 0.5);
+				SpeedController *frontRightMotor, SpeedController *rearRightMotor);
 	KBotDrive(SpeedController &frontLeftMotor, SpeedController &rearLeftMotor,
-				SpeedController &frontRightMotor, SpeedController &rearRightMotor,
-				float sensitivity = 0.5);
+				SpeedController &frontRightMotor, SpeedController &rearRightMotor);
 	void ArcadeDrive(GenericHID *stick, bool squaredInputs = true);
 	void ArcadeDrive(GenericHID &stick, bool squaredInputs = true);
 	void ArcadeDrive(GenericHID *moveStick, UINT32 moveChannel, GenericHID *rotateStick, UINT32 rotateChannel, bool squaredInputs = true);

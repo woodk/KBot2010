@@ -6,17 +6,17 @@
 #include "KBotDrive.h"
 #include "GenericHID.h"
 
-	KBotDrive::KBotDrive(UINT32 leftMotorChannel, UINT32 rightMotorChannel, float sensitivity) : RobotDrive(leftMotorChannel, rightMotorChannel, sensitivity){;}
+	KBotDrive::KBotDrive(UINT32 leftMotorChannel, UINT32 rightMotorChannel) : RobotDrive(leftMotorChannel, rightMotorChannel){;}
 	KBotDrive::KBotDrive(UINT32 frontLeftMotorChannel, UINT32 rearLeftMotorChannel,
-				UINT32 frontRightMotorChannel, UINT32 rearRightMotorChannel, float sensitivity) : RobotDrive(frontLeftMotorChannel, rearLeftMotorChannel,	frontRightMotorChannel, rearRightMotorChannel, sensitivity){;}
-	KBotDrive::KBotDrive(SpeedController *leftMotor, SpeedController *rightMotor, float sensitivity) : RobotDrive(leftMotor, rightMotor, sensitivity){;}
-	KBotDrive::KBotDrive(SpeedController &leftMotor, SpeedController &rightMotor, float sensitivity) : RobotDrive(leftMotor, rightMotor, sensitivity){;}
+				UINT32 frontRightMotorChannel, UINT32 rearRightMotorChannel) : RobotDrive(frontLeftMotorChannel, rearLeftMotorChannel,	frontRightMotorChannel, rearRightMotorChannel){;}
+	KBotDrive::KBotDrive(SpeedController *leftMotor, SpeedController *rightMotor) : RobotDrive(leftMotor, rightMotor){;}
+	KBotDrive::KBotDrive(SpeedController &leftMotor, SpeedController &rightMotor) : RobotDrive(leftMotor, rightMotor){;}
 	KBotDrive::KBotDrive(SpeedController *frontLeftMotor, SpeedController *rearLeftMotor,
-				SpeedController *frontRightMotor, SpeedController *rearRightMotor,
-				float sensitivity) : RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, sensitivity){;}
+				SpeedController *frontRightMotor, SpeedController *rearRightMotor)
+				: RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor){;}
 	KBotDrive::KBotDrive(SpeedController &frontLeftMotor, SpeedController &rearLeftMotor,
-				SpeedController &frontRightMotor, SpeedController &rearRightMotor,
-				float sensitivity) : RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor, sensitivity){;}
+				SpeedController &frontRightMotor, SpeedController &rearRightMotor)
+				: RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor){;}
 
 	
 	/**
@@ -103,7 +103,7 @@
 		float leftMotorSpeed;
 		float rightMotorSpeed;
 
-		moveValue = Limit(moveValue);
+		moveValue  = Limit(moveValue);
 		rotateValue = Limit(rotateValue);
 
 		if (squaredInputs)
@@ -142,7 +142,7 @@
 			rightMotorSpeed=1.0;
 		if (rightMotorSpeed<-0.95)
 			rightMotorSpeed=-1.0;
-		SetLeftRightMotorSpeeds(leftMotorSpeed, rightMotorSpeed);
+		SetLeftRightMotorOutputs(leftMotorSpeed, rightMotorSpeed);
 
 		m_fLeftSpeed = leftMotorSpeed;
 		m_fRightSpeed = rightMotorSpeed;

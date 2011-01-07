@@ -13,7 +13,7 @@ class DashboardDataSender;
 class DigitalInput;
 class Encoder;
 class Gyro;
-class KbotCamera;
+//class KbotCamera;
 class KbotPID;
 class KBotDrive;
 class Kicker;
@@ -115,6 +115,10 @@ private:
 	
 	Relay	*m_compressorRelay;
 	DigitalInput *m_pressureSwitch;
+	
+	class DashboardDataSender *dds;
+
+	
 	
 	void controlCompressor();
 	
